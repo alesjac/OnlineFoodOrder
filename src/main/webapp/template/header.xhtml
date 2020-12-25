@@ -4,11 +4,90 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
 <body>
-	<ui:composition>
-		<h1>IkubInfo Academy Footer</h1>
-	</ui:composition>
+	<div class="container1">
+		<ui:composition>
+
+			<a class="logo-image" href="https://ikubinfo.al/academy/"> <img
+				src="https://ikubinfo.al/wp-content/uploads/2020/05/ikublogo.png "
+				width="159" height="65" alt="ikub info" />
+
+
+
+			</a>
+
+			<p class="center1">ONLINE FOOD ORDER</p>
+			<h:form id="menuitems">
+		
+				<p:tabMenu>
+	
+
+
+
+					<p:menuitem value="HOME" icon="pi pi-star">
+
+					</p:menuitem>
+					<p:menuitem value="ABOUT US" icon="pi pi-search">
+
+					</p:menuitem>
+					<p:menuitem value="CONTACT" icon="pi pi-file">
+
+					</p:menuitem>
+					<p:menuitem value="FACEBOOK PAGE"
+						url="https://www.facebook.com/BlackMtnBurgerCo" icon="pi pi-user">
+
+					</p:menuitem>
+
+				</p:tabMenu>
+<p:splitButton class="basic" value="Login">
+					<p:menuitem value="Admin" />
+					<p:menuitem value="Employee">
+
+					</p:menuitem>
+
+				</p:splitButton>
+
+
+			</h:form>
+
+
+			<style>
+.center1 {
+	text-align: center;
+	font-family: "Copperplate Gothic Light";
+	font-size: 33px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 20px;;
+	font-variant: small-caps;
+}
+
+.logo-image {
+	position: absolute;
+	top: 2%;
+}
+.basic{
+
+	margin: 0;
+	position: absolute;
+	
+	left: 91.5%;
+	
+}
+
+</style>
+
+
+
+
+		</ui:composition>
+	</div>
+
+
+
 </body>
 </html>
