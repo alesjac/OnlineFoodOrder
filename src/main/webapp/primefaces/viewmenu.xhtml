@@ -1,0 +1,211 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+
+		<ui:define name="content">
+			<p:growl id="growl"></p:growl>
+
+			<p class="para2">Welcome to our menu page.</p>
+
+			<h:form>
+
+				<br></br>
+				<p:button class="button1"
+					value=" If you want to order sth click here." icon="pi pi-star"
+					style="color:black;">
+
+				</p:button>
+
+
+			</h:form>
+			
+<br></br>
+
+			<h:form id="form1">
+				<p:carousel value="#{viewMenuManagedBean.beverages}"
+					headerText="BEVERAGES" var="beverages"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{beverages.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{beverages.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{beverages.price}"  />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			<br></br>
+			<h:form id="form2">
+				<p:carousel value="#{viewMenuManagedBean.starters}"
+					headerText="STARTERS" var="starters"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{starters.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{starters.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{starters.price}" />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			
+			
+			<br></br>
+			<h:form id="form3">
+				<p:carousel value="#{viewMenuManagedBean.soupChilliSalads}"
+					headerText="SOUP, CHILLI AND SALADS" var="soupChilliSalads"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{soupChilliSalads.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{soupChilliSalads.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{soupChilliSalads.price}" />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			<br></br>
+					<h:form id="form4">
+				<p:carousel value="#{viewMenuManagedBean.burgers}"
+					headerText="BURGERS" var="burgers"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{burgers.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{burgers.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{burgers.price}" />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			<br></br>
+					<h:form id="form5">
+				<p:carousel value="#{viewMenuManagedBean.desserts}"
+					headerText="DESSERTS" var="desserts"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{desserts.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{desserts.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{desserts.price}" />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			<br></br>
+					<h:form id="form6">
+				<p:carousel value="#{viewMenuManagedBean.substitutionSides}"
+					headerText="SUNSTITUION SIDES" var="subssides"
+					itemStyle="text-align:center" responsive="true">
+					<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+						columnClasses="label,value" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+
+						<h:outputText value="Name:" />
+						<h:outputText value="#{subssides.name}" />
+
+						<h:outputText value="Ingredients:" />
+						<h:outputText value="#{subssides.ingredients}" />
+
+						<h:outputText value="Price:" />
+						<h:outputText value="#{subssides.price}" />
+
+
+					</p:panelGrid>
+
+
+				</p:carousel>
+			</h:form>
+			
+			<style>
+.para2 {
+	text-align: center;
+	font-family: "Copperplate Gothic Light";
+	font-size: 30px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
+
+
+.button1 {
+	position: relative;
+	text-align: center;
+	left: 36%;
+	background-color: royalblue;
+	border-radius: 2px;
+	border: none;
+	padding: 20px 5px;
+	font-family: 'Courier New';
+}
+
+</style>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -11,6 +11,15 @@
 
 		<ui:define name="content">
 			<p:growl id="growl"></p:growl>
+			<h:form>
+				<p:splitButton class="basic" value="Login">
+					<p:menuitem value="Admin" />
+					<p:menuitem value="Employee">
+
+					</p:menuitem>
+
+				</p:splitButton>
+			</h:form>
 
 			<p class="para1">Welcome to Black Mtn Burger! Order food and
 				beverages wherever and whenever you are.</p>
@@ -19,7 +28,7 @@
 				<h:form class="buttons">
 					<br></br>
 					<p:button class="button1" value="View our menu." icon="pi pi-star"
-						style="color:black;">
+						outcome="viewmenu" style="color:black;">
 
 					</p:button>
 					<br></br>
@@ -28,7 +37,7 @@
 
 					</p:button>
 
-					
+
 
 				</h:form>
 
@@ -54,7 +63,7 @@
 	background:
 		url(https://besthqwallpapers.com/Uploads/6-4-2020/127576/burger-fast-food-bakery-products-veggie-burger-french-fries.jpg);
 	background-repeat: no-repeat;
-	background-size: 2000px 900px;
+	background-size: 1600px 900px;
 	background-attachment: fixed;
 	background-position: center;
 }
@@ -91,8 +100,6 @@
 	transition-duration: all 0.5s;
 }
 
-
-
 .buttons {
 	vertical-align: middle;
 	margin: 0;
@@ -101,6 +108,11 @@
 	left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+.basic {
+	margin: 0;
+	position: absolute;
+	top:20%;
 }
 </style>
 
