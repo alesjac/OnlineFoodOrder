@@ -11,6 +11,15 @@ public class Admin {
 		super();
 	}
 
+	public Admin(int id, String name, String surname, String username, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

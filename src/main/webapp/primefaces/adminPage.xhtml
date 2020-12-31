@@ -1,10 +1,15 @@
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<title>Homepage</title>
+<title>ADMIN PAGE</title>
+<f:metadata> 
+<f:param name="username" value="#{adminLogin.username}"></f:param>
+</f:metadata>
+
 </h:head>
 <h:body>
 
@@ -12,28 +17,18 @@
 
 		<ui:define name="content">
 			<p:growl id="growl"></p:growl>
-			<h:form>
-				<p:splitButton class="basic" value="Login">
-					<p:menuitem value="Admin" outcome="loginAdmin" />
-					<p:menuitem value="Employee" outcome="loginEmployee">
-
-					</p:menuitem>
-
-				</p:splitButton>
-			</h:form>
-
-			<p class="para1">Welcome to Black Mtn Burger! Order food and
-				beverages wherever and whenever you are.</p>
 
 			<section id="showcase">
-				<h:form class="buttons">
+			<br></br>
+			<p class="welcome">Welcome to ADMIN PAGE.</p>
+				<h:form class="adminButtons">
 					<br></br>
-					<p:button class="button1" value="View our menu." icon="pi pi-star"
+					<p:button class="adminButton1" value="Go to Menu page controll" icon="pi pi-star"
 						outcome="viewmenu" style="color:black;">
 
 					</p:button>
 					<br></br>
-					<p:button class="button2" value="Order food" icon="pi pi-star"
+					<p:button class="adminButton2" value="Go to employee page controll" icon="pi pi-star"
 						style="color:black;">
 
 					</p:button>
@@ -42,13 +37,11 @@
 
 				</h:form>
 
-
-
-
+			</section>
 
 
 				<style>
-.para1 {
+.welcome {
 	text-align: center;
 	font-family: "Copperplate Gothic Light";
 	font-size: 30px;
@@ -62,14 +55,14 @@
 	min-height: 500px;
 	margin-bottom: 10px;
 	background:
-		url(https://besthqwallpapers.com/Uploads/6-4-2020/127576/burger-fast-food-bakery-products-veggie-burger-french-fries.jpg);
+		url(https://www.coreldraw.com/static/cdgs/images/pages/seo/tips/photo/basics/blur-background/blur-background.jpg);
 	background-repeat: no-repeat;
 	background-size: 1600px 900px;
 	background-attachment: fixed;
 	background-position: center;
 }
 
-.button1 {
+.adminButton1 {
 	position: relative;
 	display: inline-block;
 	background-color: transparent;
@@ -85,7 +78,7 @@
 	transition-duration: all 0.5s;
 }
 
-.button2 {
+.adminButton2 {
 	position: relative;
 	display: inline-block;
 	background-color: transparent;
@@ -101,7 +94,7 @@
 	transition-duration: all 0.5s;
 }
 
-.buttons {
+.adminButtons {
 	vertical-align: middle;
 	margin: 0;
 	position: absolute;
@@ -117,9 +110,6 @@
 	top: 20%;
 }
 </style>
-
-
-			</section>
 
 		</ui:define>
 	</ui:composition>

@@ -35,12 +35,12 @@
 							<p:message for="username" />
 
 							<p:outputLabel for="password" value="Password" />
-							<p:inputText id="password" value="#{focusView.email}"
-								required="true" />
+							<p:password id="password" value="#{passwordView.password1}" required="true" />
+							
 							<p:message for="password" />
 						</h:panelGrid>
 
-						<p:commandButton id="login" value="Login" update="@parent"
+						<p:commandButton id="Login" value="Login" update="@parent"
 							action="#{focusView.save}" />
 
 
@@ -53,6 +53,8 @@
 					<h4 class="registerInfo">if you don't have an account</h4>
 				</h:form>
 			</section>
+			
+			
 			<style>
 .para3 {
 	text-align: center;

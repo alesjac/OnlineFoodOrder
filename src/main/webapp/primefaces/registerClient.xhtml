@@ -20,12 +20,14 @@
 
 
 					<h3>Write down your personal info</h3>
+					
+	                <br></br>
 					<span class="ui-float-label"> <p:inputText id="float-input1" />
 						<p:outputLabel for="@previous" value="Name" />
 					</span>
+				
 					<br></br>
-					<br></br>
-
+	                <br></br>
 					<span class="ui-float-label"> <p:inputText id="float-input2" />
 						<p:outputLabel for="@previous" value="Surname" />
 					</span>
@@ -50,7 +52,10 @@
 					 locale="en" navigator="true" pattern="yyyy-MMM-dd" /> 
 					<p:outputLabel for="@previous" value="Birthday" />
 					</span>
-
+						<br></br>
+					<br></br>
+					 <p:commandButton class="submitButton" value="Sign Up" update="growl" icon="pi pi-check"  />
+                     
 
 
 
@@ -101,7 +106,7 @@
 	line-height: 27.5px;
 }
 
-#registerClientFrom{
+#registerClientFrom {
 	width: 550px;
 	height: 450px;
 	position: relative;
@@ -111,6 +116,7 @@
 	border-radius: 4px;
 	border: none;
 	padding: 20px 5px;
+	   padding-top:0% ;
 	text-decoration: none;
 	margin: 25px 9px;
 	transition-duration: all 0.5s;
@@ -124,6 +130,18 @@
 	background-size: 1600px 700px;
 	background-attachment: fixed;
 	background-position: center;
+}
+.submitButton{
+position: relative;
+	left: 3%;
+	display: inline-block;
+	background-color: transparent;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	font-family: 'Courier New';
+	font-size: 25px;
+	transition-duration: all 0.5s;
 }
 </style>
 		</ui:define>
