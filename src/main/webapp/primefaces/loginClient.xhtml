@@ -1,10 +1,107 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+<h:body>
 
-</body>
+	<ui:composition template="/template/template.xhtml">
+
+		<ui:define name="content">
+		<section id="sectionClient">
+			<p:growl id="growl"></p:growl>
+
+			<br></br>
+			<br></br>
+			<br></br>
+			<br></br><br></br>
+			<br></br>
+				<p class="para3	">LOGIN OR REGISTER TO ORDER</p>
+
+				<h:form id="formClient">
+					<p:panel id="panel" header="Login to order">
+
+						<p:focus context="panel" />
+
+						<p:messages />
+
+						<h:panelGrid columns="3">
+							<p:outputLabel for="username" value="Username" />
+							<p:inputText id="username" required="true" label="Firstname">
+								<f:validateLength minimum="2" />
+							</p:inputText>
+							<p:message for="username" />
+
+							<p:outputLabel for="password" value="Password" />
+							<p:inputText id="password" value="#{focusView.email}"
+								required="true" />
+							<p:message for="password" />
+						</h:panelGrid>
+
+						<p:commandButton id="login" value="Login" update="@parent"
+							action="#{focusView.save}" />
+
+
+					</p:panel>
+					<br></br>
+					<p:link outcome="registerClient" value="Register here"
+						class="registerLink">
+						<f:param name="nothing"  />
+						</p:link>
+					<h4 class="registerInfo">if you don't have an account</h4>
+				</h:form>
+			</section>
+			<style>
+.para3 {
+	text-align: center;
+	font-family: "Copperplate Gothic Light";
+	font-size: 30px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
+#formClient {
+	width: 550px;
+	height: 450px;
+	position: relative;
+	left: 30%;
+	display: inline-block;
+	background-color: transparent;
+	border-radius: 4px;
+	border: none;
+	padding: 20px 5px;
+	text-decoration: none;
+	margin: 25px 9px;
+	transition-duration: all 0.5s;
+}
+
+#sectionClient {
+
+	min-height: 300px;
+	background:
+		url(https://adwallpapers.xyz/uploads/posts/1394-defocused-blurred-soft-abstract-atrium-or-office-background.jpg);
+	background-repeat: no-repeat;
+	background-size: 1600px 700px;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.registerInfo {
+	position: relative;
+	top: -9%;
+	left: 64%;
+}
+
+.registerLink {
+	position: relative;
+	left: 43%;
+}
+</style>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>

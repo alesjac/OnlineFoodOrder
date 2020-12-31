@@ -1,10 +1,132 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+<h:body>
 
-</body>
+	<ui:composition template="/template/template.xhtml">
+
+		<ui:define name="content">
+			<section id="sectionRegisterClient">
+				<p:growl id="growl"></p:growl>
+
+				<br></br>
+				<p class="para4	">REGISTER PAGE</p>
+
+				<h:form id="registerClientFrom">
+
+
+					<h3>Write down your personal info</h3>
+					<span class="ui-float-label"> <p:inputText id="float-input1" />
+						<p:outputLabel for="@previous" value="Name" />
+					</span>
+					<br></br>
+					<br></br>
+
+					<span class="ui-float-label"> <p:inputText id="float-input2" />
+						<p:outputLabel for="@previous" value="Surname" />
+					</span>
+					<br></br>
+					<br></br>
+
+					<span class="ui-float-label"> <p:inputText id="float-input3" />
+						<p:outputLabel for="@previous" value="Username" />
+					</span>
+					<br></br>
+					<br></br>
+
+					<span class="ui-float-label"> 
+					<p:password id="feedback" feedback="true" />
+					 <p:outputLabel for="@previous" value="Password" />
+					</span>
+					<br></br>
+					<br></br>
+
+					<span class="ui-float-label"> 
+					<p:calendar id="german" value="#{calendarView.date5}"
+					 locale="en" navigator="true" pattern="yyyy-MMM-dd" /> 
+					<p:outputLabel for="@previous" value="Birthday" />
+					</span>
+
+
+
+
+				</h:form>
+			</section>
+
+			<script type="text/javascript">
+				PrimeFaces.locales['en'] = {
+					closeText : 'Schließen',
+					prevText : 'Zurück',
+					nextText : 'Weiter',
+					monthNames : [ 'January', 'February', 'March', 'April',
+							'May', 'June', 'July', 'August', 'September',
+							'October', 'November', 'December' ],
+					monthNamesShort : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May',
+							'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+					dayNames : [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday',
+							'Thursday', 'Friday', 'Saturday' ],
+					dayNamesShort : [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thur',
+							'Fri', 'Sat' ],
+					dayNamesMin : [ 'S', 'M', 'T', 'W ', 'Th', 'F ', 'S' ],
+					weekHeader : 'Week',
+					firstDay : 1,
+					isRTL : false,
+					showMonthAfterYear : false,
+					yearSuffix : '',
+					timeOnlyTitle : 'Nur Zeit',
+					timeText : 'Zeit',
+					hourText : 'Stunde',
+					minuteText : 'Minute',
+					secondText : 'Sekunde',
+					currentText : 'Aktuelles Datum',
+					ampm : false,
+					month : 'Month',
+					week : 'Week',
+					day : 'Day',
+					allDayText : 'All day'
+				};
+			</script>
+			<style>
+.para4 {
+	text-align: center;
+	font-family: "Copperplate Gothic Light";
+	font-size: 30px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
+#registerClientFrom{
+	width: 550px;
+	height: 450px;
+	position: relative;
+	left: 41%;
+	display: inline-block;
+	background-color: transparent;
+	border-radius: 4px;
+	border: none;
+	padding: 20px 5px;
+	text-decoration: none;
+	margin: 25px 9px;
+	transition-duration: all 0.5s;
+}
+
+#sectionRegisterClient {
+	min-height: 500px;
+	background:
+		url(https://adwallpapers.xyz/uploads/posts/1394-defocused-blurred-soft-abstract-atrium-or-office-background.jpg);
+	background-repeat: no-repeat;
+	background-size: 1600px 700px;
+	background-attachment: fixed;
+	background-position: center;
+}
+</style>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>
