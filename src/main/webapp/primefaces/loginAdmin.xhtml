@@ -14,32 +14,35 @@
 				
 
 				<br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
+				
 				<p class="para3	">LOGIN PAGE ADMIN</p>
 
 				<h:form id="formAdminEmployee">
 					
 
-					<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+					<p:growl id="growl" sticky="true" showDetail="true" />
 
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel for="username" value="Username:" />
 						<p:inputText id="username" value="#{adminLoginManagedBean.username}"
 							required="true" label="username" />
-
+                        <p:message for="username" display="text" />
+                        <br></br>
 						<h:outputLabel for="password" value="Password:" />
 						<p:password id="password" value="#{adminLoginManagedBean.password}"
 							required="true" label="password" />
-
-						<f:facet name="footer">
+                          <p:message for="password"  display="text"/>
+						    <br></br>
 							<p:commandButton value="Login" update="growl"
 								action="#{adminLoginManagedBean.login}"
-								oncomplete="handleLoginRequest(xhr, status, args)">
+								oncomplete="handleLoginRequest(xhr, login, args)">
 								   <f:param name="username" value="#{adminLoginManagedBean.username}"></f:param>
 								</p:commandButton>
-						</f:facet>
+						
 					</h:panelGrid>
 					   
 				</h:form>
+				
 			</section>
 
 			
@@ -58,7 +61,7 @@
 	width: 550px;
 	height: 450px;
 	position: relative;
-	left: 30%;
+	left: 37%;
 	display: inline-block;
 	background-color: transparent;
 	border-radius: 4px;
@@ -69,12 +72,13 @@
 	transition-duration: all 0.5s;
 }
 
+
 #sectionAdminEmployee {
 	min-height: 300px;
 	background:
 		url(https://adwallpapers.xyz/uploads/posts/1394-defocused-blurred-soft-abstract-atrium-or-office-background.jpg);
 	background-repeat: no-repeat;
-	background-size: 1600px 700px;
+	background-size: 1600px 650px;
 	background-attachment: fixed;
 	background-position: center;
 }

@@ -1,5 +1,7 @@
 package com.ikubinfo.primefaces.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.ikubinfo.primefaces.model.Admin;
@@ -15,9 +17,14 @@ public LoginAdminServiceImpl(LoginAdminRepository loginAdminRep) {
 }
 
 @Override
-public Admin getAdmin() {
+public List<Admin> getAdmin(String username,String password) {
 	
-	return loginAdminRep.getAdmin();
+	return loginAdminRep.getAdmin(username,password);
+}
+
+@Override
+public List<Admin> getAdminByUsername(String username) {
+	return loginAdminRep.getAdminByUsername(username);
 }
 
 

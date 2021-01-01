@@ -7,7 +7,7 @@
 <h:head>
 <title>ADMIN PAGE</title>
 <f:metadata> 
-<f:param name="username" value="#{adminLogin.username}"></f:param>
+<f:param name="username" value="#{adminLoginManagedBean.username}"></f:param>
 </f:metadata>
 
 </h:head>
@@ -20,7 +20,8 @@
 
 			<section id="showcase">
 			<br></br>
-			<p class="welcome">Welcome to ADMIN PAGE.</p>
+			<h:outputText id="welcome" value="Welcome to Admin Page #{adminLoginManagedBean.adminByUsername.name} #{adminLoginManagedBean.adminByUsername.surname}"></h:outputText>
+			
 				<h:form class="adminButtons">
 					<br></br>
 					<p:button class="adminButton1" value="Go to Menu page controll" icon="pi pi-star"
@@ -41,8 +42,10 @@
 
 
 				<style>
-.welcome {
-	text-align: center;
+#welcome {
+    text-align: center;
+    position: center;
+    left: 30%;
 	font-family: "Copperplate Gothic Light";
 	font-size: 30px;
 	font-style: italic;
