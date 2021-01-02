@@ -35,6 +35,9 @@ public class ViewMenuManagedBean implements Serializable {
 		desserts=viewMenuService.getDesserts();
 		subssides=viewMenuService.getSubstitutionSides();
 	}
+	
+	//metodat ...
+	
 
 	public List<Sustenance> getBeverages() {
 		return beverages;

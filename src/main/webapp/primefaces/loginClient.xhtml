@@ -29,19 +29,19 @@
 
 						<h:panelGrid columns="3">
 							<p:outputLabel for="username" value="Username" />
-							<p:inputText id="username" required="true" label="Firstname">
+							<p:inputText id="username" required="true" label="Firstname" value="#{clientLoginManagedBean.username}">
 								<f:validateLength minimum="2" />
 							</p:inputText>
 							<p:message for="username" />
 
 							<p:outputLabel for="password" value="Password" />
-							<p:password id="password" value="#{passwordView.password1}" required="true" />
+							<p:password id="password" value="#{clientLoginManagedBean.password}" required="true" />
 							
 							<p:message for="password" />
 						</h:panelGrid>
 
 						<p:commandButton id="Login" value="Login" update="panel"
-							action="#{focusView.save}" />
+							action="#{clientLoginManagedBean.login}" />
 
 
 					</p:panel>
