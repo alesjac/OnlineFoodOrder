@@ -15,6 +15,7 @@ import org.primefaces.PrimeFaces;
 
 import com.ikubinfo.primefaces.model.Admin;
 import com.ikubinfo.primefaces.service.LoginAdminService;
+import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean
 @SessionScoped
@@ -27,12 +28,14 @@ public class AdminLoginManagedBean implements Serializable {
 	private String surname;
 	private List<Admin> adminList;
 	private Admin admin;
-
 	@ManagedProperty(value = "#{loginAdminService}")
 	private LoginAdminService loginAdminService;
-
+	@ManagedProperty(value = "#{messages}")
+	private Messages messages;
 	@PostConstruct
 	public void init() {
+		//String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("admin_id");
+		
 	}
 	
 	public Admin getAdminByUsername() {
@@ -50,7 +53,7 @@ public class AdminLoginManagedBean implements Serializable {
 	}
 
 	public void login() throws IOException {
-		FacesMessage message = null;
+		//FacesMessage message = null;
 		boolean loggedIn = false;
 		List<Admin> toLoopAdmin = getAdmins();
 		for (Admin admin : toLoopAdmin) {
@@ -60,11 +63,11 @@ public class AdminLoginManagedBean implements Serializable {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("adminPage.xhtml");
 			} else {
 				loggedIn = false;
-				message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
+				messages.showErrorMessage("Loggin Error. Invalid credentials");
+				//message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
 			}
 		}
 
-		FacesContext.getCurrentInstance().addMessage(null, message);
 		PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
 
 	}
@@ -124,5 +127,17 @@ public class AdminLoginManagedBean implements Serializable {
 	public void setAdminList(List<Admin> adminList) {
 		this.adminList = adminList;
 	}
+
+	public Messages getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Messages messages) {
+		this.messages = messages;
+	}
+
+	
+	
+	
 
 }

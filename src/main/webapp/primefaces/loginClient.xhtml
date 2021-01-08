@@ -1,3 +1,5 @@
+
+
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -10,51 +12,47 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-		<section id="sectionClient">
-			<p:growl id="growl"></p:growl>
+			<section id="sectionClient">
 
-			<br></br>
-			<br></br>
-			<br></br>
-			<br></br><br></br>
-			<br></br>
+
+				<br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
 				<p class="para3	">LOGIN OR REGISTER TO ORDER</p>
 
 				<h:form id="formClient">
-					<p:panel id="panel" header="Login to order">
+					<p:growl id="growl" sticky="true" showDetail="true" />
+					<p:panel header="Login to order">
 
-						<p:focus context="panel" />
-
-						<p:messages />
-
-						<h:panelGrid columns="3">
+						<h:panelGrid columns="2" cellpadding="5">
 							<p:outputLabel for="username" value="Username" />
-							<p:inputText id="username" required="true" label="Firstname" value="#{clientLoginManagedBean.username}">
-								<f:validateLength minimum="2" />
+							<p:inputText id="username" required="true" label="username"
+								value="#{clientLoginManagedBean.username}">
+
 							</p:inputText>
-							<p:message for="username" />
-
-							<p:outputLabel for="password" value="Password" />
-							<p:password id="password" value="#{clientLoginManagedBean.password}" required="true" />
 							
-							<p:message for="password" />
+							<p:outputLabel for="password" value="Password" />
+							<p:password id="password" required="true" label="password"
+								value="#{clientLoginManagedBean.password}">
+
+							</p:password>
+
+						<p:commandButton value="Login" update="growl"
+							action="#{clientLoginManagedBean.login}" id="login">
+							  <f:param name="username" value="#{username}"></f:param>
+						</p:commandButton>
+						
 						</h:panelGrid>
-
-						<p:commandButton id="Login" value="Login" update="panel"
-							action="#{clientLoginManagedBean.login}" />
-
 
 					</p:panel>
 					<br></br>
 					<p:link outcome="registerClient" value="Register here"
 						class="registerLink">
-						<f:param name="nothing"  />
-						</p:link>
+						<f:param name="nothing" />
+					</p:link>
 					<h4 class="registerInfo">if you don't have an account</h4>
 				</h:form>
 			</section>
-			
-			
+
+
 			<style>
 .para3 {
 	text-align: center;
@@ -82,7 +80,6 @@
 }
 
 #sectionClient {
-
 	min-height: 300px;
 	background:
 		url(https://adwallpapers.xyz/uploads/posts/1394-defocused-blurred-soft-abstract-atrium-or-office-background.jpg);

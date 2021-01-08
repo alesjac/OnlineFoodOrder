@@ -1,11 +1,10 @@
-package com.ikubinfo.primefaces.repository;
+package com.ikubinfo.primefaces.service;
 
 import java.util.List;
 
-
 import com.ikubinfo.primefaces.model.Client;
 
-public interface LoginClientRepository {
+public interface ClientService {
 	List<Client> getClient(String username,String password);
 	List<Client> getClientByUsername(String username);
 

@@ -11,12 +11,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ikubinfo.primefaces.model.Client;
-import com.ikubinfo.primefaces.repository.LoginClientRepository;
-import com.ikubinfo.primefaces.repository.mapper.LoginAdminRowMapper;
+import com.ikubinfo.primefaces.repository.ClientRepository;
 import com.ikubinfo.primefaces.repository.mapper.LoginClientRowMapper;
 
 @Repository
-public class LoginClientReposiotryImpl implements LoginClientRepository {
+public class ClientReposiotryImpl implements ClientRepository {
 
 	
 	
@@ -25,7 +24,7 @@ public class LoginClientReposiotryImpl implements LoginClientRepository {
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	@Autowired
-	public LoginClientReposiotryImpl(DataSource datasource) {
+	public ClientReposiotryImpl(DataSource datasource) {
 		super();
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(datasource);
 		

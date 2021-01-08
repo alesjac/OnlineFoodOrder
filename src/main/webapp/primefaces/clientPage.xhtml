@@ -1,36 +1,173 @@
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<title>ADMIN PAGE</title>
-<f:metadata> 
-<f:param name="username" value="#{adminLoginManagedBean.username}"></f:param>
-</f:metadata>
-
+	
+	<f:metadata>
+		<f:viewParam name="username" value="#{clientPageManagedBean.username}"></f:viewParam>
+	</f:metadata>
+<title>Client</title>
 </h:head>
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-			<p:growl id="growl"></p:growl>
 
-			<section id="showcase">
-			<br></br>
-			<h:outputText id="welcomeClient" value="Welcome to Client Page #{clientLoginManagedBean.clientByUsername.name} #{clientLoginManagedBean.clientByUsername.surname}"></h:outputText>
-			
-			
+
+			<section class="showcaseClient">
+				<br></br>
+				<h:outputText id="welcomeClient"
+					value="Welcome to Client Page #{clientPageManagedBean.client.name}"></h:outputText>
+
+
+				<h:form id="from">
+					<p:growl id="growl"></p:growl>
+
+					<div class="info">
+
+						<p class="details">YOUR PERSONAL DETAILS.</p>
+						<p:panelGrid columns="2" id="personalInfo"
+							value="#{clientPageManagedBean.clients}" var="client">
+
+
+							<h:outputText value="Name:" />
+							<h:outputText value="#{client.name}" />
+
+							<h:outputText value="Surname:" />
+							<h:outputText value="#{client.surname}" />
+
+							<h:outputText value="Username:" />
+							<h:outputText value="#{client.username}" />
+
+							<h:outputText value="Birthday:" />
+							<h:outputText value="#{client.birthday}">
+								<f:convertDateTime pattern="dd.MM.yyyy" />
+							</h:outputText>
+
+
+
+
+						</p:panelGrid>
+					</div>
+
+					<br></br>
+					<p:commandButton value="Edit" update="updateDialog"
+						class="editButton" process="@this"
+						oncomplete="PF('EditDialog').show();">
+
+						<f:setPropertyActionListener
+							target="#{clientPageManagedBean.client}" value="#{category}" />
+
+					</p:commandButton>
+					<p:dialog header="Edit Personal Information" id="updateDialog"
+						widgetVar="EditDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Name " for="updateName"></h:outputLabel>
+							<h:inputText id="updateName" required="true"></h:inputText>
+							<br></br>
+
+							<h:outputLabel value="Surname " for="updateSurname"></h:outputLabel>
+							<h:inputText id="updateSurname" required="true"></h:inputText>
+							<br></br>
+							<h:outputLabel value="Username " for="updateUsername"></h:outputLabel>
+							<h:inputText id="updateUsername" required="true"></h:inputText>
+							<br></br>
+
+
+							<p:commandButton process="updateDialog"
+								update="personalInfo growl" value="Save"
+								oncomplete="PF('EditDialog').hide();">
+
+							</p:commandButton>
+
+
+
+						</h:panelGrid>
+
+
+					</p:dialog>
+
+
+
+
+
+					<div class="otherButtons">
+						<p:commandButton class="reviewButton" value="Write a review :)" update="reviewDialog" process="@this"
+						    oncomplete="PF('ReviewDialog').show();" 
+							icon="pi pi-star" style="color:black;">
+
+						</p:commandButton>
+
+						<br></br> <br></br> <br></br>
+						<p:button class="orderButton" outcome="order" value="Order."
+							icon="pi pi-star" style="color:black;">
+
+						</p:button>
+						<br></br> <br></br> <br></br>
+						<p:commandButton class="changePassButton" value="Change password."
+							icon="pi pi-star" style="color:black;">
+
+						</p:commandButton>
+
+
+
+					</div>
+					
+					
+					
+					<p:dialog header="WRITE A REVIEW FOR OUR SERVICE AND FOOD :)" id="reviewDialog"
+						widgetVar="ReviewDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							
+							<h:inputTextarea id="review" required="true"  rows="6" cols="33"></h:inputTextarea>
+							<br></br>
+
+
+
+							<p:commandButton process="reviewDialog"
+								update="personalInfo growl" value="Post"
+								oncomplete="PF('EditDialog').hide();">
+
+							</p:commandButton> <!-- rregullo updatin -->
+
+
+
+						</h:panelGrid>
+
+
+					</p:dialog>
+					
+
+				</h:form>
+
+
+
+
+
 
 			</section>
 
 
-				<style>
+			<style>
+.details {
+	font-family: "Copperplate Gothic Light";
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
 #welcomeClient {
-     position: relative;
-    left: 34%;
+	position: relative;
+	left: 34%;
 	font-family: "Copperplate Gothic Light";
 	font-size: 30px;
 	font-style: italic;
@@ -39,7 +176,7 @@
 	line-height: 27.5px;
 }
 
-#showcase {
+.showcaseClient {
 	min-height: 500px;
 	margin-bottom: 10px;
 	background:
@@ -50,7 +187,67 @@
 	background-position: center;
 }
 
+.info {
+	position: relative;
+	top: 60px;
+	left: 350px;
+}
 
+.editButton {
+	position: relative;
+	text-align: center;
+	left: 25%;
+	top: 50px;
+	background-color: transparent;
+	border-style: inset;
+	font-family: 'Courier New';
+	background-color: transparent;
+}
+
+.otherButtons {
+	position: relative;
+	bottom: 190px;
+	left: 500px;
+}
+
+.reviewButton {
+	position: relative;
+	text-align: center;
+	left: 20%;
+	top: 50px;
+	background-color: transparent;
+	border-style: inset;
+	font-family: 'Courier New';
+	background-color: transparent;
+	border-radius: 2px;
+	padding: 15px 5px;
+}
+
+.orderButton {
+	position: relative;
+	text-align: center;
+	left: 20%;
+	top: 50px;
+	background-color: transparent;
+	border-style: inset;
+	font-family: 'Courier New';
+	background-color: transparent;
+	border-radius: 2px;
+	padding: 15px 5px;
+}
+
+.changePassButton {
+	position: relative;
+	text-align: center;
+	left: 20%;
+	top: 50px;
+	background-color: transparent;
+	border-style: inset;
+	font-family: 'Courier New';
+	background-color: transparent;
+	border-radius: 2px;
+	padding: 15px 5px;
+}
 </style>
 
 		</ui:define>
