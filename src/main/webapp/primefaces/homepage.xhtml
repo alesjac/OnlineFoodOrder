@@ -13,18 +13,9 @@
 
 		<ui:define name="content">
 			<p:growl id="growl"></p:growl>
-			<h:form>
-				<p:splitButton class="basic" value="Login">
-					<p:menuitem value="Admin" outcome="loginAdmin" />
-
-
-				
-
-				</p:splitButton>
-			</h:form>
 
 			<p class="para1">Welcome to Black Mtn Burger! Order food and
-				beverages wherever and whenever you are.</p>
+				beverages wherever you are.</p>
 
 			<section id="showcase">
 				<h:form class="buttons">
@@ -34,8 +25,13 @@
 
 					</p:button>
 					<br></br>
-					<p:button class="button2" value="Order food" icon="pi pi-star"
-						style="color:black;" outcome="order">
+					<p:button class="button2" value="Login Admin" icon="pi pi-star"
+						style="color:black;" outcome="loginAdmin">
+
+					</p:button>
+					<br></br>
+					<p:button class="button3" value="Login Client" icon="pi pi-star"
+						style="color:black;" outcome="loginClient">
 
 					</p:button>
 
@@ -46,9 +42,10 @@
 
 
 
+			</section>
 
 
-				<style>
+			<style>
 .para1 {
 	text-align: center;
 	font-family: "Copperplate Gothic Light";
@@ -102,6 +99,22 @@
 	transition-duration: all 0.5s;
 }
 
+.button3 {
+	position: relative;
+	display: inline-block;
+	background-color: transparent;
+	border-radius: 2px;
+	border: none;
+	padding: 20px 5px;
+	text-align: center;
+	width: 350px;
+	text-decoration: none;
+	font-family: 'Courier New';
+	font-size: 28px;
+	margin: 25px 9px;
+	transition-duration: all 0.5s;
+}
+
 .buttons {
 	vertical-align: middle;
 	margin: 0;
@@ -121,7 +134,6 @@
 </style>
 
 
-			</section>
 
 		</ui:define>
 	</ui:composition>

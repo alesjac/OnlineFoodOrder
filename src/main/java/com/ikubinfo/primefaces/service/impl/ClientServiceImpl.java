@@ -18,8 +18,17 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public List<Client> getClient(String username, String password) {
-		return clientRep.getClient(username, password);
+	public boolean clientLogin(String username, String password) {
+		boolean usernm = clientRep.usernameExists(username);
+		boolean pass = clientRep.passwordExists(password);
+		
+		if (usernm==true && pass==true) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		
 	}
 
 	@Override

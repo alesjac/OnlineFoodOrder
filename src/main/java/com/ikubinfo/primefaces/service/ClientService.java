@@ -5,7 +5,7 @@ import java.util.List;
 import com.ikubinfo.primefaces.model.Client;
 
 public interface ClientService {
-	List<Client> getClient(String username,String password);
+	boolean clientLogin(String username,String password);
 	List<Client> getClientByUsername(String username);
 
 }

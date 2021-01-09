@@ -6,9 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import com.ikubinfo.primefaces.model.Client;
 import com.ikubinfo.primefaces.service.ClientService;
@@ -20,25 +21,33 @@ public class ClientPageManagedBean implements Serializable{
 
 	private String username;
 	private Client client;
-    private List<Client> clients;
 	@ManagedProperty(value = "#{clientService}")
 	private ClientService clientService;
 
+	@ManagedProperty(value="#{clientLoginManagedBean}")
+	private ClientLoginManagedBean clientLoginMB;
+
 	@PostConstruct
 	public void init() {
-		//String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
-		//username = value;
-		client=getClientUsername();
-		clients=clientService.getClientByUsername(username);
+		client=getClientByUsername();
+		
 	}
 
-		public Client getClientUsername() {
+		public Client getClientByUsername() {
 		Client client = new Client();
-		for (Client c : clientService.getClientByUsername(username)) {
+		for (Client c : clientService.getClientByUsername(clientLoginMB.getUsername())) {
 			client = c;
 		}
 		return client;
 	}
+		
+		
+		public String logout() {
+			
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			return "homepage?faces-redirect=true";
+			
+		}	
 
 	
 	public String getUsername() {
@@ -65,13 +74,14 @@ public class ClientPageManagedBean implements Serializable{
 		this.client = client;
 	}
 
-	public List<Client> getClients() {
-		return clients;
+	public ClientLoginManagedBean getClientLoginMB() {
+		return clientLoginMB;
 	}
 
-	public void setClients(List<Client> clients) {
-		this.clients = clients;
+	public void setClientLoginMB(ClientLoginManagedBean clientLoginMB) {
+		this.clientLoginMB = clientLoginMB;
 	}
+
 	
 
 }

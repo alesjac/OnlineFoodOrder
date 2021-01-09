@@ -6,12 +6,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
+
 </h:head>
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
+		<p:growl id="growl" sticky="true" showDetail="true" />
 			<section id="sectionClient">
 
 
@@ -19,9 +21,9 @@
 				<p class="para3	">LOGIN OR REGISTER TO ORDER</p>
 
 				<h:form id="formClient">
-					<p:growl id="growl" sticky="true" showDetail="true" />
+					
 					<p:panel header="Login to order">
-
+    
 						<h:panelGrid columns="2" cellpadding="5">
 							<p:outputLabel for="username" value="Username" />
 							<p:inputText id="username" required="true" label="username"
@@ -36,8 +38,11 @@
 							</p:password>
 
 						<p:commandButton value="Login" update="growl"
-							action="#{clientLoginManagedBean.login}" id="login">
-							  <f:param name="username" value="#{username}"></f:param>
+							action="#{clientLoginManagedBean.login}" id="login" >
+							
+						
+							
+							 
 						</p:commandButton>
 						
 						</h:panelGrid>

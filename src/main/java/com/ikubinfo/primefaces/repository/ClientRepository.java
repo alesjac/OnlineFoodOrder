@@ -6,7 +6,8 @@ import java.util.List;
 import com.ikubinfo.primefaces.model.Client;
 
 public interface ClientRepository {
-	List<Client> getClient(String username,String password);
+	boolean usernameExists(String username);
+	boolean passwordExists(String password);
 	List<Client> getClientByUsername(String username);
 
 }

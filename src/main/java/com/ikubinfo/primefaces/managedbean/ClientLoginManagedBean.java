@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -24,54 +25,27 @@ public class ClientLoginManagedBean implements Serializable {
 	private String username;
 	private String password;
 
-	private List<Client> clientList;
-
 	@ManagedProperty(value = "#{clientService}")
 	private ClientService clientService;
-	
+
 	@ManagedProperty(value = "#{messages}")
 	private Messages messages;
-	
 
 	@PostConstruct
 	public void init() {
-    clientList=clientService.getClientByUsername(username);
 	}
 
-	public Client getClientByUsername() {
-		Client c = new Client();
-		for (Client client : clientService.getClientByUsername(username)) {
-			c = client;
-		}
-		return c;
-	}
-
-	public List<Client> getClients() {
-		clientList = clientService.getClient(username, password);
-
-		return clientList;
-	}
 
 	public void login() throws IOException {
-		//FacesMessage message = null;
-		boolean loggedIn = false;
+      
+		if (clientService.clientLogin(username, password) == true) {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("clientPage.xhtml");
 
-		for (Client client : getClients()) {
-			if (username != null && username.equals(client.getUsername()) && password != null
-					&& password.equals(client.getPassword())) {
-				loggedIn = true;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("clientPage.xhtml");
-			} else {
-				loggedIn = false;
-				messages.showErrorMessage("Login Error. Invalid credentials");
-			}
+		} else {
+			messages.showErrorMessage("Login Error. Invalid credentials");
 		}
-		PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
-
 	}
 
-	
-	
 	public String getUsername() {
 		return username;
 	}
@@ -86,15 +60,6 @@ public class ClientLoginManagedBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	
-	public List<Client> getClientList() {
-		return clientList;
-	}
-
-	public void setClientList(List<Client> clientList) {
-		this.clientList = clientList;
 	}
 
 	public ClientService getClientService() {
@@ -112,7 +77,5 @@ public class ClientLoginManagedBean implements Serializable {
 	public void setMessages(Messages messages) {
 		this.messages = messages;
 	}
-
-
 
 }
