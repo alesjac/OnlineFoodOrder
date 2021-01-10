@@ -11,4 +11,5 @@ public interface ViewMenuService {
 	List<Sustenance> getBurgers();
 	List<Sustenance> getDesserts();
 	List<Sustenance> getSubstitutionSides();
+	boolean addBeverages(Sustenance bev);
 }

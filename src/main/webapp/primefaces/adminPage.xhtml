@@ -16,7 +16,8 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-			<p:growl id="growl"></p:growl>
+			<p:growl id="growl" showDetail="true"
+				skipDetailIfEqualsSummary="true" />
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
 					action="#{adminBean.logout}">
@@ -31,15 +32,36 @@
 
 
 				<h:form id="formAdminPage">
-					<p:growl id="msgs" showDetail="true"
-						skipDetailIfEqualsSummary="true" />
+
 
 
 					<p:accordionPanel>
+
 						<p:tab title="BEVERAGES">
+
+							<br></br>
+							<p:commandButton value="Add Beverage" update="addBevForm"
+								process="@this" oncomplete="PF('AddBevDialog').show();">
+
+								<f:setPropertyActionListener target="#{menuBean.bev}"
+									value="#{bev}" />
+
+							</p:commandButton>
+
+							<br></br>
 							<p:dataTable
 								styleClass="#{movie.rentalRate > 2 ? 'green': 'bluye'}"
 								id="tableBeverages" value="#{menuBean.beverages}" var="bev">
+
+
+								<p:commandButton value="Add Beverage" update="addBevForm"
+									process="@this" oncomplete="PF('AddBevDialog').show();">
+
+									<f:setPropertyActionListener target="#{menuBean.bev}"
+										value="#{bev}" />
+
+								</p:commandButton>
+
 
 								<p:column headerText="Name">
 									<p:outputLabel value="#{bev.name}"></p:outputLabel>
@@ -54,31 +76,19 @@
 								</p:column>
 
 
-								
+
 
 								<p:column headerText="Actions">
 
 
-									
 
 
-<!-- <p:commandButton value="View" update=":form:viewDialog"
-										process="@this" oncomplete="PF('ViewDialog').show();">
 
-										<f:setPropertyActionListener
-											target="#{moviesManagedBean.movie}" value="#{movie}" />
 
-									</p:commandButton>
-									
-									p:linkButton outcome="actors" value="Actors"
-										style="margin-right:20px;">
-										<f:param name="id" value="#{movie.id}" />
-									</p:linkButton> -->
 
-									
+
 
 								</p:column>
-
 
 							</p:dataTable>
 						</p:tab>
@@ -119,8 +129,48 @@
 
 
 
-				<h:form id="formForStarters">
 
+
+
+
+
+
+
+
+				<h:form id="addBevForm">
+
+
+					<p:dialog header="Add Beverage" id="addBevDialog"
+						widgetVar="AddBevDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Name: " for="name"></h:outputLabel>
+							<h:inputText id="name" required="true"
+								value="#{menuBean.beve.name}"></h:inputText>
+
+							<h:outputLabel value="Ingredients: " for="ingr"></h:outputLabel>
+							<h:inputText id="ingr" required="true"
+								value="#{menuBean.beve.ingredients}"></h:inputText>
+
+							<h:outputLabel value="Price: " for="price"></h:outputLabel>
+							<h:inputText id="price" required="true"
+								value="#{menuBean.beve.price}"></h:inputText>
+
+
+
+							<p:commandButton process="addBevDialog" update="growl"
+								value="Add" actionListener="#{menuBean.addBev}"
+								oncomplete="PF('AddBevDialog').hide();">
+
+							</p:commandButton>
+
+
+
+						</h:panelGrid>
+h
+
+					</p:dialog>
 
 				</h:form>
 

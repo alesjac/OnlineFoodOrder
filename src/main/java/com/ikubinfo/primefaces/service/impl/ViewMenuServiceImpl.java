@@ -5,15 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ikubinfo.primefaces.model.Sustenance;
+import com.ikubinfo.primefaces.repository.AdminRepository;
 import com.ikubinfo.primefaces.repository.ViewMenuRepository;
 import com.ikubinfo.primefaces.service.ViewMenuService;
 
 @Service("viewmenuService")
 public class ViewMenuServiceImpl implements ViewMenuService {
 	private ViewMenuRepository viewMenuRepository;
+	private AdminRepository adminRep;
 
-	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository) {
+	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository,AdminRepository adminRep) {
 		this.viewMenuRepository = viewmenuRepository;
+		this.adminRep=adminRep;
 	}
 
 	@Override
@@ -47,6 +50,12 @@ public class ViewMenuServiceImpl implements ViewMenuService {
 	@Override
 	public List<Sustenance> getSubstitutionSides() {
 		return viewMenuRepository.getSubstitutionSides();
+	}
+
+	@Override
+	public boolean addBeverages(Sustenance bev) {
+		
+		return adminRep.addBeverages(bev);
 	}
 
 }

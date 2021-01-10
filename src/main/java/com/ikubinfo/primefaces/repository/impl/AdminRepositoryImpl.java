@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.ikubinfo.primefaces.model.Admin;
@@ -27,12 +28,14 @@ public class AdminRepositoryImpl implements AdminRepository {
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
-
+	private SimpleJdbcInsert insertCategoryQuery;
 	@Autowired
 	public AdminRepositoryImpl(DataSource datasource) {
 		super();
+	
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(datasource);
 		this.jdbcTemplate=new JdbcTemplate(datasource);
+		this.insertCategoryQuery=new SimpleJdbcInsert(datasource).withTableName("sustenance").usingGeneratedKeyColumns("id");
 
 	}
 	
@@ -74,8 +77,14 @@ public class AdminRepositoryImpl implements AdminRepository {
 
 	@Override
 	public boolean addBeverages(Sustenance sustenance) {
-		// TODO Auto-generated method stub
-		return false;
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", sustenance.getName());
+		parameters.put("ingredients", sustenance.getIngredients());
+		parameters.put("price", sustenance.getPrice());
+		parameters.put("menu_section_id", 1);
+		
+		return insertCategoryQuery.execute(parameters)>0;
+		
 	}
 
 

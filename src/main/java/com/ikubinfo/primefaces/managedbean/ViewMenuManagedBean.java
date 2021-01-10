@@ -10,27 +10,30 @@ import javax.swing.text.View;
 import javax.faces.bean.ManagedProperty;
 import com.ikubinfo.primefaces.model.Sustenance;
 import com.ikubinfo.primefaces.service.ViewMenuService;
+import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean(name="menuBean")
 @ViewScoped
 public class ViewMenuManagedBean implements Serializable {
 	private static final long serialVersionUID = 3800933422824282320L;
 
-	List<Sustenance> beverages;
-	Sustenance bev;
-	List<Sustenance> starters;
-	List<Sustenance> soupChilliSalads;
-	List<Sustenance> burgers;
-	List<Sustenance> desserts;
-	List<Sustenance> subssides;
+	private List<Sustenance> beverages;
+	private Sustenance beve;
+	private List<Sustenance> starters;
+	private List<Sustenance> soupChilliSalads;
+	private List<Sustenance> burgers;
+	private List<Sustenance> desserts;
+	private List<Sustenance> subssides;
 
 	@ManagedProperty(value = "#{viewmenuService}")
 	private ViewMenuService viewMenuService;
+	@ManagedProperty(value = "#{messages}")
+	private Messages messages;
 
 	@PostConstruct
 	public void init() {
 		beverages = viewMenuService.getBeverages();
-		bev=new Sustenance();
+		beve=new Sustenance();
 		starters= viewMenuService.getStarters();
 		soupChilliSalads = viewMenuService.getSoupChilliSalads();
 		burgers=viewMenuService.getBurgers();
@@ -40,6 +43,13 @@ public class ViewMenuManagedBean implements Serializable {
 	
 	//metodat ...
 	
+	public void addBev() {
+		if(viewMenuService.addBeverages(beve)==true) {
+			messages.showInfoMessage(beve.getName()+ " beverage succefully added");
+		}else {
+			messages.showErrorMessage("An error occured");
+		}
+	}
 
 	public List<Sustenance> getBeverages() {
 		return beverages;
@@ -84,11 +94,19 @@ public class ViewMenuManagedBean implements Serializable {
 	}
 
 	public Sustenance getBev() {
-		return bev;
+		return beve;
 	}
 
-	public void setBev(Sustenance bev) {
-		this.bev = bev;
+	public void setBev(Sustenance beve) {
+		this.beve = beve;
+	}
+
+	public Messages getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Messages messages) {
+		this.messages = messages;
 	}
 	
 
