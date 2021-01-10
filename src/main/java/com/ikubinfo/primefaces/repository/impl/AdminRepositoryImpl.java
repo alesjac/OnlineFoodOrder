@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ikubinfo.primefaces.model.Admin;
+import com.ikubinfo.primefaces.model.Sustenance;
 import com.ikubinfo.primefaces.repository.AdminRepository;
 import com.ikubinfo.primefaces.repository.mapper.LoginAdminRowMapper;
 
@@ -22,6 +23,7 @@ public class AdminRepositoryImpl implements AdminRepository {
 	private static final String GET_ADMIN ="SELECT COUNT(*) FROM admin WHERE username =?";
 	private static final String GET_ADMIN2 ="SELECT COUNT(*) FROM admin WHERE password =?";
 	private static final String GET_ADMIN_BY_USERNAME="SELECT * FROM admin WHERE username = :username";
+	
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
@@ -67,6 +69,13 @@ public class AdminRepositoryImpl implements AdminRepository {
 		params.put("username", username);
 		return namedParameterJdbcTemplate.query(GET_ADMIN_BY_USERNAME, params,  new LoginAdminRowMapper() );
 
+	}
+
+
+	@Override
+	public boolean addBeverages(Sustenance sustenance) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

@@ -27,16 +27,92 @@
 			<section id="showcase">
 				<br></br>
 				<h:outputText id="welcome"
-					value="Welcome to Admin Page #{adminBean.adminByUsername.name} #{adminLoginManagedBean.adminByUsername.surname}"></h:outputText>
+					value="Welcome to Admin Page #{adminBean.adminByUsername.name} #{adminBean.adminByUsername.surname}"></h:outputText>
 
 
-				<h:form id="formForBeverages">
+				<h:form id="formAdminPage">
+					<p:growl id="msgs" showDetail="true"
+						skipDetailIfEqualsSummary="true" />
 
 
+					<p:accordionPanel>
+						<p:tab title="BEVERAGES">
+							<p:dataTable
+								styleClass="#{movie.rentalRate > 2 ? 'green': 'bluye'}"
+								id="tableBeverages" value="#{menuBean.beverages}" var="bev">
 
-					<!-- 3 fusha me emer: ingredients: price + button add
-				tabela e Beverages me emer / ingr /price/ -> edit... all remove
-				-->
+								<p:column headerText="Name">
+									<p:outputLabel value="#{bev.name}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Ingedients">
+									<p:outputLabel value="#{bev.ingredients}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Price">
+									<p:outputLabel value="#{bev.price} $ "></p:outputLabel>
+								</p:column>
+
+
+								
+
+								<p:column headerText="Actions">
+
+
+									
+
+
+<!-- <p:commandButton value="View" update=":form:viewDialog"
+										process="@this" oncomplete="PF('ViewDialog').show();">
+
+										<f:setPropertyActionListener
+											target="#{moviesManagedBean.movie}" value="#{movie}" />
+
+									</p:commandButton>
+									
+									p:linkButton outcome="actors" value="Actors"
+										style="margin-right:20px;">
+										<f:param name="id" value="#{movie.id}" />
+									</p:linkButton> -->
+
+									
+
+								</p:column>
+
+
+							</p:dataTable>
+						</p:tab>
+						<p:tab title="STARTERS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<h:outputText />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="SOUP, CHILLI AND SALADS">
+							<h:panelGrid columns="2" cellpadding="10">
+
+								<h:outputText />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="BURGERS">
+							<h:panelGrid columns="2" cellpadding="10">
+
+								<h:outputText />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="DESSERTS">
+							<h:panelGrid columns="2" cellpadding="10">
+
+								<h:outputText />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="SUNSTITUION SIDES">
+							<h:panelGrid columns="2" cellpadding="10">
+
+								<h:outputText />
+							</h:panelGrid>
+						</p:tab>
+					</p:accordionPanel>
+
 
 				</h:form>
 

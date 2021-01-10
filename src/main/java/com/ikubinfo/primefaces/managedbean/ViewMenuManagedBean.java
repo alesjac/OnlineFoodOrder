@@ -11,12 +11,13 @@ import javax.faces.bean.ManagedProperty;
 import com.ikubinfo.primefaces.model.Sustenance;
 import com.ikubinfo.primefaces.service.ViewMenuService;
 
-@ManagedBean
+@ManagedBean(name="menuBean")
 @ViewScoped
 public class ViewMenuManagedBean implements Serializable {
 	private static final long serialVersionUID = 3800933422824282320L;
 
 	List<Sustenance> beverages;
+	Sustenance bev;
 	List<Sustenance> starters;
 	List<Sustenance> soupChilliSalads;
 	List<Sustenance> burgers;
@@ -29,6 +30,7 @@ public class ViewMenuManagedBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		beverages = viewMenuService.getBeverages();
+		bev=new Sustenance();
 		starters= viewMenuService.getStarters();
 		soupChilliSalads = viewMenuService.getSoupChilliSalads();
 		burgers=viewMenuService.getBurgers();
@@ -80,5 +82,14 @@ public class ViewMenuManagedBean implements Serializable {
 	public void setBeverages(List<Sustenance> beverages) {
 		this.beverages = beverages;
 	}
+
+	public Sustenance getBev() {
+		return bev;
+	}
+
+	public void setBev(Sustenance bev) {
+		this.bev = bev;
+	}
+	
 
 }
