@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.swing.text.View;
 import javax.faces.bean.ManagedProperty;
 import com.ikubinfo.primefaces.model.Sustenance;
 import com.ikubinfo.primefaces.service.ViewMenuService;
@@ -93,13 +92,7 @@ public class ViewMenuManagedBean implements Serializable {
 		this.beverages = beverages;
 	}
 
-	public Sustenance getBev() {
-		return beve;
-	}
 
-	public void setBev(Sustenance beve) {
-		this.beve = beve;
-	}
 
 	public Messages getMessages() {
 		return messages;
@@ -107,6 +100,14 @@ public class ViewMenuManagedBean implements Serializable {
 
 	public void setMessages(Messages messages) {
 		this.messages = messages;
+	}
+
+	public Sustenance getBeve() {
+		return beve;
+	}
+
+	public void setBeve(Sustenance beve) {
+		this.beve = beve;
 	}
 	
 

@@ -16,8 +16,7 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-			<p:growl id="growl" showDetail="true"
-				skipDetailIfEqualsSummary="true" />
+			<p:growl id="growl" />
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
 					action="#{adminBean.logout}">
@@ -31,7 +30,7 @@
 					value="Welcome to Admin Page #{adminBean.adminByUsername.name} #{adminBean.adminByUsername.surname}"></h:outputText>
 
 
-				<h:form id="formAdminPage">
+				<h:form id="form1">
 
 
 
@@ -43,31 +42,17 @@
 							<p:commandButton value="Add Beverage" update="addBevForm"
 								process="@this" oncomplete="PF('AddBevDialog').show();">
 
-								<f:setPropertyActionListener target="#{menuBean.bev}"
-									value="#{bev}" />
-
 							</p:commandButton>
 
 							<br></br>
-							<p:dataTable
-								styleClass="#{movie.rentalRate > 2 ? 'green': 'bluye'}"
-								id="tableBeverages" value="#{menuBean.beverages}" var="bev">
-
-
-								<p:commandButton value="Add Beverage" update="addBevForm"
-									process="@this" oncomplete="PF('AddBevDialog').show();">
-
-									<f:setPropertyActionListener target="#{menuBean.bev}"
-										value="#{bev}" />
-
-								</p:commandButton>
+							<p:dataTable id="table1" value="#{menuBean.beverages}" var="bev">
 
 
 								<p:column headerText="Name">
 									<p:outputLabel value="#{bev.name}"></p:outputLabel>
 								</p:column>
 
-								<p:column headerText="Ingedients">
+								<p:column headerText="Ingredients">
 									<p:outputLabel value="#{bev.ingredients}"></p:outputLabel>
 								</p:column>
 
@@ -81,14 +66,9 @@
 								<p:column headerText="Actions">
 
 
-
-
-
-
-
-
-
 								</p:column>
+
+
 
 							</p:dataTable>
 						</p:tab>
@@ -115,7 +95,7 @@
 								<h:outputText />
 							</h:panelGrid>
 						</p:tab>
-						<p:tab title="SUNSTITUION SIDES">
+						<p:tab title="SUBSTITUION SIDES">
 							<h:panelGrid columns="2" cellpadding="10">
 
 								<h:outputText />
@@ -145,30 +125,35 @@
 
 
 						<h:panelGrid columns="3">
-							<h:outputLabel value="Name: " for="name"></h:outputLabel>
+							<h:outputLabel value="Name: " for="name" />
 							<h:inputText id="name" required="true"
 								value="#{menuBean.beve.name}"></h:inputText>
+							<br></br>
 
 							<h:outputLabel value="Ingredients: " for="ingr"></h:outputLabel>
 							<h:inputText id="ingr" required="true"
 								value="#{menuBean.beve.ingredients}"></h:inputText>
-
+							<br></br>
 							<h:outputLabel value="Price: " for="price"></h:outputLabel>
 							<h:inputText id="price" required="true"
 								value="#{menuBean.beve.price}"></h:inputText>
 
+							<br></br>
 
-
-							<p:commandButton process="addBevDialog" update="growl"
-								value="Add" actionListener="#{menuBean.addBev}"
+							<p:commandButton process="addBevDialog"
+								update="growl" value="Add"
+								actionListener="#{menuBean.addBev}"
 								oncomplete="PF('AddBevDialog').hide();">
+
+								<f:setPropertyActionListener target="#{menuBean.beve}"
+									value="#{bev}" />
 
 							</p:commandButton>
 
 
 
 						</h:panelGrid>
-h
+
 
 					</p:dialog>
 
