@@ -13,7 +13,7 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
-		<p:growl id="growl" sticky="true" showDetail="true" />
+			<p:growl id="growl" sticky="true" showDetail="true" />
 			<section id="sectionClient">
 
 
@@ -21,30 +21,26 @@
 				<p class="para3	">LOGIN OR REGISTER TO ORDER</p>
 
 				<h:form id="formClient">
-					
+
 					<p:panel header="Login to order">
-    
+
 						<h:panelGrid columns="2" cellpadding="5">
 							<p:outputLabel for="username" value="Username" />
 							<p:inputText id="username" required="true" label="username"
 								value="#{clientLoginManagedBean.username}">
 
 							</p:inputText>
-							
+
 							<p:outputLabel for="password" value="Password" />
 							<p:password id="password" required="true" label="password"
 								value="#{clientLoginManagedBean.password}">
 
 							</p:password>
 
-						<p:commandButton value="Login" update="growl"
-							action="#{clientLoginManagedBean.login}" id="login" >
-							
-						
-							
-							 
-						</p:commandButton>
-						
+							<p:commandButton value="Login" update="growl"
+								action="#{clientLoginManagedBean.login}" id="login">
+							</p:commandButton>
+
 						</h:panelGrid>
 
 					</p:panel>

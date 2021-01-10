@@ -16,26 +16,14 @@ import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-@ManagedBean
+@ManagedBean(name="calendarView")
 @ViewScoped
 public class CalendarManagedBean {
-	private Date date1;
-    private Date date2;
-    private Date date3;
-    private Date date4;
+	
     private Date date5;
-    private Date date6;
-    private Date date7;
-    private Date date8;
-    private Date date9;
+   
     private Date dateDe;
-    private Date date10;
-    private Date date11;
-    private Date date12;
-    private Date date13;
-    private Date date14;
-    private Date date15;
-    private Date date16;
+   
     private Date dateTimeDe;
     private List<Date> multi;
     private List<Date> range;
@@ -98,38 +86,12 @@ public class CalendarManagedBean {
         PrimeFaces.current().executeScript("PF('dlg').show()");
     }
  
-    public Date getDate1() {
-        return date1;
-    }
+   
  
-    public void setDate1(Date date1) {
-        this.date1 = date1;
-    }
+   
  
-    public Date getDate2() {
-        return date2;
-    }
- 
-    public void setDate2(Date date2) {
-        this.date2 = date2;
-    }
- 
-    public Date getDate3() {
-        return date3;
-    }
- 
-    public void setDate3(Date date3) {
-        this.date3 = date3;
-    }
- 
-    public Date getDate4() {
-        return date4;
-    }
- 
-    public void setDate4(Date date4) {
-        this.date4 = date4;
-    }
- 
+  
+
     public Date getDate5() {
         return date5;
     }
@@ -138,77 +100,7 @@ public class CalendarManagedBean {
         this.date5 = date5;
     }
  
-    public Date getDate6() {
-        return date6;
-    }
- 
-    public void setDate6(Date date6) {
-        this.date6 = date6;
-    }
- 
-    public Date getDate7() {
-        return date7;
-    }
- 
-    public void setDate7(Date date7) {
-        this.date7 = date7;
-    }
- 
-    public Date getDate8() {
-        return date8;
-    }
- 
-    public void setDate8(Date date8) {
-        this.date8 = date8;
-    }
- 
-    public Date getDate9() {
-        return date9;
-    }
- 
-    public void setDate9(Date date9) {
-        this.date9 = date9;
-    }
- 
-    public Date getDate10() {
-        return date10;
-    }
- 
-    public void setDate10(Date date10) {
-        this.date10 = date10;
-    }
- 
-    public Date getDate11() {
-        return date11;
-    }
- 
-    public void setDate11(Date date11) {
-        this.date11 = date11;
-    }
- 
-    public Date getDate12() {
-        return date12;
-    }
- 
-    public void setDate12(Date date12) {
-        this.date12 = date12;
-    }
- 
-    public Date getDate13() {
-        return date13;
-    }
- 
-    public void setDate13(Date date13) {
-        this.date13 = date13;
-    }
- 
-    public Date getDate14() {
-        return date14;
-    }
- 
-    public void setDate14(Date date14) {
-        this.date14 = date14;
-    }
+
  
     public List<Date> getMulti() {
         return multi;
@@ -274,13 +166,7 @@ public class CalendarManagedBean {
         this.dateDe = dateDe;
     }
  
-    public Date getDate15() {
-        return date15;
-    }
- 
-    public void setDate15(Date date15) {
-        this.date15 = date15;
-    }
+   
  
     public Date getMinTime() {
         return minTime;
@@ -298,13 +184,7 @@ public class CalendarManagedBean {
         this.maxTime = maxTime;
     }
  
-    public Date getDate16() {
-        return date16;
-    }
- 
-    public void setDate16(Date date16) {
-        this.date16 = date16;
-    }
+  
  
     public Date getMinDateTime() {
         return minDateTime;

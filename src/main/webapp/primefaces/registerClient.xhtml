@@ -10,8 +10,8 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
+		<p:growl id="growl"></p:growl>
 			<section id="sectionRegisterClient">
-				<p:growl id="growl"></p:growl>
 
 				<br></br>
 				<p class="para4	">REGISTER PAGE</p>
@@ -22,39 +22,40 @@
 					<h3>Write down your personal info</h3>
 					
 	                <br></br>
-					<span class="ui-float-label"> <p:inputText id="float-input1" />
+					<span class="ui-float-label"> <p:inputText id="float-input1" value="#{registerBean.client.name}" />
 						<p:outputLabel for="@previous" value="Name" />
 					</span>
 				
 					<br></br>
 	                <br></br>
-					<span class="ui-float-label"> <p:inputText id="float-input2" />
+					<span class="ui-float-label"> <p:inputText id="float-input2" value="#{registerBean.client.surname}"/>
 						<p:outputLabel for="@previous" value="Surname" />
 					</span>
 					<br></br>
 					<br></br>
 
-					<span class="ui-float-label"> <p:inputText id="float-input3" />
+					<span class="ui-float-label"> <p:inputText id="float-input3" value="#{registerBean.client.username}"/>
 						<p:outputLabel for="@previous" value="Username" />
 					</span>
 					<br></br>
 					<br></br>
 
 					<span class="ui-float-label"> 
-					<p:password id="feedback" feedback="true" />
+					<p:password id="feedback" feedback="true" value="#{registerBean.client.password}"/>
 					 <p:outputLabel for="@previous" value="Password" />
 					</span>
 					<br></br>
 					<br></br>
 
 					<span class="ui-float-label"> 
-					<p:calendar id="german" value="#{calendarView.date5}"
+					<p:calendar id="english" value="#{registerBean.client.birthday}" yearRange="1950:#{calendarView.maxDate}"
 					 locale="en" navigator="true" pattern="yyyy-MMM-dd" /> 
 					<p:outputLabel for="@previous" value="Birthday" />
 					</span>
 						<br></br>
 					<br></br>
-					 <p:commandButton class="submitButton" value="Sign Up" update="growl" icon="pi pi-check"  />
+					 <p:commandButton class="submitButton" value="Sign Up" update="growl" icon="pi pi-check"
+					 actionListener="#{registerBean.registerClient}"  />
                      
 
 

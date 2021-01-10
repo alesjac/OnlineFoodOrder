@@ -18,7 +18,7 @@ public class Messages {
 	}
 
 	public void showErrorMessage(String message) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", message));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
 	}
 
 	public void showFatalMessage(String message) {

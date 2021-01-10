@@ -10,6 +10,7 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
+		<p:growl id="growl" sticky="true" showDetail="true" />
 			<section id="sectionAdminEmployee">
 				
 
@@ -20,21 +21,21 @@
 				<h:form id="formAdminEmployee">
 					
 
-					<p:growl id="growl" sticky="true" showDetail="true" />
+					
 
 					<h:panelGrid columns="2" cellpadding="5">
 						<h:outputLabel for="username" value="Username:" />
-						<p:inputText id="username" value="#{adminLoginManagedBean.username}"
+						<p:inputText id="username" value="#{adminBean.username}"
 							required="true" label="username" />
                         <p:message for="username" display="text" />
                         <br></br>
 						<h:outputLabel for="password" value="Password:" />
-						<p:password id="password" value="#{adminLoginManagedBean.password}"
+						<p:password id="password" value="#{adminBean.password}"
 							required="true" label="password" />
                           <p:message for="password"  display="text"/>
 						    <br></br>
 							<p:commandButton value="Login" update="growl"
-								action="#{adminLoginManagedBean.login}"
+								action="#{adminBean.login}"
 								>
 								</p:commandButton>
 						

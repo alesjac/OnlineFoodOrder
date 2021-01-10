@@ -15,15 +15,16 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
+			<p:growl id="growl"></p:growl>
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
-				action="#{clientPageManagedBean.logout}">
+					action="#{clientPageManagedBean.logout}">
 				</p:commandButton>
 				<br></br>
 			</h:form>
 
 			<section class="showcaseClient">
-			<br></br>
+				<br></br>
 
 
 				<h:outputText id="welcomeClient"
@@ -31,13 +32,11 @@
 
 
 				<h:form id="from">
-					<p:growl id="growl"></p:growl>
 
 					<div class="info">
 
 						<p class="details">YOUR PERSONAL DETAILS.</p>
-						<p:panelGrid columns="2" id="personalInfo"
-							>
+						<p:panelGrid columns="2" id="personalInfo">
 
 
 							<h:outputText value="Name:" />
@@ -61,44 +60,51 @@
 					</div>
 
 					<br></br>
+					<br></br>
 					<p:commandButton value="Edit" update="updateDialog"
 						class="editButton" process="@this"
 						oncomplete="PF('EditDialog').show();">
 
-						<f:setPropertyActionListener
-							target="#{clientPageManagedBean.client}" value="#{clientPageManagedBean.client.username}" />
 
 					</p:commandButton>
+
+					<p:commandButton value="Change password" update="passwordDialog"
+						class="changePasswordButton" process="@this"
+						oncomplete="PF('PasswordDialog').show();">
+
+					
+
+					</p:commandButton>
+
+					<!-- DIALOGS -->
 					<p:dialog header="Edit Personal Information" id="updateDialog"
 						widgetVar="EditDialog" modal="true">
 
 
 						<h:panelGrid columns="3">
 							<h:outputLabel value="Name " for="updateName"></h:outputLabel>
-							<h:inputText id="updateName" required="true" value="#{clientPageManagedBean.client.name}"></h:inputText>
+							<h:inputText id="updateName" required="true"
+								value="#{clientPageManagedBean.client.name}"></h:inputText>
 							<br></br>
 
 							<h:outputLabel value="Surname " for="updateSurname"></h:outputLabel>
-							<h:inputText id="updateSurname" required="true" value="#{clientPageManagedBean.client.surname}"></h:inputText>
-							<br></br>
-							<h:outputLabel value="Username " for="updateUsername"></h:outputLabel>
-							<h:inputText id="updateUsername" required="true" value="#{clientPageManagedBean.client.username}"></h:inputText>
+							<h:inputText id="updateSurname" required="true"
+								value="#{clientPageManagedBean.client.surname}"></h:inputText>
 							<br></br>
 
 
-							<p:commandButton process="updateDialog"
-								update="personalInfo growl" value="Save"
-								oncomplete="PF('EditDialog').hide();">
+							<p:commandButton process="updateDialog" update="growl"
+								value="Save" oncomplete="PF('EditDialog').hide();">
 
 							</p:commandButton>
-							
+
 							<p:commandButton process="updateDialog"
 								update="personalInfo growl" value="Exit"
 								oncomplete="PF('EditDialog').hide();">
 
 							</p:commandButton>
-							
-							
+
+
 
 
 
@@ -106,6 +112,51 @@
 
 
 					</p:dialog>
+
+
+
+
+					<p:dialog header="Change password" id="passwordDialog"
+						widgetVar="PasswordDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Your current password "
+								for="currentPassword"></h:outputLabel>
+							<p:password id="currentPassword" required="true"
+								value="#{clientPageManagedBean.oldPasswordTyped}"></p:password>
+							<br></br>
+
+							<h:outputLabel value="Your new password" for="newPassword"></h:outputLabel>
+							<p:password id="newPassword" required="true" value="#{clientPageManagedBean.newPassword}"></p:password>
+							<br></br>
+							<h:outputLabel value="Retype your new password" for="retypeNewPassword"></h:outputLabel>
+							<p:password id="retypeNewPassword" required="true"
+								value="#{clientPageManagedBean.newPasswordRetyped}"></p:password>
+							<br></br>
+
+
+							<p:commandButton process="passwordDialog" update="growl"
+								value="Save"
+								actionListener="#{clientPageManagedBean.changePassword}"
+								oncomplete="PF('PasswordDialog').hide();">
+
+							</p:commandButton>
+
+
+
+
+
+
+
+						</h:panelGrid>
+
+
+					</p:dialog>
+
+
+
+
 
 
 
@@ -120,12 +171,12 @@
 						</p:commandButton>
 
 						<br></br> <br></br> <br></br>
-						<p:button class="orderButton" outcome="order" value="Order."
+						<p:button class="orderButton" outcome="order" value="Order"
 							icon="pi pi-star" style="color:black;">
 
 						</p:button>
 						<br></br> <br></br> <br></br>
-						<p:commandButton class="changePassButton" value="Change password."
+						<p:commandButton class="clientOrders" value="Your orders"
 							icon="pi pi-star" style="color:black;">
 
 						</p:commandButton>
@@ -212,7 +263,18 @@
 .editButton {
 	position: relative;
 	text-align: center;
-	left: 25%;
+	left: 22%;
+	top: 50px;
+	background-color: transparent;
+	border-style: inset;
+	font-family: 'Courier New';
+	background-color: transparent;
+}
+
+.changePasswordButton {
+	position: relative;
+	text-align: center;
+	left: 24%;
 	top: 50px;
 	background-color: transparent;
 	border-style: inset;
@@ -252,7 +314,7 @@
 	padding: 15px 5px;
 }
 
-.changePassButton {
+.clientOrders {
 	position: relative;
 	text-align: center;
 	left: 20%;

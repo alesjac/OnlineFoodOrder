@@ -5,10 +5,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<title>ADMIN PAGE</title>
-<f:metadata> 
-<f:param name="username" value="#{adminLoginManagedBean.username}"></f:param>
-</f:metadata>
+	<title>ADMIN PAGE</title>
+	<f:metadata>
+		<f:param name="username" value="#{adminBean.username}"></f:param>
+	</f:metadata>
 
 </h:head>
 <h:body>
@@ -17,40 +17,47 @@
 
 		<ui:define name="content">
 			<p:growl id="growl"></p:growl>
+			<h:form>
+				<p:commandButton class="logoutButton" value="Log out"
+					action="#{adminBean.logout}">
+				</p:commandButton>
+				<br></br>
+			</h:form>
 
 			<section id="showcase">
-			<br></br>
-			<h:outputText id="welcome" value="Welcome to Admin Page #{adminLoginManagedBean.adminByUsername.name} #{adminLoginManagedBean.adminByUsername.surname}"></h:outputText>
-			
-				
+				<br></br>
+				<h:outputText id="welcome"
+					value="Welcome to Admin Page #{adminBean.adminByUsername.name} #{adminLoginManagedBean.adminByUsername.surname}"></h:outputText>
+
+
 				<h:form id="formForBeverages">
-				
-				
-				
-				<!-- 3 fusha me emer: ingredients: price + button add
+
+
+
+					<!-- 3 fusha me emer: ingredients: price + button add
 				tabela e Beverages me emer / ingr /price/ -> edit... all remove
 				-->
-				
+
 				</h:form>
-				
-				
-				
-				
+
+
+
+
 				<h:form id="formForStarters">
-				
-				
+
+
 				</h:form>
-				
-				
-				
-				
+
+
+
+
 			</section>
 
 
-				<style>
+			<style>
 #welcome {
-   position: relative;
-    left: 34%;
+	position: relative;
+	left: 34%;
 	font-family: "Copperplate Gothic Light";
 	font-size: 30px;
 	font-style: italic;
@@ -70,7 +77,12 @@
 	background-position: center;
 }
 
-
+.logoutButton {
+	margin: 0;
+	position: absolute;
+	top: 19%;
+	left: 92.5%;
+}
 </style>
 
 		</ui:define>
