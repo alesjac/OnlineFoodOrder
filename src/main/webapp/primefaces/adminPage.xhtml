@@ -72,9 +72,40 @@
 							</p:dataTable>
 						</p:tab>
 						<p:tab title="STARTERS">
-							<h:panelGrid columns="2" cellpadding="10">
-								<h:outputText />
-							</h:panelGrid>
+							<br></br>
+							<p:commandButton value="Add Starters" update="addStartersForm"
+								process="@this" oncomplete="PF('AddStartersDialog').show();">
+
+							</p:commandButton>
+
+							<br></br>
+							<p:dataTable id="table2" value="#{menuBean.starters}"
+								var="starters">
+
+
+								<p:column headerText="Name">
+									<p:outputLabel value="#{starter.name}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Ingredients">
+									<p:outputLabel value="#{starter.ingredients}"></p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Price">
+									<p:outputLabel value="#{starter.price} $ "></p:outputLabel>
+								</p:column>
+
+
+
+
+								<p:column headerText="Actions">
+
+
+								</p:column>
+
+
+
+							</p:dataTable>
 						</p:tab>
 						<p:tab title="SOUP, CHILLI AND SALADS">
 							<h:panelGrid columns="2" cellpadding="10">
@@ -139,13 +170,54 @@
 
 							<br></br>
 
-							<p:commandButton process="addBevDialog"
-								update="growl" value="Add"
-								actionListener="#{menuBean.addBev}"
+							<p:commandButton process="addBevDialog" update="growl"
+								value="Add" actionListener="#{menuBean.addBev}"
 								oncomplete="PF('AddBevDialog').hide();">
 
 								<f:setPropertyActionListener target="#{menuBean.beve}"
 									value="#{bev}" />
+
+							</p:commandButton>
+
+
+
+						</h:panelGrid>
+
+
+					</p:dialog>
+
+				</h:form>
+				
+				<h:form id="addStartersForm">
+
+
+					<p:dialog header="Add Starters" id="addStartersDialog"
+						widgetVar="AddStartersDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Name: " for="name" />
+							<h:inputText id="name" required="true"
+								value="#{menuBean.starter.name}"></h:inputText>
+							<br></br>
+
+							<h:outputLabel value="Ingredients: " for="ingr"></h:outputLabel>
+							<h:inputText id="ingr" required="true"
+								value="#{menuBean.starter.ingredients}"></h:inputText>
+							<br></br>
+							<h:outputLabel value="Price: " for="price"></h:outputLabel>
+							<h:inputText id="price" required="true"
+								value="#{menuBean.starter.price}"></h:inputText>
+
+							<br></br>
+							
+
+							<p:commandButton process="addStartersDialog" update="growl"
+								value="Add" actionListener="#{menuBean.addStarters}"
+								oncomplete="PF('AddStartersDialog').hide();">
+
+								<f:setPropertyActionListener target="#{menuBean.starter}"
+									value="#{starters}" />
 
 							</p:commandButton>
 
