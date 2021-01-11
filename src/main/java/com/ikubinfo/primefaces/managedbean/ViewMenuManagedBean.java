@@ -7,12 +7,14 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+
 import com.ikubinfo.primefaces.model.Sustenance;
 import com.ikubinfo.primefaces.service.ViewMenuService;
 import com.ikubinfo.primefaces.util.Messages;
 
-@ManagedBean(name="menuBean")
-@ViewScoped
+@ManagedBean(name = "menuBean")
+@SessionScoped
 public class ViewMenuManagedBean implements Serializable {
 	private static final long serialVersionUID = 3800933422824282320L;
 
@@ -32,22 +34,46 @@ public class ViewMenuManagedBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		beverages = viewMenuService.getBeverages();
-		beve=new Sustenance();
-		starters= viewMenuService.getStarters();
+		beve = new Sustenance();
+		starters = viewMenuService.getStarters();
 		soupChilliSalads = viewMenuService.getSoupChilliSalads();
-		burgers=viewMenuService.getBurgers();
-		desserts=viewMenuService.getDesserts();
-		subssides=viewMenuService.getSubstitutionSides();
+		burgers = viewMenuService.getBurgers();
+		desserts = viewMenuService.getDesserts();
+		subssides = viewMenuService.getSubstitutionSides();
 	}
-	
-	//metodat ...
-	
+
 	public void addBev() {
-		if(viewMenuService.addBeverages(beve)==true) {
-			messages.showInfoMessage(beve.getName()+ " beverage succefully added");
-		}else {
+		if (viewMenuService.addBeverages(beve) == true) {
+			messages.showInfoMessage(beve.getName() + " beverage succefully added");
+		} else {
 			messages.showErrorMessage("An error occured");
 		}
+	}
+
+	public void getAllBeverages() {
+		beverages = viewMenuService.getBeverages();
+
+	}
+
+	public void getAllStarters() {
+		starters = viewMenuService.getStarters();
+	}
+
+	public void getAllSoupChillSal() {
+		soupChilliSalads = viewMenuService.getSoupChilliSalads();
+
+	}
+
+	public void getAllBurgers() {
+		burgers = viewMenuService.getBurgers();
+	}
+
+	public void getAllDesserts() {
+		desserts = viewMenuService.getDesserts();
+	}
+
+	public void getAllSS() {
+		subssides = viewMenuService.getSubstitutionSides();
 	}
 
 	public List<Sustenance> getBeverages() {
@@ -92,8 +118,6 @@ public class ViewMenuManagedBean implements Serializable {
 		this.beverages = beverages;
 	}
 
-
-
 	public Messages getMessages() {
 		return messages;
 	}
@@ -109,6 +133,5 @@ public class ViewMenuManagedBean implements Serializable {
 	public void setBeve(Sustenance beve) {
 		this.beve = beve;
 	}
-	
 
 }
