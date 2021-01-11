@@ -1,10 +1,174 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="orderhello"></meta>
-<title>Order</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>ADMIN PAGE</title>
+	<f:metadata>
+		<f:param name="username"></f:param>
+	</f:metadata>
 
-</body>
+</h:head>
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:commandButton class="logoutButton" value="Log out"
+					action="#{clientPageManagedBean.logout}">
+				</p:commandButton>
+				<br></br>
+			</h:form>
+
+			<section id="showcase">
+				<br></br>
+				<h:outputText id="welcome" value="WELCOME TO ORDER PAGE"></h:outputText>
+
+
+				<h:form>
+
+					<p:growl id="growl" sticky="true" showDetail="true" />
+
+					<p:wizard >
+						<p:tab id="personal" title="Personal">
+							<p:panel header="Personal Details">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Username: *" />
+									<p:inputText 
+										required="true" label="username" />
+
+									<h:outputText value="Address: *" />
+									<p:inputText 
+										required="true" label="address" />
+									
+									<h:outputText value="Street-Bulding nr-Door number and other info:"></h:outputText>
+									
+										<br></br>
+
+									<h:outputText value="Telephone number: " />
+									<p:inputText />
+
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="beverages" title="Beverages">
+							<p:panel header="Order Beverages">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="starters" title="Starters">
+							<p:panel header="Order Starters">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+						<p:tab id="sss" title="Soup,Chilli and Salads">
+							<p:panel header="Order Soup,Chilli and Salads">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+						
+						<p:tab id="burgers" title="Burgers">
+							<p:panel header="Order Burgers">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+						
+						<p:tab id="desserts" title="Desserts">
+							<p:panel header="Order Desserts">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+						
+						<p:tab id="subsside" title="Substitution side">
+							<p:panel header="Order Substitution side">
+								<p:messages />
+								<h:panelGrid columns="2" columnClasses="label, value">
+									
+								</h:panelGrid>
+							</p:panel>
+						</p:tab>
+
+						<p:tab id="confirm" title="Confirmation">
+							<p:panel header="Your order...">
+								<h:panelGrid id="confirmation" columns="3"
+									columnClasses="grid,grid,grid">
+									<h:panelGrid columns="2" columnClasses="label, value">
+										
+									</h:panelGrid>
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										
+									</h:panelGrid>
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										
+									</h:panelGrid>
+								</h:panelGrid>
+
+								<p:commandButton  />
+							</p:panel>
+						</p:tab>
+					</p:wizard>
+
+				</h:form>
+
+
+
+			</section>
+
+
+			<style>
+#welcome {
+	position: relative;
+	left: 34%;
+	font-family: "Copperplate Gothic Light";
+	font-size: 30px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
+#showcase {
+	min-height: 500px;
+	margin-bottom: 10px;
+	background:
+		url(https://www.coreldraw.com/static/cdgs/images/pages/seo/tips/photo/basics/blur-background/blur-background.jpg);
+	background-repeat: no-repeat;
+	background-size: 1600px 900px;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.logoutButton {
+	margin: 0;
+	position: absolute;
+	top: 19%;
+	left: 92.5%;
+}
+</style>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>
