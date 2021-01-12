@@ -31,25 +31,25 @@
 
 					<p:growl id="growl" sticky="true" showDetail="true" />
 
-					<p:wizard >
+					<p:wizard>
 						<p:tab id="personal" title="Personal">
 							<p:panel header="Personal Details">
 								<p:messages />
+								<!-- Shto reuqired per momentin per test  -->
 								<h:panelGrid columns="2" columnClasses="label, value">
 									<h:outputText value="Username: *" />
-									<p:inputText 
-										required="true" label="username" />
+									<p:inputText  label="username" />
 
 									<h:outputText value="Address: *" />
-									<p:inputText 
-										required="true" label="address" />
-									
-									<h:outputText value="Street-Bulding nr-Door number and other info:"></h:outputText>
-									
-										<br></br>
+									<p:inputText  label="address" />
+
+									<h:outputText
+										value="(Street-Bulding nr-Apartment number and other info)"></h:outputText>
+
+									<br></br>
 
 									<h:outputText value="Telephone number: " />
-									<p:inputText />
+									<p:inputNumber  />
 
 								</h:panelGrid>
 							</p:panel>
@@ -59,6 +59,13 @@
 							<p:panel header="Order Beverages">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
+								
+									<p:selectManyCheckbox id="grid2"
+										value="#{orderBean.selectedBeverages}" layout="responsive"
+										columns="3">
+										<f:selectItems value="#{orderBean.beverages}" var="bev"
+											itemLabel="#{bev.name}  $#{bev.price} " itemValue="#{bev.name}" />
+									</p:selectManyCheckbox>
 									
 								</h:panelGrid>
 							</p:panel>
@@ -68,7 +75,7 @@
 							<p:panel header="Order Starters">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
-									
+
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
@@ -76,34 +83,34 @@
 							<p:panel header="Order Soup,Chilli and Salads">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
-									
+
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
-						
+
 						<p:tab id="burgers" title="Burgers">
 							<p:panel header="Order Burgers">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
-									
+
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
-						
+
 						<p:tab id="desserts" title="Desserts">
 							<p:panel header="Order Desserts">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
-									
+
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
-						
+
 						<p:tab id="subsside" title="Substitution side">
 							<p:panel header="Order Substitution side">
 								<p:messages />
 								<h:panelGrid columns="2" columnClasses="label, value">
-									
+
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
@@ -113,19 +120,19 @@
 								<h:panelGrid id="confirmation" columns="3"
 									columnClasses="grid,grid,grid">
 									<h:panelGrid columns="2" columnClasses="label, value">
-										
+
 									</h:panelGrid>
 
 									<h:panelGrid columns="2" columnClasses="label, value">
-										
+
 									</h:panelGrid>
 
 									<h:panelGrid columns="2" columnClasses="label, value">
-										
+
 									</h:panelGrid>
 								</h:panelGrid>
 
-								<p:commandButton  />
+								<p:commandButton />
 							</p:panel>
 						</p:tab>
 					</p:wizard>

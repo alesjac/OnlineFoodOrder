@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import com.ikubinfo.primefaces.model.Client;
 import com.ikubinfo.primefaces.service.ClientService;
+import com.ikubinfo.primefaces.service.ViewMenuService;
 import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean
@@ -32,10 +33,12 @@ public class ClientPageManagedBean implements Serializable {
 
 	@ManagedProperty(value = "#{messages}")
 	private Messages messages;
-
+	
+	
 	@PostConstruct
 	public void init() {
 		client = getClientByUsername();
+		
 
 	}
 
