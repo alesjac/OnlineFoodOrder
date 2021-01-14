@@ -1,6 +1,6 @@
 package com.ikubinfo.primefaces.model;
 
-import java.util.List; 
+import java.util.List;  
 
 public class Order {
 	private int id;

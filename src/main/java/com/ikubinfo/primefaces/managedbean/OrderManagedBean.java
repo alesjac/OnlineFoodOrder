@@ -297,7 +297,7 @@ public class OrderManagedBean implements Serializable {
 	}
 
 	public void setTotalPriceBev(double totalPriceBev) {
-		this.totalPriceBev = totalPriceBev;
+		this.totalPriceBev = totalPriceBev; 
 	}
 
 	public List<Integer> getQuantitySelectedBev() {
