@@ -32,7 +32,7 @@ public class OrderManagedBean implements Serializable {
 
 	private String username;
 	private String address;
-	private int number;
+	private int number; 
 
 	private List<Sustenance> beverages;
 	private List<Sustenance> starters;
