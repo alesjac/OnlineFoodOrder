@@ -61,13 +61,7 @@
 
 					<br></br>
 					<br></br>
-					<p:commandButton value="Edit" update="updateDialog"
-						class="editButton" process="@this"
-						oncomplete="PF('EditDialog').show();">
-
-
-					</p:commandButton>
-
+					
 					<p:commandButton value="Change password" update="passwordDialog"
 						class="changePasswordButton" process="@this"
 						oncomplete="PF('PasswordDialog').show();">
@@ -77,41 +71,7 @@
 					</p:commandButton>
 
 					<!-- DIALOGS -->
-					<p:dialog header="Edit Personal Information" id="updateDialog"
-						widgetVar="EditDialog" modal="true">
-
-
-						<h:panelGrid columns="3">
-							<h:outputLabel value="Name " for="updateName"></h:outputLabel>
-							<h:inputText id="updateName" required="true"
-								value="#{clientPageManagedBean.client.name}"></h:inputText>
-							<br></br>
-
-							<h:outputLabel value="Surname " for="updateSurname"></h:outputLabel>
-							<h:inputText id="updateSurname" required="true"
-								value="#{clientPageManagedBean.client.surname}"></h:inputText>
-							<br></br>
-
-
-							<p:commandButton process="updateDialog" update="growl"
-								value="Save" oncomplete="PF('EditDialog').hide();">
-
-							</p:commandButton>
-
-							<p:commandButton process="updateDialog"
-								update="personalInfo growl" value="Exit"
-								oncomplete="PF('EditDialog').hide();">
-
-							</p:commandButton>
-
-
-
-
-
-						</h:panelGrid>
-
-
-					</p:dialog>
+				
 
 
 

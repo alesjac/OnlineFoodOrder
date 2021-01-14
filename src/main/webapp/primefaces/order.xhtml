@@ -27,21 +27,21 @@
 				<h:outputText id="welcome" value="WELCOME TO ORDER PAGE"></h:outputText>
 
 
-				<h:form>
+				<h:form id="formOrder">
 
-					<p:growl id="growl" sticky="true" showDetail="true" />
-
+					<p:growl id="msgs" showDetail="true"
+						skipDetailIfEqualsSummary="true" />
 					<p:wizard>
 						<p:tab id="personal" title="Personal">
 							<p:panel header="Personal Details">
 								<p:messages />
-								<!-- Shto reuqired per momentin per test  -->
+
 								<h:panelGrid columns="2" columnClasses="label, value">
 									<h:outputText value="Username: *" />
-									<p:inputText  label="username" />
+									<p:inputText label="username" value="#{orderBean.username}" />
 
 									<h:outputText value="Address: *" />
-									<p:inputText  label="address" />
+									<p:inputText label="address" value="#{orderBean.address}" />
 
 									<h:outputText
 										value="(Street-Bulding nr-Apartment number and other info)"></h:outputText>
@@ -49,87 +49,235 @@
 									<br></br>
 
 									<h:outputText value="Telephone number: " />
-									<p:inputNumber  />
+									<p:inputText value="#{orderBean.number}" />
 
 								</h:panelGrid>
 							</p:panel>
 						</p:tab>
+
+
 
 						<p:tab id="beverages" title="Beverages">
 							<p:panel header="Order Beverages">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
-								
-									<p:selectManyCheckbox id="grid2"
-										value="#{orderBean.selectedBeverages}" layout="responsive"
-										columns="3">
-										<f:selectItems value="#{orderBean.beverages}" var="bev"
-											itemLabel="#{bev.name}  $#{bev.price} " itemValue="#{bev.name}" />
-									</p:selectManyCheckbox>
-									
-								</h:panelGrid>
+
+>
+										<p:selectManyCheckbox value="#{orderBean.selectedBeverages}"
+									layout="grid" columns="1">
+
+
+									<f:selectItems value="#{orderBean.beverages}" var="bev"
+										itemLabel="#{bev.name} $#{bev.price}" itemValue="#{bev.name}" />
+
+
+
+
+
+								</p:selectManyCheckbox>
+								<h:inputText rendered="#{orderBean.visible}"></h:inputText>
+
+								<p:commandButton value="Submit" update="display"
+									oncomplete="PF('dlg').show()" icon="pi pi-check" />
+
 							</p:panel>
+							<p:dialog header="Values" modal="true" showEffect="clip"
+								widgetVar="dlg" resizable="false">
+								<p:outputPanel id="display">
+									<p:dataList value="#{orderBean.selectedBeverages}" var="bev">
+
+										<f:facet name="header">
+                                    Set quantity for selected items
+                                       </f:facet>
+                                       
+                                               #{bev}
+                                              
+									</p:dataList>
+									<h:commandButton value="Save"
+										actionListener="#{orderBean.totalBev}"></h:commandButton>
+								</p:outputPanel>
+
+							</p:dialog>
+
+
 						</p:tab>
+
+
 
 						<p:tab id="starters" title="Starters">
 							<p:panel header="Order Starters">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
 
-								</h:panelGrid>
+								<p:selectManyCheckbox value="#{orderBean.selectedStarters}"
+									layout="grid" columns="1">
+									<f:selectItems value="#{orderBean.starters}" var="starters"
+										itemLabel="#{starters.name} $#{starters.price}"
+										itemValue="#{starters.name}" />
+								</p:selectManyCheckbox>
+
 							</p:panel>
 						</p:tab>
+
+
+
+
+
+
 						<p:tab id="sss" title="Soup,Chilli and Salads">
 							<p:panel header="Order Soup,Chilli and Salads">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
 
-								</h:panelGrid>
+								<p:selectManyCheckbox value="#{orderBean.selectedSChS}"
+									layout="grid" columns="1">
+									<f:selectItems value="#{orderBean.soupChilliSalads}" var="schs"
+										itemLabel="#{schs.name} $#{schs.price}"
+										itemValue="#{schs.name}" />
+								</p:selectManyCheckbox>
+
 							</p:panel>
 						</p:tab>
 
 						<p:tab id="burgers" title="Burgers">
 							<p:panel header="Order Burgers">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
 
-								</h:panelGrid>
+								<p:selectManyCheckbox value="#{orderBean.selectedBurgers}"
+									layout="grid" columns="1">
+									<f:selectItems value="#{orderBean.burgers}" var="burger"
+										itemLabel="#{burger.name} $#{bev.price}"
+										itemValue="#{burger.name}" />
+								</p:selectManyCheckbox>
+
 							</p:panel>
 						</p:tab>
 
 						<p:tab id="desserts" title="Desserts">
 							<p:panel header="Order Desserts">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
 
-								</h:panelGrid>
+								<p:selectManyCheckbox value="#{orderBean.selectedDesserts}"
+									layout="grid" columns="1">
+									<f:selectItems value="#{orderBean.desserts}" var="dessert"
+										itemLabel="#{dessert.name} $#{dessert.price}"
+										itemValue="#{dessert.name}" />
+								</p:selectManyCheckbox>
+
 							</p:panel>
 						</p:tab>
 
 						<p:tab id="subsside" title="Substitution side">
 							<p:panel header="Order Substitution side">
 								<p:messages />
-								<h:panelGrid columns="2" columnClasses="label, value">
 
-								</h:panelGrid>
+								<p:selectManyCheckbox value="#{orderBean.selectedSubSides}"
+									layout="grid" columns="1">
+									<f:selectItems value="#{orderBean.subssides}" var="subs"
+										itemLabel="#{subs.name} $#{subs.price}"
+										itemValue="#{subs.name}" />
+								</p:selectManyCheckbox>
+
 							</p:panel>
 						</p:tab>
 
 						<p:tab id="confirm" title="Confirmation">
 							<p:panel header="Your order...">
-								<h:panelGrid id="confirmation" columns="3"
-									columnClasses="grid,grid,grid">
-									<h:panelGrid columns="2" columnClasses="label, value">
+								<h:panelGrid id="confirmation" style="background-color: blue;">
+
+
+									<h:panelGrid columns="2" columnClasses="label, value"
+										style=" background-color: Yellow;">
+										<h:outputText value="Personal details" />
+										<br></br>
+										<h:outputText value="Username: " />
+										<h:outputText value="#{orderBean.username}"
+											styleClass="outputLabel" />
+
+										<h:outputText value="Address: " />
+										<h:outputText value="#{orderBean.address}"
+											styleClass="outputLabel" />
+
+										<h:outputText value="Phone number: " />
+										<h:outputText value="#{orderBean.number}"
+											styleClass="outputLabel" />
 
 									</h:panelGrid>
 
-									<h:panelGrid columns="2" columnClasses="label, value">
+
+									<h:panelGrid id="selectedBevPanel" columns="2"
+										columnClasses="label, value">
+										<h:outputText value="Beverages" />
+										<br></br>
+
+										<ui:repeat value="#{orderBean.selectedBeverages}" var="bev">
+											<h:outputText value="#{bev}" />
+											<br />
+										</ui:repeat>
+
 
 									</h:panelGrid>
 
-									<h:panelGrid columns="2" columnClasses="label, value">
+									<h:panelGrid id="selectedStarPanel" columns="2"
+										columnClasses="label, value">
+										<h:outputText value="Starters" />
+										<br></br>
 
+										<ui:repeat value="#{orderBean.selectedStarters}"
+											var="starters">
+											<h:outputText value="#{starters}" />
+											<br />
+										</ui:repeat>
 									</h:panelGrid>
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="Soup,Chilli Salads" />
+										<br></br>
+
+										<ui:repeat value="#{orderBean.selectedSChS}" var="schs">
+											<h:outputText value="#{schs}" />
+											<br />
+										</ui:repeat>
+									</h:panelGrid>
+
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="Burgers" />
+										<br></br>
+
+										<ui:repeat value="#{orderBean.selectedBurgers}" var="burg">
+											<h:outputText value="#{burg}" />
+											<br />
+										</ui:repeat>
+									</h:panelGrid>
+
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="Desserts" />
+										<br></br>
+
+										<ui:repeat value="#{orderBean.selectedDesserts}" var="d">
+											<h:outputText value="#{d}" />
+											<br />
+										</ui:repeat>
+									</h:panelGrid>
+
+
+
+									<h:panelGrid columns="2" columnClasses="label, value">
+										<h:outputText value="Substitution sides" />
+										<br></br>
+
+										<ui:repeat value="#{orderBean.selectedSubSides}" var="sbs">
+											<h:outputText value="#{sbs}" />
+											<br />
+										</ui:repeat>
+									</h:panelGrid>
+
+
+
+
+
+
+
+
 								</h:panelGrid>
 
 								<p:commandButton />
@@ -138,6 +286,9 @@
 					</p:wizard>
 
 				</h:form>
+
+
+
 
 
 
