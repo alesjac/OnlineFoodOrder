@@ -58,4 +58,10 @@ public class ViewMenuServiceImpl implements ViewMenuService {
 		return adminRep.addBeverages(bev);
 	}
 
+	@Override
+	public boolean addStarters(Sustenance susten) {
+		
+		return adminRep.addStarters(susten);
+	}
+
 }

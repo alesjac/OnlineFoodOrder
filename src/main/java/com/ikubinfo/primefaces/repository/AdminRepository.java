@@ -10,4 +10,5 @@ public interface AdminRepository {
 	boolean passwordExists(String password);
 	List<Admin> getAdminByUsername(String username);
 	boolean addBeverages(Sustenance sustenance);
+	boolean addStarters(Sustenance susten);
 }

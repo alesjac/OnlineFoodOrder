@@ -88,6 +88,17 @@ public class AdminRepositoryImpl implements AdminRepository {
 	}
 
 
+	@Override
+	public boolean addStarters(Sustenance susten) {
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", susten.getName());
+		parameters.put("ingredients", susten.getIngredients());
+		parameters.put("price", susten.getPrice());
+		parameters.put("menu_section_id", 2);
+		return insertCategoryQuery.execute(parameters)>0;
+	}
+
+
 
 
 
