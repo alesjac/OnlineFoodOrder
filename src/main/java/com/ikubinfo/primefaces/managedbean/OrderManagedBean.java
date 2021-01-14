@@ -26,7 +26,7 @@ import com.ikubinfo.primefaces.util.Messages;
 @ViewScoped
 public class OrderManagedBean implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
