@@ -7,18 +7,20 @@
 <h:head>
 
 	<f:metadata>
+	<f:viewParam name="username" value="#{clientBean.username}"></f:viewParam>
 	</f:metadata>
 	<title>Client</title>
 </h:head>
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
+	<ui:include src="/primefaces/homepage.xhtml"></ui:include>
 
 		<ui:define name="content">
 			<p:growl id="growl"></p:growl>
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
-					action="#{clientPageManagedBean.logout}">
+					action="#{userBean.logout}">
 				</p:commandButton>
 				<br></br>
 			</h:form>
@@ -28,7 +30,7 @@
 
 
 				<h:outputText id="welcomeClient"
-					value="Welcome to Client Page #{clientPageManagedBean.client.name}"></h:outputText>
+					value="Welcome to Client Page #{clientBean.user.name}"></h:outputText>
 
 
 				<h:form id="from">
@@ -40,16 +42,16 @@
 
 
 							<h:outputText value="Name:" />
-							<h:outputText value="#{clientPageManagedBean.client.name}" />
+							<h:outputText value="#{clientBean.user.name}" />
 
 							<h:outputText value="Surname:" />
-							<h:outputText value="#{clientPageManagedBean.client.surname}" />
+							<h:outputText value="#{clientBean.user.surname}" />
 
 							<h:outputText value="Username:" />
-							<h:outputText value="#{clientPageManagedBean.client.username}" />
+							<h:outputText value="#{clientBean.user.username}" />
 
 							<h:outputText value="Birthday:" />
-							<h:outputText value="#{clientPageManagedBean.client.birthday}">
+							<h:outputText value="#{clientBean.user.birthday}">
 								<f:convertDateTime pattern="dd.MM.yyyy" />
 							</h:outputText>
 
@@ -84,21 +86,21 @@
 							<h:outputLabel value="Your current password "
 								for="currentPassword"></h:outputLabel>
 							<p:password id="currentPassword" required="true"
-								value="#{clientPageManagedBean.oldPasswordTyped}"></p:password>
+								value="#{clientBean.oldPasswordTyped}"></p:password>
 							<br></br>
 
 							<h:outputLabel value="Your new password" for="newPassword"></h:outputLabel>
-							<p:password id="newPassword" required="true" value="#{clientPageManagedBean.newPassword}"></p:password>
+							<p:password id="newPassword" required="true" value="#{clientBean.newPassword}"></p:password>
 							<br></br>
 							<h:outputLabel value="Retype your new password" for="retypeNewPassword"></h:outputLabel>
 							<p:password id="retypeNewPassword" required="true"
-								value="#{clientPageManagedBean.newPasswordRetyped}"></p:password>
+								value="#{clientBean.newPasswordRetyped}"></p:password>
 							<br></br>
 
 
 							<p:commandButton process="passwordDialog" update="growl"
 								value="Save"
-								actionListener="#{clientPageManagedBean.changePassword}"
+								actionListener="#{clientBean.changePassword}"
 								oncomplete="PF('PasswordDialog').hide();">
 
 							</p:commandButton>

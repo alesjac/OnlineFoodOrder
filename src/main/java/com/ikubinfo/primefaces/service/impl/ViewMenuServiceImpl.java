@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ikubinfo.primefaces.model.Sustenance;
-import com.ikubinfo.primefaces.repository.AdminRepository;
+import com.ikubinfo.primefaces.repository.AdminPageRepository;
 import com.ikubinfo.primefaces.repository.ViewMenuRepository;
 import com.ikubinfo.primefaces.service.ViewMenuService;
 
 @Service("viewmenuService")
 public class ViewMenuServiceImpl implements ViewMenuService {
 	private ViewMenuRepository viewMenuRepository;
-	private AdminRepository adminRep;
+	private AdminPageRepository adminRep;
 
-	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository,AdminRepository adminRep) {
+	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository,AdminPageRepository adminRep) {
 		this.viewMenuRepository = viewmenuRepository;
 		this.adminRep=adminRep;
 	}

@@ -68,10 +68,7 @@
 
 									<f:selectItems value="#{orderBean.beverages}" var="bev"
 										itemLabel="#{bev.name} $#{bev.price}" itemValue="#{bev.name}" />
-
-
-
-
+										
 
 								</p:selectManyCheckbox>
 								<h:inputText rendered="#{orderBean.visible}"></h:inputText>
@@ -90,10 +87,11 @@
                                        </f:facet>
                                        
                                                   #{bev}
+                                                  <p:inputNumber value="#{bev.quantityOrdered}" />
                                               
 									</p:dataList>
 									<h:commandButton value="Save"
-										actionListener="#{orderBean.totalBev}"></h:commandButton>
+										actionListener="#{orderBean.test1}"></h:commandButton>
 								</p:outputPanel>
 
 							</p:dialog>

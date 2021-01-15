@@ -12,6 +12,60 @@
         </el-resolver>
     </application> 
     
+    <navigation-rule>
+    <from-view-id>/login.xhtml</from-view-id>
+    <navigation-case>
+    <from-action>#{userBean.login}</from-action>
+    <if>#{userBean.user.role=='ADMIN'}</if>
+    <to-view-id>/administrator/adminPage.xhtml</to-view-id>
+    <redirect/>
+    </navigation-case>
+    
+      <navigation-case>
+    <from-action>#{userBean.login}</from-action>
+    <if>#{userBean.user.role=='CLIENT'}</if>
+    <to-view-id>/client/clientPage.xhtml</to-view-id>
+     <redirect/>
+    </navigation-case>
+    
+    
+    
+     <navigation-case>
+    
+    <to-view-id>/client/registerClient.xhtml</to-view-id>
+     <redirect/>
+    </navigation-case>
+    
+    
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+    
+    <from-view-id>/client/registerClient.xhtml</from-view-id>
+    
+    <navigation-case>
+    <to-view-id>/homepage.xhtml</to-view-id>
+    <redirect/>
+    </navigation-case>
+   
+    
+    </navigation-rule>
+    
+     <navigation-rule>
+    
+    <from-view-id>/client/clientPage.xhtml</from-view-id>
+    
+    <navigation-case>
+    <to-view-id>/homepage.xhtml</to-view-id>
+    <redirect/>
+    </navigation-case>
+   
+    
+    </navigation-rule>
+    
+    
+    
     
    
 </faces-config>

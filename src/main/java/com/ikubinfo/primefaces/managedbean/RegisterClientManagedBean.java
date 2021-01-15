@@ -1,52 +1,64 @@
 package com.ikubinfo.primefaces.managedbean;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.ikubinfo.primefaces.model.Client;
-import com.ikubinfo.primefaces.service.ClientService;
-import com.ikubinfo.primefaces.service.exceptions.ClientErrors;
+import com.ikubinfo.primefaces.model.User;
+import com.ikubinfo.primefaces.service.UserService;
+
+import com.ikubinfo.primefaces.service.exceptions.UserErrors;
 import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean(name = "registerBean")
 @SessionScope
-public class RegisterClientManagedBean {
+public class RegisterClientManagedBean implements Serializable  {
+	private static final long serialVersionUID = 3800933422824282320L;
 
-	private Client client;
-	@ManagedProperty(value = "#{clientService}")
-	private ClientService clientService;
+	private User user;
+	@ManagedProperty(value = "#{userService}")
+	private UserService userService;
 
 	@ManagedProperty(value = "#{messages}")
 	private Messages messages;
 
 	@PostConstruct
 	public void init() {
-		client = new Client();
+		user = new User();
 	}
 
 	public void registerClient() {
 		try {
-			if(clientService.registerClient(client)==true) {
+			if(userService.registerClient(user)==true) {
 				messages.showInfoMessage("Succefully registed!");
 			}else {
 				messages.showErrorMessage("errorr");
 			}
 			
 
-		} catch (ClientErrors e) {
+		} catch (UserErrors e) {
 			e.showErrorMessage("Invalid username! Try another one.");
 		}
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	public Messages getMessages() {
@@ -57,12 +69,6 @@ public class RegisterClientManagedBean {
 		this.messages = messages;
 	}
 
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
-	}
+	
 
 }

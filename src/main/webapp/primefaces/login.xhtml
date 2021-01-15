@@ -11,6 +11,9 @@
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
+	<ui:include src="administrator/adminPage.xhtml"></ui:include>
+	<ui:include src="client/clientPage.xhtml"></ui:include>
+	<ui:include src="client/registerClient.xhtml"></ui:include>
 
 		<ui:define name="content">
 			<p:growl id="growl" sticky="true" showDetail="true" />
@@ -18,7 +21,7 @@
 
 
 				<br></br> <br></br> <br></br> <br></br> <br></br> <br></br>
-				<p class="para3	">LOGIN OR REGISTER TO ORDER</p>
+				<p class="para3	">LOGIN</p>
 
 				<h:form id="formClient">
 
@@ -27,27 +30,28 @@
 						<h:panelGrid columns="2" cellpadding="5">
 							<p:outputLabel for="username" value="Username" />
 							<p:inputText id="username" required="true" label="username"
-								value="#{clientLoginManagedBean.username}">
+								value="#{userBean.user.username}">
 
 							</p:inputText>
 
 							<p:outputLabel for="password" value="Password" />
 							<p:password id="password" required="true" label="password"
-								value="#{clientLoginManagedBean.password}">
+								value="#{userBean.user.password}">
 
 							</p:password>
 
 							<p:commandButton value="Login" update="growl"
-								action="#{clientLoginManagedBean.login}" id="login">
+								action="#{userBean.login}" id="login">
+								<f:attribute name="username" value="#{userBean.user.username}"/>
 							</p:commandButton>
 
 						</h:panelGrid>
 
 					</p:panel>
 					<br></br>
-					<p:link outcome="registerClient" value="Register here"
+					<p:link outcome="client/registerClient" value="Register here"
 						class="registerLink">
-						<f:param name="nothing" />
+						<f:param name="reg" />
 					</p:link>
 					<h4 class="registerInfo">if you don't have an account</h4>
 				</h:form>

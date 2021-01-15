@@ -3,10 +3,10 @@ package com.ikubinfo.primefaces.service.exceptions;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public class ClientErrors extends RuntimeException{
+public class UserErrors extends RuntimeException{
 	private static final long serialVersionUID =1L;
 
-	public ClientErrors(String message) {
+	public UserErrors(String message) {
 		super(message);
 
 	}

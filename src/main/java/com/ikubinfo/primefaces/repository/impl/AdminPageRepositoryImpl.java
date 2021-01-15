@@ -13,24 +13,20 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import com.ikubinfo.primefaces.model.Admin;
+
 import com.ikubinfo.primefaces.model.Sustenance;
-import com.ikubinfo.primefaces.repository.AdminRepository;
-import com.ikubinfo.primefaces.repository.mapper.LoginAdminRowMapper;
+import com.ikubinfo.primefaces.repository.AdminPageRepository;
+
 
 @Repository
-public class AdminRepositoryImpl implements AdminRepository {
-
-	private static final String GET_ADMIN ="SELECT COUNT(*) FROM admin WHERE username =?";
-	private static final String GET_ADMIN2 ="SELECT COUNT(*) FROM admin WHERE password =?";
-	private static final String GET_ADMIN_BY_USERNAME="SELECT * FROM admin WHERE username = :username";
+public class AdminPageRepositoryImpl implements AdminPageRepository {
 	
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert insertCategoryQuery;
 	@Autowired
-	public AdminRepositoryImpl(DataSource datasource) {
+	public AdminPageRepositoryImpl(DataSource datasource) {
 		super();
 	
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(datasource);
@@ -40,41 +36,7 @@ public class AdminRepositoryImpl implements AdminRepository {
 	}
 	
 	
-	@Override
-	public boolean usernameExists(String username) {
-		
-		int number = jdbcTemplate.queryForObject(GET_ADMIN, Integer.class,username);
-				
-		if (number==0) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-
-
-
-
-	@Override
-	public boolean passwordExists(String password) {
-		int number = jdbcTemplate.queryForObject(GET_ADMIN2, Integer.class,password);
-		
-		if (number==0) {
-			return false;
-		}else {
-			return true;
-		}
-	}
-
-	@Override
-	public List<Admin> getAdminByUsername(String username) {
-		Map<String,Object> params = new HashMap<>();
-		params.put("username", username);
-		return namedParameterJdbcTemplate.query(GET_ADMIN_BY_USERNAME, params,  new LoginAdminRowMapper() );
-
-	}
-
-
+	
 	@Override
 	public boolean addBeverages(Sustenance sustenance) {
 		Map<String,Object>parameters=new HashMap<String, Object>();

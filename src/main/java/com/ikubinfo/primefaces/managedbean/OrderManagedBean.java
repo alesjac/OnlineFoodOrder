@@ -19,7 +19,6 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import com.ikubinfo.primefaces.model.Order;
 import com.ikubinfo.primefaces.model.Sustenance;
-import com.ikubinfo.primefaces.service.ClientService;
 import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean(name = "orderBean")
@@ -63,14 +62,11 @@ public class OrderManagedBean implements Serializable {
 	
 	
 	private Order order;
-	@ManagedProperty(value = "#{clientService}")
-	private ClientService clientService;
 
 	@ManagedProperty(value = "#{messages}")
 	private Messages messages;
 
-	@ManagedProperty(value = "#{clientLoginManagedBean}")
-	private ClientLoginManagedBean clientLoginMB;
+
 
 	@ManagedProperty(value = "#{menuBean}")
 	private ViewMenuManagedBean viewMenuMB;
@@ -101,6 +97,10 @@ public class OrderManagedBean implements Serializable {
 	
 	public void hide() {
 		visible=false;
+	}
+	
+	public void test1() {
+		System.out.println("TEST");
 	}
 	public void totalBev() {
 		
@@ -179,13 +179,7 @@ public class OrderManagedBean implements Serializable {
 		this.subssides = subssides;
 	}
 
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
-	}
+	
 
 	public Messages getMessages() {
 		return messages;
@@ -195,13 +189,6 @@ public class OrderManagedBean implements Serializable {
 		this.messages = messages;
 	}
 
-	public ClientLoginManagedBean getClientLoginMB() {
-		return clientLoginMB;
-	}
-
-	public void setClientLoginMB(ClientLoginManagedBean clientLoginMB) {
-		this.clientLoginMB = clientLoginMB;
-	}
 
 	public ViewMenuManagedBean getViewMenuMB() {
 		return viewMenuMB;

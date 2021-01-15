@@ -1,15 +1,15 @@
 package com.ikubinfo.primefaces.repository;
 
-import java.util.List;
+import com.ikubinfo.primefaces.model.User;
 
-
-import com.ikubinfo.primefaces.model.Client;
-
-public interface ClientRepository {
+public interface UserRepository {
 	boolean usernameExists(String username);
 	boolean passwordExists(String password);
-	List<Client> getClientByUsername(String username);
+	User getUserByUsername(String username);
 	boolean changePassword(String password, String username);
-	boolean registerClient(Client client);
+	boolean registerClient(User client);
+	User findUser(String username, String password);
 	//boolean discountOrNot(Client client);
+	
+	
 }
