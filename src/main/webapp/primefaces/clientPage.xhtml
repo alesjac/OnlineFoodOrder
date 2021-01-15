@@ -7,7 +7,7 @@
 <h:head>
 
 	<f:metadata>
-	<f:viewParam name="username" value="#{clientBean.username}"></f:viewParam>
+		<f:event listener="#{userBean.verifyLoginClient}" type="preRenderView"></f:event>
 	</f:metadata>
 	<title>Client</title>
 </h:head>
@@ -138,7 +138,7 @@
 
 						</p:button>
 						<br></br> <br></br> <br></br>
-						<p:commandButton class="clientOrders" value="Your orders"
+						<p:commandButton class="clientOrders" value="EDIT/DELETE YOUR REVIEWS"
 							icon="pi pi-star" style="color:black;">
 
 						</p:commandButton>

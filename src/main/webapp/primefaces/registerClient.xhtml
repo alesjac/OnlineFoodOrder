@@ -8,7 +8,6 @@
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
-	<ui:include src="/primefaces/homepage.xhtml"></ui:include>
 	
 
 		<ui:define name="content">
@@ -24,40 +23,40 @@
 					<h3>Write down your personal info</h3>
 					
 	                <br></br>
-					<span class="ui-float-label"> <p:inputText id="float-input1" value="#{registerBean.user.name}" />
+					<span class="ui-float-label"> <p:inputText id="float-input1" value="#{userBean.user.name}" />
 						<p:outputLabel for="@previous" value="Name" />
 					</span>
 				
 					<br></br>
 	                <br></br>
-					<span class="ui-float-label"> <p:inputText id="float-input2" value="#{registerBean.user.surname}"/>
+					<span class="ui-float-label"> <p:inputText id="float-input2" value="#{userBean.user.surname}"/>
 						<p:outputLabel for="@previous" value="Surname" />
 					</span>
 					<br></br>
 					<br></br>
 
-					<span class="ui-float-label"> <p:inputText id="float-input3" value="#{registerBean.user.username}"/>
+					<span class="ui-float-label"> <p:inputText id="float-input3" value="#{userBean.user.username}"/>
 						<p:outputLabel for="@previous" value="Username" />
 					</span>
 					<br></br>
 					<br></br>
 
 					<span class="ui-float-label"> 
-					<p:password id="feedback" feedback="true" value="#{registerBean.user.password}"/>
+					<p:password id="feedback" feedback="true" value="#{userBean.user.password}"/>
 					 <p:outputLabel for="@previous" value="Password" />
 					</span>
 					<br></br>
 					<br></br>
 
 					<span class="ui-float-label"> 
-					<p:calendar id="english" value="#{registerBean.user.birthday}" yearRange="1950:#{calendarView.maxDate}"
+					<p:calendar id="english" value="#{userBean.user.birthday}" yearRange="1950:#{calendarView.maxDate}"
 					 locale="en" navigator="true" pattern="yyyy-MMM-dd" /> 
 					<p:outputLabel for="@previous" value="Birthday" />
 					</span>
 						<br></br>
 					<br></br>
 					 <p:commandButton class="submitButton" value="Sign Up" update="growl" icon="pi pi-check"
-					 actionListener="#{registerBean.registerClient}"  />
+					 actionListener="#{userBean.registerClient}"  />
                      
 
 

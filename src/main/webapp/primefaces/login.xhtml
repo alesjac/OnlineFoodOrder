@@ -6,14 +6,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-
+	<f:metadata>
+		<f:event listener="#{userBean.verifyLogin}" type="preRenderView"></f:event>
+	</f:metadata>
 </h:head>
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
-	<ui:include src="administrator/adminPage.xhtml"></ui:include>
-	<ui:include src="client/clientPage.xhtml"></ui:include>
-	<ui:include src="client/registerClient.xhtml"></ui:include>
+
 
 		<ui:define name="content">
 			<p:growl id="growl" sticky="true" showDetail="true" />
@@ -42,14 +42,14 @@
 
 							<p:commandButton value="Login" update="growl"
 								action="#{userBean.login}" id="login">
-								<f:attribute name="username" value="#{userBean.user.username}"/>
+								<f:attribute name="username" value="#{userBean.user.username}" />
 							</p:commandButton>
 
 						</h:panelGrid>
 
 					</p:panel>
 					<br></br>
-					<p:link outcome="client/registerClient" value="Register here"
+					<p:link outcome="registerClient" value="Register here"
 						class="registerLink">
 						<f:param name="reg" />
 					</p:link>

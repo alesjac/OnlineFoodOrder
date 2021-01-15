@@ -6,8 +6,11 @@
 	version="3.0">
   <display-name>the-app</display-name>
  
-    
-    
+   
+	
+	<session-config>
+	<session-timeout>1</session-timeout>
+	</session-config>
 	
     
 </web-app>
