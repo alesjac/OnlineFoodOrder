@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ import com.ikubinfo.primefaces.repository.AdminPageRepository;
 
 @Repository
 public class AdminPageRepositoryImpl implements AdminPageRepository {
-	
+	private static final String EDIT_SUSTENANCE="UPDATE sustenance SET name= :name, ingredients= :ingredients, price= :price WHERE id= :id";
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
@@ -59,6 +60,22 @@ public class AdminPageRepositoryImpl implements AdminPageRepository {
 		parameters.put("menu_section_id", 2);
 		return insertCategoryQuery.execute(parameters)>0;
 	}
+	
+	
+	@Override
+	public boolean editSustenance(Sustenance sus) {
+		MapSqlParameterSource namedParameter = new MapSqlParameterSource();
+		namedParameter.addValue("name", sus.getName());
+		namedParameter.addValue("ingredients", sus.getIngredients());
+		namedParameter.addValue("price", sus.getPrice());
+		namedParameter.addValue("id", sus.getId());
+		
+		int updatedCount = this.namedParameterJdbcTemplate.update(EDIT_SUSTENANCE, namedParameter);
+		return updatedCount>0;
+		
+	}
+
+
 
 
 
