@@ -7,7 +7,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+
+import org.springframework.scheduling.annotation.Scheduled;
+
+import com.ikubinfo.primefaces.model.Discount;
 import com.ikubinfo.primefaces.model.User;
 import com.ikubinfo.primefaces.service.UserService;
 
@@ -20,6 +23,8 @@ public class ClientPageManagedBean implements Serializable {
 
 	
 	private User user;
+	private Discount discount;
+	private String output;
 
 	private String oldPasswordTyped;
 	private String newPassword;
@@ -39,9 +44,30 @@ public class ClientPageManagedBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		user=userService.getUserByUsername(userBean.getUser().getUsername());
+		updateDiscount();
+		
+		ifDiscountMessage();
+		//System.out.println(discount.getPercentDiscount());
 
 	}
 
+	public void ifDiscountMessage() {
+		if(user.getDiscountId()==1) {
+			//Discount dis = userService.getDiscount(userBean.getUser().getUsername());
+			//String percent= String.valueOf(dis.getPercentDiscount());
+			output="HAPPY BIRHTDAY TO YOU! IT'S YOUR BIRTHDAY AND TODAY WE HAVE A 15 "+
+					"% DISCOUNT FOR YOUR BIRTHDAY!!!";
+		}if(user.getDiscountId()==2) {
+			output="";
+		}
+		
+	}
+	
+	public void geDiscountDetails() {
+		//discount=userService.getDiscount(userBean.getUser().getUsername());
+	}
+	
+	
 	public void changePassword() {
 		if(oldPasswordTyped.equals(userBean.getUser().getPassword()) && newPassword.equals(newPasswordRetyped)) {
 			userService.changePassword(newPassword, userBean.getUser().getUsername());
@@ -50,6 +76,11 @@ public class ClientPageManagedBean implements Serializable {
 			messages.showErrorMessage("Incorrect old password or new passwords! TRY AGAIN");
 
 		}
+	}
+	
+	@Scheduled(cron="0 * * ? * *")
+	public void updateDiscount() {
+		userService.updateDiscountId(user);
 	}
 
 	public String getOldPasswordTyped() {
@@ -106,6 +137,22 @@ public class ClientPageManagedBean implements Serializable {
 
 	public void setUserBean(UserManagedBean userBean) {
 		this.userBean = userBean;
+	}
+
+	public Discount getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 
 }

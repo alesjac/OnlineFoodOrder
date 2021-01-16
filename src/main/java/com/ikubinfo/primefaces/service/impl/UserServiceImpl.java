@@ -1,7 +1,9 @@
 package com.ikubinfo.primefaces.service.impl;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.ikubinfo.primefaces.model.Discount;
 import com.ikubinfo.primefaces.model.User;
 import com.ikubinfo.primefaces.repository.UserRepository;
 import com.ikubinfo.primefaces.service.UserService;
@@ -15,6 +17,8 @@ public class UserServiceImpl implements UserService {
 	public UserServiceImpl(UserRepository userRep) {
 		this.userRep = userRep;
 	}
+	
+	
 
 	@Override
 	public boolean isLogged(String username, String password) {
@@ -56,6 +60,21 @@ public class UserServiceImpl implements UserService {
 	public User getUserByUsername(String username) {
 		return userRep.getUserByUsername(username);
 	}
+
+	@Override
+	public boolean updateDiscountId(User user) {
+		return userRep.updateDiscountId(user);
+	}
+
+
+
+	@Override
+	public Discount getDiscount(String username) {
+		return userRep.getDiscount(username);
+	}
+
+
+
 
 	
 }

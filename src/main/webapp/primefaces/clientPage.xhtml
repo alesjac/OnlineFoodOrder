@@ -14,10 +14,15 @@
 <h:body>
 
 	<ui:composition template="/template/template.xhtml">
-	<ui:include src="/primefaces/homepage.xhtml"></ui:include>
+		<ui:include src="/primefaces/homepage.xhtml"></ui:include>
 
 		<ui:define name="content">
+
+
 			<p:growl id="growl"></p:growl>
+
+
+
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
 					action="#{userBean.logout}">
@@ -31,7 +36,9 @@
 
 				<h:outputText id="welcomeClient"
 					value="Welcome to Client Page #{clientBean.user.name}"></h:outputText>
-
+				<div class="discount">
+					<h:outputText value="#{clientBean.output}" />
+				</div>
 
 				<h:form id="from">
 
@@ -63,17 +70,17 @@
 
 					<br></br>
 					<br></br>
-					
+
 					<p:commandButton value="Change password" update="passwordDialog"
 						class="changePasswordButton" process="@this"
 						oncomplete="PF('PasswordDialog').show();">
 
-					
+
 
 					</p:commandButton>
 
 					<!-- DIALOGS -->
-				
+
 
 
 
@@ -90,17 +97,18 @@
 							<br></br>
 
 							<h:outputLabel value="Your new password" for="newPassword"></h:outputLabel>
-							<p:password id="newPassword" required="true" value="#{clientBean.newPassword}"></p:password>
+							<p:password id="newPassword" required="true"
+								value="#{clientBean.newPassword}"></p:password>
 							<br></br>
-							<h:outputLabel value="Retype your new password" for="retypeNewPassword"></h:outputLabel>
+							<h:outputLabel value="Retype your new password"
+								for="retypeNewPassword"></h:outputLabel>
 							<p:password id="retypeNewPassword" required="true"
 								value="#{clientBean.newPasswordRetyped}"></p:password>
 							<br></br>
 
 
 							<p:commandButton process="passwordDialog" update="growl"
-								value="Save"
-								actionListener="#{clientBean.changePassword}"
+								value="Save" actionListener="#{clientBean.changePassword}"
 								oncomplete="PF('PasswordDialog').hide();">
 
 							</p:commandButton>
@@ -138,8 +146,9 @@
 
 						</p:button>
 						<br></br> <br></br> <br></br>
-						<p:commandButton class="clientOrders" value="EDIT/DELETE YOUR REVIEWS"
-							icon="pi pi-star" style="color:black;">
+						<p:commandButton class="clientOrders"
+							value="EDIT/DELETE YOUR REVIEWS" icon="pi pi-star"
+							style="color:black;">
 
 						</p:commandButton>
 
@@ -294,6 +303,12 @@
 	position: absolute;
 	top: 19%;
 	left: 92.5%;
+}
+
+.discount {
+	top: 20px;
+	position: relative;
+	left: 21%;
 }
 </style>
 

@@ -16,8 +16,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.ikubinfo.primefaces.model.Discount;
 import com.ikubinfo.primefaces.model.User;
 import com.ikubinfo.primefaces.repository.UserRepository;
+import com.ikubinfo.primefaces.repository.mapper.DiscountRowMapper;
 import com.ikubinfo.primefaces.repository.mapper.UserRowMapper;
 
 @Repository
@@ -32,6 +34,9 @@ public class UserReposiotryImpl implements UserRepository {
 	private static final String PASSWORD_EXITS ="SELECT COUNT(*) FROM users WHERE password =?";
 	
 	private static final String CHANGE_PASSWORD = "update users set  password = :password where username = :username";
+	private static final String UPDATE_DICOUNT_ID="update users set discount_id= :discount where username= :username";
+	private static final String GET_DISCOUNT="select discount.discount_id,discount.discount_state,discount.percent from users \r\n" + 
+			"inner join discount on users.discount_id=discount.discount_id where users.username=:username";
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
@@ -81,6 +86,27 @@ public class UserReposiotryImpl implements UserRepository {
 		int updatedCount= this.namedParameterJdbcTemplate.update(CHANGE_PASSWORD, namedParameters);
 		return updatedCount>0;
 	}
+	
+	@Override
+	public boolean updateDiscountId(User user) {
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+		
+		
+		namedParameters.addValue("username", user.getUsername());
+		
+		LocalDate localDate = java.time.LocalDate.now();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(user.getBirthday());
+		if (localDate.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH)) {
+			namedParameters.addValue("discount", 1);
+		}else {
+			namedParameters.addValue("discount", 2);
+		}
+		
+		
+		int updatedCount= this.namedParameterJdbcTemplate.update(UPDATE_DICOUNT_ID, namedParameters);
+		return updatedCount>0;
+	}
 	@Override
 	public boolean registerClient(User user) {
 		Map<String,Object> paramters=new HashMap<String,Object>();
@@ -127,6 +153,19 @@ public class UserReposiotryImpl implements UserRepository {
 		} catch (EmptyResultDataAccessException e) {
 		return null;
 		}
+	}
+	@Override
+	public Discount getDiscount(String username){
+		Map<String, Object> params = new HashMap<>();
+		params.put("username",username);
+		try {
+			return jdbcTemplate.queryForObject(GET_DISCOUNT, new Object[] { username},
+			new DiscountRowMapper());
+			} catch (EmptyResultDataAccessException e) {
+			return null;
+			}
+		
+		
 	}
 
 

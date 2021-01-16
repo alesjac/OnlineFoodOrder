@@ -1,5 +1,6 @@
 package com.ikubinfo.primefaces.managedbean;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,8 +19,9 @@ import org.primefaces.event.SelectEvent;
 
 @ManagedBean(name="calendarView")
 @ViewScoped
-public class CalendarManagedBean {
-	
+public class CalendarManagedBean implements Serializable {
+	private static final long serialVersionUID = 3800933422824282320L;
+
     private Date date5;
    
     private Date dateDe;
