@@ -2,7 +2,7 @@ package com.ikubinfo.primefaces.managedbean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -17,21 +18,29 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.web.context.annotation.RequestScope;
 
+import com.ikubinfo.primefaces.model.ClientDetailsOrder;
 import com.ikubinfo.primefaces.model.Order;
 import com.ikubinfo.primefaces.model.Sustenance;
+import com.ikubinfo.primefaces.model.User;
+import com.ikubinfo.primefaces.service.OrderService;
+import com.ikubinfo.primefaces.service.UserService;
+import com.ikubinfo.primefaces.service.ViewMenuService;
+import com.ikubinfo.primefaces.service.exceptions.UserErrors;
 import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean(name = "orderBean")
-@ViewScoped
+@SessionScoped
 public class OrderManagedBean implements Serializable {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String username;
+	private User user;
 	private String address;
-	private int number; 
+	private int number;
+	
+	private ClientDetailsOrder clientDetails;
 
 	private List<Sustenance> beverages;
 	private List<Sustenance> starters;
@@ -45,95 +54,116 @@ public class OrderManagedBean implements Serializable {
 	private List<Sustenance> selectedSChS;
 	private List<Sustenance> selectedBurgers;
 	private List<Sustenance> selectedDesserts;
-	private List<Sustenance> selectedSubSides;   
-	
-	
-	private Sustenance selectedBev;
-	
-	
-	
-	
+	private List<Sustenance> selectedSubSides;
 
-	private List<Integer>quantitySelectedBev;
-	
-	
-	private double totalPriceBev=0;
-	private boolean visible;
-	
-	
+	private Sustenance selectedBev;
+
+	private List<Integer> quantitySelectedBev;
+
+	private double totalPriceBev = 0;
+
 	private Order order;
 
 	@ManagedProperty(value = "#{messages}")
 	private Messages messages;
 
+	@ManagedProperty(value = "#{orderService}")
+	private OrderService orderService;
 
+	@ManagedProperty(value = "#{viewmenuService}")
+	private ViewMenuService viewService;
+	
+	@ManagedProperty(value = "#{userService}")
+	private UserService userService;
 
-	@ManagedProperty(value = "#{menuBean}")
-	private ViewMenuManagedBean viewMenuMB;
+	@ManagedProperty(value = "#{userBean}")
+	private UserManagedBean userBean;
 
 	@PostConstruct
 	public void init() {
-		beverages = viewMenuMB.getBeverages();
-		starters = viewMenuMB.getStarters();
-		soupChilliSalads = viewMenuMB.getSoupChilliSalads();
-		burgers = viewMenuMB.getBurgers();
-		desserts = viewMenuMB.getDesserts();
-		subssides = viewMenuMB.getSubstitutionSides();
-		
-		selectedBeverages=new ArrayList<Sustenance>();
-		selectedStarters=new ArrayList<Sustenance>();
-		selectedBurgers=new ArrayList<Sustenance>();
-		selectedDesserts=new ArrayList<Sustenance>();
-		selectedSChS=new ArrayList<Sustenance>();
-		selectedSubSides=new ArrayList<Sustenance>();
-		
-		
+		beverages = viewService.getBeverages();
+		starters = viewService.getStarters();
+		soupChilliSalads = viewService.getSoupChilliSalads();
+		burgers = viewService.getBurgers();
+		desserts = viewService.getDesserts();
+		subssides = viewService.getSubstitutionSides();
 
-	}
-	
-	public void show() {
-		visible=true;
-	}
-	
-	public void hide() {
-		visible=false;
-	}
-	
-	public void test1() {
-		System.out.println("TEST");
-	}
-	public void totalBev() {
+		selectedBeverages = new ArrayList<Sustenance>();
+		selectedStarters = new ArrayList<Sustenance>();
+		selectedBurgers = new ArrayList<Sustenance>();
+		selectedDesserts = new ArrayList<Sustenance>();
+		selectedSChS = new ArrayList<Sustenance>();
+		selectedSubSides = new ArrayList<Sustenance>();
+		user=new User();
+		clientDetails=new ClientDetailsOrder();
 		
-		for(Sustenance s : selectedBeverages) {
-			double[] price = new double[selectedBeverages.size()];
-			for(int i=0;i<price.length;i++) {
-			price[i] = s.getPrice();
+		selectedBev=new Sustenance();
+	}
+
+	public void addClientDetails() {
+
+		
+			int length = String.valueOf(number).length();
+			if (!user.getUsername().equals(userBean.getUser().getUsername())) {
+				
+				messages.showWarningMessage("Please write your username right!");
+			}
+			if (length != 9) {
+				messages.showWarningMessage("Please write correctly your numberwith 10 digits. Example: 06xxxxxxxx!");
+			}
+			if(user.getUsername().equals(userBean.getUser().getUsername()) && length==9) {
+			user=userBean.getUser();
+			orderService.addClientDetailsOrder(user, address, number);
+			messages.showInfoMessage("Details succefully added!");
+			}
+		
+	}
+	
+	public ClientDetailsOrder getClientDetailsAfterSave() {
+		clientDetails.setId(user.getId());
+		clientDetails.setAddress(address);
+		clientDetails.setNumber(number);
+		return clientDetails;
+	}
+
+	
+	public void orderBeverage() {
+		
+		
+			orderService.addFoodDetailsOrder(userBean.getUser().getId(), selectedBev.getId());
 			
-			for (Integer in: quantitySelectedBev) {
-				int[]quantity= new int[quantitySelectedBev.size()];
-			for(int j=0;j<quantity.length;j++) {
-				quantity[j]=in;
-				if(i==j) {
-					double priceBevEach=price[i]*quantity[j];
-					totalPriceBev=totalPriceBev+priceBevEach;
+		
+	}
+
+
+	public void totalBev() {
+
+		for (Sustenance s : selectedBeverages) {
+			double[] price = new double[selectedBeverages.size()];
+			for (int i = 0; i < price.length; i++) {
+				price[i] = s.getPrice();
+
+				for (Integer in : quantitySelectedBev) {
+					int[] quantity = new int[quantitySelectedBev.size()];
+					for (int j = 0; j < quantity.length; j++) {
+						quantity[j] = in;
+						if (i == j) {
+							double priceBevEach = price[i] * quantity[j];
+							totalPriceBev = totalPriceBev + priceBevEach;
+						}
+					}
 				}
 			}
-			}
-		}
 		}
 	}
-
-	
 
 	public List<Sustenance> getBeverages() {
 		return beverages;
 	}
-    
+
 	public void test() {
 		System.out.println("selected");
 	}
-    
-   
 
 	public void setBeverages(List<Sustenance> beverages) {
 		this.beverages = beverages;
@@ -179,23 +209,12 @@ public class OrderManagedBean implements Serializable {
 		this.subssides = subssides;
 	}
 
-	
-
 	public Messages getMessages() {
 		return messages;
 	}
 
 	public void setMessages(Messages messages) {
 		this.messages = messages;
-	}
-
-
-	public ViewMenuManagedBean getViewMenuMB() {
-		return viewMenuMB;
-	}
-
-	public void setViewMenuMB(ViewMenuManagedBean viewMenuMB) {
-		this.viewMenuMB = viewMenuMB;
 	}
 
 	public List<Sustenance> getSelectedBeverages() {
@@ -246,14 +265,6 @@ public class OrderManagedBean implements Serializable {
 		this.selectedSubSides = selectedSubSides;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -270,7 +281,6 @@ public class OrderManagedBean implements Serializable {
 		this.number = number;
 	}
 
-
 	public Order getOrder() {
 		return order;
 	}
@@ -284,7 +294,7 @@ public class OrderManagedBean implements Serializable {
 	}
 
 	public void setTotalPriceBev(double totalPriceBev) {
-		this.totalPriceBev = totalPriceBev; 
+		this.totalPriceBev = totalPriceBev;
 	}
 
 	public List<Integer> getQuantitySelectedBev() {
@@ -295,14 +305,6 @@ public class OrderManagedBean implements Serializable {
 		this.quantitySelectedBev = quantitySelectedBev;
 	}
 
-	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
 	public Sustenance getSelectedBev() {
 		return selectedBev;
 	}
@@ -311,8 +313,55 @@ public class OrderManagedBean implements Serializable {
 		this.selectedBev = selectedBev;
 	}
 
+	public ViewMenuService getViewService() {
+		return viewService;
+	}
 
+	public void setViewService(ViewMenuService viewService) {
+		this.viewService = viewService;
+	}
+
+	public UserManagedBean getUserBean() {
+		return userBean;
+	}
+
+	public void setUserBean(UserManagedBean userBean) {
+		this.userBean = userBean;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public void setClientDetails(ClientDetailsOrder clientDetails) {
+		this.clientDetails = clientDetails;
+	}
+
+	public ClientDetailsOrder getClientDetails() {
+		return clientDetails;
+	}
 	
 	
+
 
 }

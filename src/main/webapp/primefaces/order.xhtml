@@ -17,7 +17,7 @@
 		<ui:define name="content">
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
-					action="#{clientPageManagedBean.logout}">
+					action="#{userBean.logout}">
 				</p:commandButton>
 				<br></br>
 			</h:form>
@@ -36,20 +36,33 @@
 							<p:panel header="Personal Details">
 								<p:messages />
 
-								<h:panelGrid columns="2" columnClasses="label, value">
-									<h:outputText value="Username: *" />
-									<p:inputText label="username" value="#{orderBean.username}" />
+								<h:panelGrid columns="2" columnClasses="label, value" id="grid">
+									<p:outputLabel value="Username:" for="text" />
+									<p:inputText id="text" label="username"
+										value="#{orderBean.user.username}" required="true" />
+									<p:message for="text" />
+									<br></br>
 
-									<h:outputText value="Address: *" />
-									<p:inputText label="address" value="#{orderBean.address}" />
-
+									<p:outputLabel value="Address:" for="addresstext" />
+									<p:inputText id="addresstext" label="address"
+										value="#{orderBean.address}" required="true" />
+									<p:message for="addresstext" />
+									<br></br>
 									<h:outputText
 										value="(Street-Bulding nr-Apartment number and other info)"></h:outputText>
 
 									<br></br>
 
-									<h:outputText value="Telephone number: " />
-									<p:inputText value="#{orderBean.number}" />
+									<p:outputLabel value="Telephone number: " for="numbertext" />
+									<p:inputNumber id="numbertext" value="#{orderBean.number}"
+										required="true" converter="javax.faces.Integer" />
+									<p:message for="numbertext" />
+									<p:commandButton value="Save"
+										actionListener="#{orderBean.addClientDetails}"
+										update="msgs grid" />
+
+
+
 
 								</h:panelGrid>
 							</p:panel>
@@ -61,40 +74,43 @@
 							<p:panel header="Order Beverages">
 								<p:messages />
 
->
-										<p:selectManyCheckbox value="#{orderBean.selectedBeverages}"
-									layout="grid" columns="1">
+								<p:dataTable id="table" value="#{orderBean.beverages}"
+									var="beverage">
+
+									<p:column headerText="Name">
+										<p:outputLabel value="#{beverage.name}"></p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{beverage.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{beverage.price}">
+
+										</p:outputLabel>
+									</p:column>
 
 
-									<f:selectItems value="#{orderBean.beverages}" var="bev"
-										itemLabel="#{bev.name} $#{bev.price}" itemValue="#{bev.name}" />
-										
+									<p:column
+										headerText="PRESS ADD FOR THE BEVERAGE YOU WANT TO ORDER">
 
-								</p:selectManyCheckbox>
-								<h:inputText rendered="#{orderBean.visible}"></h:inputText>
+										<p:commandButton value="ADD" action="#{orderBean.orderBeverage}">
 
-								<p:commandButton value="Submit" update="display"
-									oncomplete="PF('dlg').show()" icon="pi pi-check" />
+											<f:setPropertyActionListener
+												target="#{orderBean.selectedBev}" value="#{beverage}" />
 
-							</p:panel> 
-							<p:dialog header="Values" modal="true" showEffect="clip"
-								widgetVar="dlg" resizable="false">
-								<p:outputPanel id="display">
-									<p:dataList value="#{orderBean.selectedBeverages}" var="bev">
+										</p:commandButton>
 
-										<f:facet name="header">
-                                    Set quantity for selected items
-                                       </f:facet>
-                                       
-                                                  #{bev}
-                                                  <p:inputNumber value="#{bev.quantityOrdered}" />
-                                              
-									</p:dataList>
-									<h:commandButton value="Save"
-										actionListener="#{orderBean.test1}"></h:commandButton>
-								</p:outputPanel>
+									</p:column>
 
-							</p:dialog>
+
+								</p:dataTable>
+
+							</p:panel>
+
 
 
 						</p:tab>
@@ -178,15 +194,15 @@
 
 						<p:tab id="confirm" title="Confirmation">
 							<p:panel header="Your order...">
-								<h:panelGrid id="confirmation" style="background-color: blue;">
+								<h:panelGrid id="confirmation" style="background-color: coral;">
 
 
 									<h:panelGrid columns="2" columnClasses="label, value"
-										style=" background-color: Yellow;">
+										style=" background-color: navy;">
 										<h:outputText value="Personal details" />
 										<br></br>
 										<h:outputText value="Username: " />
-										<h:outputText value="#{orderBean.username}"
+										<h:outputText value="#{orderBean.user.username}"
 											styleClass="outputLabel" />
 
 										<h:outputText value="Address: " />
@@ -292,7 +308,7 @@
 
 			</section>
 
- 
+
 			<style>
 #welcome {
 	position: relative;

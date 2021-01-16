@@ -97,7 +97,7 @@ public class UserReposiotryImpl implements UserRepository {
 		LocalDate localDate = java.time.LocalDate.now();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(user.getBirthday());
-		if (localDate.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH)) {
+		if (localDate.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH) && localDate.getMonthValue()==cal.get(Calendar.MONTH)) {
 			namedParameters.addValue("discount", 1);
 		}else {
 			namedParameters.addValue("discount", 2);
@@ -121,7 +121,7 @@ public class UserReposiotryImpl implements UserRepository {
 		LocalDate localDate = java.time.LocalDate.now();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(user.getBirthday());
-		if (localDate.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH)) {
+		if (localDate.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH) && localDate.getMonthValue()==cal.get(Calendar.MONTH)) {
 			paramters.put("discount_id", 1);
 		}else {
 			paramters.put("discount_id", 2);

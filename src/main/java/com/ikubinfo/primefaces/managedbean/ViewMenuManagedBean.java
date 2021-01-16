@@ -14,9 +14,6 @@ import com.ikubinfo.primefaces.service.ViewMenuService;
 import com.ikubinfo.primefaces.util.Messages;
 
 @ManagedBean(name = "menuBean")
-
-@ViewScoped
-
 @SessionScoped
 public class ViewMenuManagedBean implements Serializable {
 	private static final long serialVersionUID = 3800933422824282320L;
@@ -47,14 +44,10 @@ public class ViewMenuManagedBean implements Serializable {
 		subssides = viewMenuService.getSubstitutionSides();
 	}
 
-	public void addBev() {
-		if (viewMenuService.addBeverages(beve) == true) {
-			messages.showInfoMessage(beve.getName() + " beverage succefully added");
-		} else {
-
-			messages.showErrorMessage("An error occured");
-		}
+	public void getAllBev() {
+		beverages = viewMenuService.getBeverages();
 	}
+	
 
 	public void addStarters() {
 		if (viewMenuService.addStarters(starter) == true) {
