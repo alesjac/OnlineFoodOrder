@@ -11,5 +11,15 @@ public interface AdminPageRepository {
 	
 	
 	boolean editSustenance(Sustenance sus);
+
+	boolean addSoupChilliSalads(Sustenance sustenan);
+	
+	boolean addBurgers(Sustenance sust);
+
+	boolean deleteSustenance(Sustenance sustena);
+
+	boolean addDesserts(Sustenance sust);
+
+	boolean addSubtitionsSides(Sustenance sust);
 	
 }

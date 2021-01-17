@@ -12,11 +12,11 @@ import com.ikubinfo.primefaces.service.ViewMenuService;
 @Service("viewmenuService")
 public class ViewMenuServiceImpl implements ViewMenuService {
 	private ViewMenuRepository viewMenuRepository;
-	private AdminPageRepository adminRep;
+	
 
-	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository,AdminPageRepository adminRep) {
+	public ViewMenuServiceImpl(ViewMenuRepository viewmenuRepository) {
 		this.viewMenuRepository = viewmenuRepository;
-		this.adminRep=adminRep;
+		
 	}
 
 	@Override
@@ -52,16 +52,5 @@ public class ViewMenuServiceImpl implements ViewMenuService {
 		return viewMenuRepository.getSubstitutionSides();
 	}
 
-	@Override
-	public boolean addBeverages(Sustenance bev) {
-		
-		return adminRep.addBeverages(bev);
-	}
-
-	@Override
-	public boolean addStarters(Sustenance susten) {
-		
-		return adminRep.addStarters(susten);
-	}
-
+	
 }

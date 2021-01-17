@@ -35,8 +35,38 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public boolean editSus(Sustenance sus) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return adminRep.editSustenance(sus);
+	}
+
+	@Override
+	public boolean addSoupChilliSalads(Sustenance sustenan) {
+		
+		return adminRep.addSoupChilliSalads(sustenan);
+	}
+
+	@Override
+	public boolean deleteSustenance(Sustenance sustena) {
+		
+		return adminRep.deleteSustenance(sustena);
+	}
+
+	@Override
+	public boolean addBurgers(Sustenance sust) {
+		
+		return adminRep.addBurgers(sust);
+	}
+
+	@Override
+	public boolean addDesserts(Sustenance dessert) {
+		
+		return adminRep.addDesserts(dessert);
+	}
+
+	@Override
+	public boolean addSubtitionsSides(Sustenance subtition) {
+		
+		return adminRep.addSubtitionsSides(subtition);
 	}
 
 	

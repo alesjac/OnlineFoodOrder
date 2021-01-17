@@ -22,7 +22,7 @@ import com.ikubinfo.primefaces.repository.AdminPageRepository;
 @Repository
 public class AdminPageRepositoryImpl implements AdminPageRepository {
 	private static final String EDIT_SUSTENANCE="UPDATE sustenance SET name= :name, ingredients= :ingredients, price= :price WHERE id= :id";
-
+    private static final String DELETE_SUSTENANCE="DELETE FROM sustenance WHERE id=:id";
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert insertCategoryQuery;
@@ -63,6 +63,17 @@ public class AdminPageRepositoryImpl implements AdminPageRepository {
 	
 	
 	@Override
+	public boolean addSoupChilliSalads(Sustenance sustenan) {
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", sustenan.getName());
+		parameters.put("ingredients", sustenan.getIngredients());
+		parameters.put("price", sustenan.getPrice());
+		parameters.put("menu_section_id", 3);
+		return insertCategoryQuery.execute(parameters)>0;
+	}
+	
+	
+	@Override
 	public boolean editSustenance(Sustenance sus) {
 		MapSqlParameterSource namedParameter = new MapSqlParameterSource();
 		namedParameter.addValue("name", sus.getName());
@@ -75,10 +86,52 @@ public class AdminPageRepositoryImpl implements AdminPageRepository {
 		
 	}
 
+	
+	@Override
+	public boolean deleteSustenance(Sustenance sustena) {
+		MapSqlParameterSource namedParameter = new MapSqlParameterSource();
+		
+		namedParameter.addValue("id", sustena.getId());
+		
+		int updatedCount = this.namedParameterJdbcTemplate.update(DELETE_SUSTENANCE, namedParameter);
+		return updatedCount>0;
+		
+	}
 
 
 
+	@Override 
+	public boolean addBurgers(Sustenance sust) {
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", sust.getName());
+		parameters.put("ingredients", sust.getIngredients());
+		parameters.put("price", sust.getPrice());
+		parameters.put("menu_section_id", 4);
+		return insertCategoryQuery.execute(parameters)>0;
+	
+	}
 
 
 
+	@Override 
+	public boolean addDesserts(Sustenance sust) {
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", sust.getName());
+		parameters.put("ingredients", sust.getIngredients());
+		parameters.put("price", sust.getPrice());
+		parameters.put("menu_section_id", 5);
+		return insertCategoryQuery.execute(parameters)>0;
+
+
+}
+	
+	@Override 
+	public boolean addSubtitionsSides(Sustenance sust) {
+		Map<String,Object>parameters=new HashMap<String, Object>();
+		parameters.put("name", sust.getName());
+		parameters.put("ingredients", sust.getIngredients());
+		parameters.put("price", sust.getPrice());
+		parameters.put("menu_section_id", 6);
+		return insertCategoryQuery.execute(parameters)>0;
+}
 }
