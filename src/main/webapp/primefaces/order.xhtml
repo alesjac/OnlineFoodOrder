@@ -115,13 +115,6 @@
 									</p:column>
 
 
-
-
-
-
-
-
-
 								</p:dataTable>
 
 
@@ -158,7 +151,7 @@
 							<p:panel header="Order Starters">
 								<p:messages />
 
-								<p:dataTable id="table" value="#{orderBean.starters}"
+								<p:dataTable id="table2" value="#{orderBean.starters}"
 									var="starter">
 
 									<p:column headerText="Name">
@@ -201,7 +194,7 @@
 
 									<h:outputText
 										style="font-weight:bold; font-size: 25; color: red;"
-										value="In the moment that you add a beverage to order, notice that its quantity is 1 by default.
+										value="In the moment that you order, notice that its quantity is 1 by default.
 												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
 												THANK YOU!" />
 
@@ -228,12 +221,65 @@
 							<p:panel header="Order Soup,Chilli and Salads">
 								<p:messages />
 
-								<p:selectManyCheckbox value="#{orderBean.selectedSChS}"
-									layout="grid" columns="1">
-									<f:selectItems value="#{orderBean.soupChilliSalads}" var="schs"
-										itemLabel="#{schs.name} $#{schs.price}"
-										itemValue="#{schs.name}" />
-								</p:selectManyCheckbox>
+
+								<p:dataTable id="table3" value="#{orderBean.soupChilliSalads}"
+									var="sss">
+
+									<p:column headerText="Name">
+										<p:outputLabel value="#{sss.name}"></p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{sss.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{sss.price}">
+
+										</p:outputLabel>
+									</p:column>
+
+
+									<p:column
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
+
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.orderSss}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
+
+											<f:setPropertyActionListener
+												target="#{orderBean.selectedSss}" value="#{sss}" />
+
+										</p:commandButton>
+
+									</p:column>
+
+
+
+								</p:dataTable>
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you  order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="sssOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
+
 
 							</p:panel>
 						</p:tab>
@@ -241,27 +287,127 @@
 						<p:tab id="burgers" title="Burgers">
 							<p:panel header="Order Burgers">
 								<p:messages />
+								<p:dataTable id="table4" value="#{orderBean.burgers}" var="br">
 
-								<p:selectManyCheckbox value="#{orderBean.selectedBurgers}"
-									layout="grid" columns="1">
-									<f:selectItems value="#{orderBean.burgers}" var="burger"
-										itemLabel="#{burger.name} $#{bev.price}"
-										itemValue="#{burger.name}" />
-								</p:selectManyCheckbox>
+									<p:column headerText="Name">
+										<p:outputLabel value="#{br.name}"></p:outputLabel>
+									</p:column>
 
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{br.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{br.price}">
+
+										</p:outputLabel>
+									</p:column>
+
+
+									<p:column
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
+
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.orderSss}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
+
+											<f:setPropertyActionListener target="#{orderBean.selectedBr}"
+												value="#{br}" />
+
+										</p:commandButton>
+
+									</p:column>
+
+
+
+								</p:dataTable>
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you  order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="burgerOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
 							</p:panel>
 						</p:tab>
 
 						<p:tab id="desserts" title="Desserts">
 							<p:panel header="Order Desserts">
 								<p:messages />
+								
+								<p:dataTable id="table5" value="#{orderBean.desserts}" var="d">
 
-								<p:selectManyCheckbox value="#{orderBean.selectedDesserts}"
-									layout="grid" columns="1">
-									<f:selectItems value="#{orderBean.desserts}" var="dessert"
-										itemLabel="#{dessert.name} $#{dessert.price}"
-										itemValue="#{dessert.name}" />
-								</p:selectManyCheckbox>
+									<p:column headerText="Name">
+										<p:outputLabel value="#{d.name}"></p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{d.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{d.price}">
+
+										</p:outputLabel>
+									</p:column>
+
+
+									<p:column
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
+
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.orderD}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
+
+											<f:setPropertyActionListener target="#{orderBean.selectedD}"
+												value="#{d}" />
+
+										</p:commandButton>
+
+									</p:column>
+
+
+
+								</p:dataTable>
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you  order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="dessertsOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
+
+
 
 							</p:panel>
 						</p:tab>
@@ -269,13 +415,64 @@
 						<p:tab id="subsside" title="Substitution side">
 							<p:panel header="Order Substitution side">
 								<p:messages />
+								
+									<p:dataTable id="table6" value="#{orderBean.subssides}" var="sub">
 
-								<p:selectManyCheckbox value="#{orderBean.selectedSubSides}"
-									layout="grid" columns="1">
-									<f:selectItems value="#{orderBean.subssides}" var="subs"
-										itemLabel="#{subs.name} $#{subs.price}"
-										itemValue="#{subs.name}" />
-								</p:selectManyCheckbox>
+									<p:column headerText="Name">
+										<p:outputLabel value="#{sub.name}"></p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{sub.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{sub.price}">
+
+										</p:outputLabel>
+									</p:column>
+
+
+									<p:column
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
+
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.ordersub}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
+
+											<f:setPropertyActionListener target="#{orderBean.selectedsub}"
+												value="#{sub}" />
+
+										</p:commandButton>
+
+									</p:column>
+
+
+
+								</p:dataTable>
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you  order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="subOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
+
 
 							</p:panel>
 						</p:tab>
@@ -376,7 +573,7 @@
 
 
 
-
+<p:commandButton value="Save"  actionListener="#{orderBean.save}"></p:commandButton>
 
 
 

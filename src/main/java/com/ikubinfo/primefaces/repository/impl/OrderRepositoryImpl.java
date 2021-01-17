@@ -1,5 +1,6 @@
 package com.ikubinfo.primefaces.repository.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 	private JdbcTemplate jdbcTemplate;
 	private SimpleJdbcInsert insertCategoryQuery;
 	private SimpleJdbcInsert insertFoodDetails;
+	private SimpleJdbcInsert receipt;
 
 	@Autowired
 	public OrderRepositoryImpl(DataSource datasource) {
@@ -49,6 +51,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 		this.insertCategoryQuery = new SimpleJdbcInsert(datasource).withTableName("client_details_order").usingGeneratedKeyColumns("id");
 		this.insertFoodDetails = new SimpleJdbcInsert(datasource).withTableName("food_details_order")
 				.usingGeneratedKeyColumns("id");
+		this.receipt=new SimpleJdbcInsert(datasource).withTableName("receipt").usingGeneratedKeyColumns("receipt_id");
 	}
 
 	@Override
@@ -134,4 +137,15 @@ public class OrderRepositoryImpl implements OrderRepository {
 		this.namedParameterJdbcTemplate.update(DELETE_SUS_FROM_ORDER, namedParameters);
 
 	}
+   
+   @Override
+   public boolean receipt(double totalPrice,  int clDetails) {
+	   Map<String, Object> namedParameters = new HashMap<String,Object>();	   
+	   namedParameters.put("order_date", new Date());
+	   namedParameters.put("total_price", totalPrice);
+	   namedParameters.put("client_details_id", clDetails);
+	   
+		return receipt.execute(namedParameters) > 0;
+
+   }
 }

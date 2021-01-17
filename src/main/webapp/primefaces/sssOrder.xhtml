@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title></title>
+</h:head>
+<h:body>
+
+	<ui:composition template="/template/template.xhtml">
+
+
+		<ui:define name="content">
+			<p:growl id="growl"></p:growl>
+
+
+			<section id="showcase">
+				<br></br>
+				<p class="para1">Continue Soup, chilli, salads  order.</p>
+
+				<h:form id="selectedsssForm">
+
+					<p:growl id="growlB" showDetail="true" />
+
+
+
+					<p:dataTable value="#{orderBean.selectedSChS}" var="sss"
+						id="ssstable">
+
+						<p:column headerText="Name">
+							<p:outputLabel value="#{sss.susName}"></p:outputLabel>
+						</p:column>
+
+						<p:column headerText="Quantity">
+							<p:outputLabel value="#{sss.susQuantityOrdered}"></p:outputLabel>
+						</p:column>
+
+						<p:column headerText="Add Quantity">
+							<p:commandButton value="+"
+								actionListener="#{orderBean.addSssQuantity}" update="ssstable">
+
+								<f:setPropertyActionListener
+									target="#{orderBean.selSssToAddQuantity}" value="#{sss}" />
+
+							</p:commandButton>
+							
+							
+						</p:column>
+						
+						<p:column headerText="Remove Quantity">
+							<p:commandButton value="-"
+								actionListener="#{orderBean.decreaseSssQuantity}"
+								update="bevtable">
+
+
+								<f:setPropertyActionListener
+									target="#{orderBean.selSssToDecQuantity}" value="#{sss}" />
+
+							</p:commandButton>
+							
+						</p:column>
+
+						<p:column headerText="Delete from Beverage order">
+							<p:commandButton icon="ui-icon-trash" 
+								actionListener="#{orderBean.deleteSssFromOrder}"
+								update=":selectedsssForm:ssstable">
+
+								<f:setPropertyActionListener
+									target="#{orderBean.selSssToDeleteQuantity}" value="#{sss}" />
+
+							</p:commandButton>
+ 
+						</p:column>
+					</p:dataTable>
+					<br></br>
+
+
+					<p:commandButton class="buttonli" value="Go back to continue order"
+						actionListener="#{orderBean.getTotalSssPrice}"></p:commandButton>
+
+				</h:form>
+
+
+
+
+
+
+
+			</section>
+
+
+			<style>
+.para1 {
+	text-align: center;
+	font-family: "Copperplate Gothic Light";
+	font-size: 30px;
+	font-style: italic;
+	font-variant: normal;
+	font-weight: 700;
+	line-height: 27.5px;
+}
+
+#showcase {
+	min-height: 500px;
+	margin-bottom: 10px;
+	background: url(https://i.ytimg.com/vi/jQBZPEqR_Yo/maxresdefault.jpg);
+	background-repeat: no-repeat;
+	background-size: 1600px 900px;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.buttonli {
+	left: 35%;
+	display: inline-block;
+	background-color: white;
+	border-radius: 2px;
+	border: none;
+	padding: 20px 5px;
+	text-align: center;
+	width: 350px;
+	text-decoration: none;
+	font-family: 'Courier New';
+	font-weight: bold;
+	font-size: 25px;
+	color: red;
+	margin: 25px 9px;
+	transition-duration: all 0.5s;
+	margin: 25px 9px;
+	display: inline-block;
+}
+</style>
+
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

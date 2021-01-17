@@ -1,5 +1,6 @@
 package com.ikubinfo.primefaces.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -66,6 +67,11 @@ public class OrderServiceImpl implements OrderService {
 	public void deleteSusFromOrder(int clientDetails, int susId) {
 
 		orderRep.deleteSusFromOrder(clientDetails, susId);		
+	}
+
+	@Override
+	public boolean receipt(double totalPrice, int clDetails) {
+		return orderRep.receipt(totalPrice, clDetails);
 	}
 
 	

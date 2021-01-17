@@ -1,5 +1,6 @@
 package com.ikubinfo.primefaces.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ikubinfo.primefaces.model.ClientDetailsOrder;
@@ -23,5 +24,7 @@ public interface OrderRepository {
 	boolean decreaseQuantity(int quantity, int clientDetailsId, int susId);
 
 	void deleteSusFromOrder(int clientDetails, int susId);
+
+	boolean receipt(double totalPrice,int clDetails);
 
 }

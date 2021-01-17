@@ -2,6 +2,7 @@ package com.ikubinfo.primefaces.managedbean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -69,6 +70,36 @@ public class OrderManagedBean implements Serializable {
 	private double totalStarter;
 	
 	
+	private Sustenance selectedSss;
+	private SustenanceAndOrderDetails selSssToAddQuantity;
+	private SustenanceAndOrderDetails selSssToDecQuantity;
+	private SustenanceAndOrderDetails selSssToDeleteQuantity;
+	private double totalSss;
+	
+	
+
+	private Sustenance selectedBr;
+	private SustenanceAndOrderDetails selBrToAddQuantity;
+	private SustenanceAndOrderDetails selBrToDecQuantity;
+	private SustenanceAndOrderDetails selBrToDeleteQuantity;
+	private double totalBr;
+	
+	
+
+	private Sustenance selectedD;
+	private SustenanceAndOrderDetails selDToAddQuantity;
+	private SustenanceAndOrderDetails selDToDecQuantity;
+	private SustenanceAndOrderDetails selDToDeleteQuantity;
+	private double totalD;
+	
+	
+	
+	private Sustenance selectedsub;
+	private SustenanceAndOrderDetails selsubToAddQuantity;
+	private SustenanceAndOrderDetails selsubToDecQuantity;
+	private SustenanceAndOrderDetails selsubToDeleteQuantity;
+	private double totalsub;
+	
 	
 	
 
@@ -114,6 +145,11 @@ public class OrderManagedBean implements Serializable {
 
 	}
 
+	
+	public void save() {
+		double total = totalBev+totalBr+totalD+totalSss+totalStarter+totalsub;
+		orderService.receipt(total,clientDetails.getId());
+	}
 	public void addClientDetails() {
 		try {
 			int length = String.valueOf(number).length();
@@ -148,18 +184,7 @@ public class OrderManagedBean implements Serializable {
 		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
 
 	}
-//	public void continueOrder() throws IOException {
-//		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
-//		for (SustenanceAndOrderDetails sus :selectedBeverages) {
-//			selBevToEditQuantity.setSusId(sus.getSusId());
-//			selBevToEditQuantity.setSusName(sus.getSusName());
-//			selBevToEditQuantity.setSusPrice(sus.getSusPrice());
-//			selBevToEditQuantity.setSusQuantityOrdered(sus.getSusQuantityOrdered());
-//		}
-//		
-//		FacesContext context = FacesContext.getCurrentInstance();
-//		context.getExternalContext().redirect("bevOrder");
-//	}
+
 
 	public void addBevQuantity() {
 
@@ -247,7 +272,203 @@ public class OrderManagedBean implements Serializable {
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().redirect("order.xhtml");
-		System.out.println(totalBev);
+	}
+	
+	public void orderSss() {
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedSss.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 3);
+
+	}
+	
+	public void addSssQuantity() {
+
+		orderService.addQuantity(selSssToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selSssToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 3);
+
+	}
+	
+	public void decreaseSssQuantity() {
+
+		orderService.decreaseQuantity(selSssToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selSssToDecQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 3);
+
+	}
+
+	public void deleteSssFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selSssToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 3);
+
+	}
+	
+	public void getTotalSssPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedSChS) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalSss = total;
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+		
+	}
+	
+	
+	public void orderBr() {
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedBr.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 4);
+
+	}
+	
+	public void addBrQuantity() {
+
+		orderService.addQuantity(selBrToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selBrToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 4);
+
+	}
+	
+	public void decreaseBrQuantity() {
+
+		orderService.decreaseQuantity(selBrToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selBrToDecQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 4);
+
+	}
+
+	public void deleteBrFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selBrToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 4);
+
+	}
+	
+	public void getTotalBrPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedSChS) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalBr = total;
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+		
+	}
+	
+	
+	
+	public void orderD() {
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedD.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 5);
+
+	}
+	
+	public void addDQuantity() {
+
+		orderService.addQuantity(selDToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selDToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 5);
+
+	}
+	
+	public void decreaseDQuantity() {
+
+		orderService.decreaseQuantity(selDToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selDToDecQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 5);
+
+	}
+
+	public void deleteDFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selDToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 5);
+
+	}
+	
+	public void getTotalDPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedSChS) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalD = total;
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+		
+	}
+	
+	
+	
+	public void ordersub() {
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedsub.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 6);
+
+	}
+	
+	public void addsubQuantity() {
+
+		orderService.addQuantity(selsubToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selsubToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 6);
+
+	}
+	
+	public void decreasesubQuantity() {
+
+		orderService.decreaseQuantity(selsubToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selsubToDecQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 6);
+
+	}
+
+	public void deletesubFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selsubToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 6);
+
+	}
+	
+	public void getTotalsubPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedSChS) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalsub = total;
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+		
 	}
 
 	public List<Sustenance> getBeverages() {
@@ -510,6 +731,166 @@ public class OrderManagedBean implements Serializable {
 
 	public void setTotalStarter(double totalStarter) {
 		this.totalStarter = totalStarter;
+	}
+
+	public Sustenance getSelectedSss() {
+		return selectedSss;
+	}
+
+	public void setSelectedSss(Sustenance selectedSss) {
+		this.selectedSss = selectedSss;
+	}
+
+	public SustenanceAndOrderDetails getSelSssToAddQuantity() {
+		return selSssToAddQuantity;
+	}
+
+	public void setSelSssToAddQuantity(SustenanceAndOrderDetails selSssToAddQuantity) {
+		this.selSssToAddQuantity = selSssToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelSssToDecQuantity() {
+		return selSssToDecQuantity;
+	}
+
+	public void setSelSssToDecQuantity(SustenanceAndOrderDetails selSssToDecQuantity) {
+		this.selSssToDecQuantity = selSssToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelSssToDeleteQuantity() {
+		return selSssToDeleteQuantity;
+	}
+
+	public void setSelSssToDeleteQuantity(SustenanceAndOrderDetails selSssToDeleteQuantity) {
+		this.selSssToDeleteQuantity = selSssToDeleteQuantity;
+	}
+
+	public double getTotalSss() {
+		return totalSss;
+	}
+
+	public void setTotalSss(double totalSss) {
+		this.totalSss = totalSss;
+	}
+
+	public Sustenance getSelectedBr() {
+		return selectedBr;
+	}
+
+	public void setSelectedBr(Sustenance selectedBr) {
+		this.selectedBr = selectedBr;
+	}
+
+	public SustenanceAndOrderDetails getSelBrToAddQuantity() {
+		return selBrToAddQuantity;
+	}
+
+	public void setSelBrToAddQuantity(SustenanceAndOrderDetails selBrToAddQuantity) {
+		this.selBrToAddQuantity = selBrToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelBrToDecQuantity() {
+		return selBrToDecQuantity;
+	}
+
+	public void setSelBrToDecQuantity(SustenanceAndOrderDetails selBrToDecQuantity) {
+		this.selBrToDecQuantity = selBrToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelBrToDeleteQuantity() {
+		return selBrToDeleteQuantity;
+	}
+
+	public void setSelBrToDeleteQuantity(SustenanceAndOrderDetails selBrToDeleteQuantity) {
+		this.selBrToDeleteQuantity = selBrToDeleteQuantity;
+	}
+
+	public double getTotalBr() {
+		return totalBr;
+	}
+
+	public void setTotalBr(double totalBr) {
+		this.totalBr = totalBr;
+	}
+
+	public Sustenance getSelectedD() {
+		return selectedD;
+	}
+
+	public void setSelectedD(Sustenance selectedD) {
+		this.selectedD = selectedD;
+	}
+
+	public SustenanceAndOrderDetails getSelDToAddQuantity() {
+		return selDToAddQuantity;
+	}
+
+	public void setSelDToAddQuantity(SustenanceAndOrderDetails selDToAddQuantity) {
+		this.selDToAddQuantity = selDToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelDToDecQuantity() {
+		return selDToDecQuantity;
+	}
+
+	public void setSelDToDecQuantity(SustenanceAndOrderDetails selDToDecQuantity) {
+		this.selDToDecQuantity = selDToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelDToDeleteQuantity() {
+		return selDToDeleteQuantity;
+	}
+
+	public void setSelDToDeleteQuantity(SustenanceAndOrderDetails selDToDeleteQuantity) {
+		this.selDToDeleteQuantity = selDToDeleteQuantity;
+	}
+
+	public double getTotalD() {
+		return totalD;
+	}
+
+	public void setTotalD(double totalD) {
+		this.totalD = totalD;
+	}
+
+	public Sustenance getSelectedsub() {
+		return selectedsub;
+	}
+
+	public void setSelectedsub(Sustenance selectedsub) {
+		this.selectedsub = selectedsub;
+	}
+
+	public SustenanceAndOrderDetails getSelsubToAddQuantity() {
+		return selsubToAddQuantity;
+	}
+
+	public void setSelsubToAddQuantity(SustenanceAndOrderDetails selsubToAddQuantity) {
+		this.selsubToAddQuantity = selsubToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelsubToDecQuantity() {
+		return selsubToDecQuantity;
+	}
+
+	public void setSelsubToDecQuantity(SustenanceAndOrderDetails selsubToDecQuantity) {
+		this.selsubToDecQuantity = selsubToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelsubToDeleteQuantity() {
+		return selsubToDeleteQuantity;
+	}
+
+	public void setSelsubToDeleteQuantity(SustenanceAndOrderDetails selsubToDeleteQuantity) {
+		this.selsubToDeleteQuantity = selsubToDeleteQuantity;
+	}
+
+	public double getTotalsub() {
+		return totalsub;
+	}
+
+	public void setTotalsub(double totalsub) {
+		this.totalsub = totalsub;
 	}
 
 	
