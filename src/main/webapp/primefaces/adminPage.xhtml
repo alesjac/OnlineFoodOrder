@@ -16,6 +16,8 @@
 
 		<ui:define name="content">
 			<p:growl id="growl" />
+
+
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
 					action="#{userBean.logout}">
@@ -31,8 +33,6 @@
 
 				<h:form id="form1">
 
-
-
 					<p:accordionPanel>
 
 						<p:tab title="BEVERAGES">
@@ -44,19 +44,27 @@
 							</p:commandButton>
 
 							<br></br>
-							<p:dataTable id="table1" value="#{menuBean.beverages}" var="bev">
+							<p:dataTable id="table1" value="#{adminBean.beverages}" var="bev"
+								editable="true" style="margin-bottom:20px">
+
 
 
 								<p:column headerText="Name">
+
 									<p:outputLabel value="#{bev.name}"></p:outputLabel>
+
 								</p:column>
 
 								<p:column headerText="Ingredients">
+
 									<p:outputLabel value="#{bev.ingredients}"></p:outputLabel>
+
 								</p:column>
 
 								<p:column headerText="Price">
-									<p:outputLabel value="#{bev.price} $ "></p:outputLabel>
+
+									<p:outputLabel value="#{bev.price}"></p:outputLabel>
+
 								</p:column>
 
 
@@ -64,10 +72,16 @@
 
 								<p:column headerText="Actions">
 
+									<p:commandButton value="Edit" update="editForm" process="@this"
+										oncomplete="PF('EditDialog').show();">
+
+										<f:setPropertyActionListener target="#{adminBean.sus}"
+											value="#{bev}" />
+
+									</p:commandButton>
+
 
 								</p:column>
-
-
 
 							</p:dataTable>
 						</p:tab>
@@ -79,8 +93,8 @@
 							</p:commandButton>
 
 							<br></br>
-							<p:dataTable id="table2" value="#{menuBean.starters}"
-								var="starters">
+							<p:dataTable id="table2" value="#{adminBean.starters}"
+								var="starter">
 
 
 								<p:column headerText="Name">
@@ -134,6 +148,15 @@
 					</p:accordionPanel>
 
 
+
+
+
+
+
+
+
+
+
 				</h:form>
 
 
@@ -157,24 +180,24 @@
 						<h:panelGrid columns="3">
 							<h:outputLabel value="Name: " for="name" />
 							<h:inputText id="name" required="true"
-								value="#{menuBean.beve.name}"></h:inputText>
+								value="#{adminBean.beve.name}"></h:inputText>
 							<br></br>
 
 							<h:outputLabel value="Ingredients: " for="ingr"></h:outputLabel>
 							<h:inputText id="ingr" required="true"
-								value="#{menuBean.beve.ingredients}"></h:inputText>
+								value="#{adminBean.beve.ingredients}"></h:inputText>
 							<br></br>
 							<h:outputLabel value="Price: " for="price"></h:outputLabel>
 							<h:inputText id="price" required="true"
-								value="#{menuBean.beve.price}"></h:inputText>
+								value="#{adminBean.beve.price}"></h:inputText>
 
 							<br></br>
 
 							<p:commandButton process="addBevDialog" update="growl"
-								value="Add" actionListener="#{menuBean.addBev}"
+								value="Add" actionListener="#{adminBean.addBev}"
 								oncomplete="PF('AddBevDialog').hide();">
 
-								<f:setPropertyActionListener target="#{menuBean.beve}"
+								<f:setPropertyActionListener target="#{adminBean.beve}"
 									value="#{bev}" />
 
 							</p:commandButton>
@@ -186,8 +209,49 @@
 
 					</p:dialog>
 
+
 				</h:form>
-				
+				<h:form id="editForm">
+
+
+					<p:dialog header="Edit Beverage" id="updateDialog"
+						widgetVar="EditDialog" modal="true">
+
+
+						<h:panelGrid columns="3">
+							<h:outputLabel value="Name " for="updateName"></h:outputLabel>
+							<h:inputText id="updateName" required="true"
+								value="#{adminBean.sus.name}"></h:inputText>
+								<br></br>
+
+							<h:outputLabel value="Ingregients " for="updateIngredients"></h:outputLabel>
+							<h:inputText id="updateIngredients" required="true"
+								value="#{adminBean.sus.ingredients}"></h:inputText>
+								<br></br>
+								
+							<h:outputLabel value="Price " for="updatePrice"></h:outputLabel>
+							<h:inputText id="updatePrice" required="true"
+								value="#{adminBean.sus.price}"></h:inputText>
+								<br></br>
+
+
+
+
+							<p:commandButton process="updateDialog" update="growl"
+								value="Save" actionListener="#{adminBean.edit}"
+								oncomplete="PF('EditDialog').hide();">
+
+							</p:commandButton>
+
+
+
+						</h:panelGrid>
+
+
+					</p:dialog>
+
+				</h:form>
+
 				<h:form id="addStartersForm">
 
 
@@ -198,26 +262,27 @@
 						<h:panelGrid columns="3">
 							<h:outputLabel value="Name: " for="name" />
 							<h:inputText id="name" required="true"
-								value="#{menuBean.starter.name}"></h:inputText>
+								value="#{adminBean.starter.name}"></h:inputText>
 							<br></br>
 
 							<h:outputLabel value="Ingredients: " for="ingr"></h:outputLabel>
 							<h:inputText id="ingr" required="true"
-								value="#{menuBean.starter.ingredients}"></h:inputText>
+								value="#{adminBean.starter.ingredients}"></h:inputText>
 							<br></br>
 							<h:outputLabel value="Price: " for="price"></h:outputLabel>
 							<h:inputText id="price" required="true"
-								value="#{menuBean.starter.price}"></h:inputText>
+								value="#{adminBean.starter.price}"></h:inputText>
 
 							<br></br>
-							
+
+
 
 							<p:commandButton process="addStartersDialog" update="growl"
-								value="Add" actionListener="#{menuBean.addStarters}"
+								value="Add" actionListener="#{adminBean.addStarters}"
 								oncomplete="PF('AddStartersDialog').hide();">
 
-								<f:setPropertyActionListener target="#{menuBean.starter}"
-									value="#{starters}" />
+								<f:setPropertyActionListener target="#{adminBean.starter}"
+									value="#{starter}" />
 
 							</p:commandButton>
 

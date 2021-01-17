@@ -91,7 +91,10 @@ public class UserManagedBean implements Serializable {
 		user = userService.findUser(user.getUsername(), user.getPassword());
 
 		if (user == null) {
+			String url = "login.xhtml?retry";
+			doRedirct(url);
 			messages.showErrorMessage("Wrong username or password! Try again");
+
 		} else if (user.getRole().equals("ADMIN")) {
 			this.isLogin = true;
 			String url = "adminPage.xhtml?username=" + user.getUsername();

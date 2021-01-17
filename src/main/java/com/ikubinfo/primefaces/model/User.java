@@ -11,8 +11,7 @@ public class User {
 	private Date birthday;
 	private int discountId;
 	private String role;
-	private Role rolee;
-	
+
 	
 	
 	
@@ -136,15 +135,6 @@ public class User {
 		return true;
 	}
 
-	public Role getRolee() {
-		return rolee;
-	}
-
-	public void setRolee(Role rolee) {
-		this.rolee = rolee;
-	}
-
-	
 	
 	
 }

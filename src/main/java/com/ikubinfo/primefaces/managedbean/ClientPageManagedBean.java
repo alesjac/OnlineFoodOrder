@@ -45,7 +45,7 @@ public class ClientPageManagedBean implements Serializable {
 	public void init() {
 		user=userService.getUserByUsername(userBean.getUser().getUsername());
 		updateDiscount();
-		
+		discount=userService.getDiscount(userBean.getUser().getUsername());
 		ifDiscountMessage();
 		//System.out.println(discount.getPercentDiscount());
 
@@ -53,9 +53,9 @@ public class ClientPageManagedBean implements Serializable {
 
 	public void ifDiscountMessage() {
 		if(user.getDiscountId()==1) {
-			//Discount dis = userService.getDiscount(userBean.getUser().getUsername());
+			
 			//String percent= String.valueOf(dis.getPercentDiscount());
-			output="HAPPY BIRHTDAY TO YOU! IT'S YOUR BIRTHDAY AND TODAY WE HAVE A 15 "+
+			output="HAPPY BIRHTDAY TO YOU! IT'S YOUR BIRTHDAY AND TODAY WE HAVE A "+ discount.getPercentDiscount()+
 					"% DISCOUNT FOR YOUR BIRTHDAY!!!";
 		}if(user.getDiscountId()==2) {
 			output="";
@@ -63,7 +63,7 @@ public class ClientPageManagedBean implements Serializable {
 		
 	}
 	
-	public void geDiscountDetails() {
+	public void getDiscountDetails() {
 		//discount=userService.getDiscount(userBean.getUser().getUsername());
 	}
 	

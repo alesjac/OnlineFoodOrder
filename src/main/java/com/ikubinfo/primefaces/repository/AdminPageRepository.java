@@ -8,4 +8,6 @@ public interface AdminPageRepository {
 	public boolean addBeverages(Sustenance sustenance);
 
 	public boolean addStarters(Sustenance susten);
+
+	boolean editSustenance(Sustenance sus);
 }

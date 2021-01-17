@@ -15,9 +15,14 @@
 	<ui:composition template="/template/template.xhtml">
 
 		<ui:define name="content">
+
+			<h:outputStylesheet name="primeicons/primeicons.css"
+				library="primefaces" />
+
+
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
-					action="#{userBean.logout}">
+					icon="pi pi-sign-out" action="#{userBean.logout}">
 				</p:commandButton>
 				<br></br>
 			</h:form>
@@ -39,7 +44,7 @@
 								<h:panelGrid columns="2" columnClasses="label, value" id="grid">
 									<p:outputLabel value="Username:" for="text" />
 									<p:inputText id="text" label="username"
-										value="#{orderBean.user.username}" required="true" />
+										value="#{orderBean.client.username}" required="true" />
 									<p:message for="text" />
 									<br></br>
 
@@ -95,9 +100,12 @@
 
 
 									<p:column
-										headerText="PRESS ADD FOR THE BEVERAGE YOU WANT TO ORDER">
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
 
-										<p:commandButton value="ADD" action="#{orderBean.orderBeverage}">
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.orderBeverage}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
 
 											<f:setPropertyActionListener
 												target="#{orderBean.selectedBev}" value="#{beverage}" />
@@ -107,7 +115,35 @@
 									</p:column>
 
 
+
+
+
+
+
+
+
 								</p:dataTable>
+
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you add a beverage to order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="bevOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
+
 
 							</p:panel>
 
@@ -117,16 +153,68 @@
 
 
 
+
 						<p:tab id="starters" title="Starters">
 							<p:panel header="Order Starters">
 								<p:messages />
 
-								<p:selectManyCheckbox value="#{orderBean.selectedStarters}"
-									layout="grid" columns="1">
-									<f:selectItems value="#{orderBean.starters}" var="starters"
-										itemLabel="#{starters.name} $#{starters.price}"
-										itemValue="#{starters.name}" />
-								</p:selectManyCheckbox>
+								<p:dataTable id="table" value="#{orderBean.starters}"
+									var="starter">
+
+									<p:column headerText="Name">
+										<p:outputLabel value="#{starter.name}"></p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Ingredients">
+										<p:outputLabel value="#{starter.ingredients}">
+
+										</p:outputLabel>
+									</p:column>
+
+									<p:column headerText="Price">
+										<p:outputLabel value="#{starter.price}">
+
+										</p:outputLabel>
+									</p:column>
+
+
+									<p:column
+										headerText="Press ADD for the beverage you want to order"
+										style="font-weight:bold;color: red;">
+
+										<p:commandButton value="ADD" icon="ui-icon-angle-right"
+											action="#{orderBean.orderBeverage}"
+											onclick="jQuery(this).addClass('ui-state-disabled')">
+
+											<f:setPropertyActionListener
+												target="#{orderBean.selectedStarter}" value="#{starter}" />
+
+										</p:commandButton>
+
+									</p:column>
+
+
+								</p:dataTable>
+
+
+								<h:panelGrid columns="3" cellpadding="10">
+
+									<h:outputText
+										style="font-weight:bold; font-size: 25; color: red;"
+										value="In the moment that you add a beverage to order, notice that its quantity is 1 by default.
+												Press the button below CONTINUE ORDER for more quantity or if you want to remove and item from your order. 
+												THANK YOU!" />
+
+
+									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
+										outcome="starterOrder">
+
+
+									</p:linkButton>
+
+
+
+								</h:panelGrid>
 
 							</p:panel>
 						</p:tab>
@@ -202,7 +290,7 @@
 										<h:outputText value="Personal details" />
 										<br></br>
 										<h:outputText value="Username: " />
-										<h:outputText value="#{orderBean.user.username}"
+										<h:outputText value="#{orderBean.client.username}"
 											styleClass="outputLabel" />
 
 										<h:outputText value="Address: " />
@@ -304,8 +392,6 @@
 
 
 
-
-
 			</section>
 
 
@@ -336,7 +422,7 @@
 	margin: 0;
 	position: absolute;
 	top: 19%;
-	left: 92.5%;
+	left: 91.5%;
 }
 </style>
 

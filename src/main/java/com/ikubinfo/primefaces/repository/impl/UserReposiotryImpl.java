@@ -36,7 +36,7 @@ public class UserReposiotryImpl implements UserRepository {
 	private static final String CHANGE_PASSWORD = "update users set  password = :password where username = :username";
 	private static final String UPDATE_DICOUNT_ID="update users set discount_id= :discount where username= :username";
 	private static final String GET_DISCOUNT="select discount.discount_id,discount.discount_state,discount.percent from users \r\n" + 
-			"inner join discount on users.discount_id=discount.discount_id where users.username=:username";
+			"inner join discount on users.discount_id=discount.discount_id where users.username=?";
 
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private JdbcTemplate jdbcTemplate;

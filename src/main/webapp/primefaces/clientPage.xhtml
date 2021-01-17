@@ -17,7 +17,8 @@
 		<ui:include src="/primefaces/homepage.xhtml"></ui:include>
 
 		<ui:define name="content">
-
+			<h:outputStylesheet name="primeicons/primeicons.css"
+				library="primefaces" /> 
 
 			<p:growl id="growl"></p:growl>
 
@@ -25,7 +26,7 @@
 
 			<h:form>
 				<p:commandButton class="logoutButton" value="Log out"
-					action="#{userBean.logout}">
+					icon="pi pi-sign-out" action="#{userBean.logout}">
 				</p:commandButton>
 				<br></br>
 			</h:form>
@@ -302,7 +303,7 @@
 	margin: 0;
 	position: absolute;
 	top: 19%;
-	left: 92.5%;
+	left: 91.5%;
 }
 
 .discount {

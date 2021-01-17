@@ -1,5 +1,6 @@
 package com.ikubinfo.primefaces.managedbean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -21,6 +22,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import com.ikubinfo.primefaces.model.ClientDetailsOrder;
 import com.ikubinfo.primefaces.model.Order;
 import com.ikubinfo.primefaces.model.Sustenance;
+import com.ikubinfo.primefaces.model.SustenanceAndOrderDetails;
 import com.ikubinfo.primefaces.model.User;
 import com.ikubinfo.primefaces.service.OrderService;
 import com.ikubinfo.primefaces.service.UserService;
@@ -31,15 +33,13 @@ import com.ikubinfo.primefaces.util.Messages;
 @ManagedBean(name = "orderBean")
 @SessionScoped
 public class OrderManagedBean implements Serializable {
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
 
-	private User user;
+	private User client;
 	private String address;
 	private int number;
-	
+
 	private ClientDetailsOrder clientDetails;
 
 	private List<Sustenance> beverages;
@@ -49,18 +49,28 @@ public class OrderManagedBean implements Serializable {
 	private List<Sustenance> desserts;
 	private List<Sustenance> subssides;
 
-	private List<Sustenance> selectedBeverages;
-	private List<Sustenance> selectedStarters;
-	private List<Sustenance> selectedSChS;
-	private List<Sustenance> selectedBurgers;
-	private List<Sustenance> selectedDesserts;
-	private List<Sustenance> selectedSubSides;
+	private List<SustenanceAndOrderDetails> selectedBeverages;
+	private List<SustenanceAndOrderDetails> selectedStarters;
+	private List<SustenanceAndOrderDetails> selectedSChS;
+	private List<SustenanceAndOrderDetails> selectedBurgers;
+	private List<SustenanceAndOrderDetails> selectedDesserts;
+	private List<SustenanceAndOrderDetails> selectedSubSides;
 
 	private Sustenance selectedBev;
-
-	private List<Integer> quantitySelectedBev;
-
-	private double totalPriceBev = 0;
+	private SustenanceAndOrderDetails selBevToAddQuantity;
+	private SustenanceAndOrderDetails selBevToDecQuantity;
+	private SustenanceAndOrderDetails selBevToDeleteQuantity;
+	private double totalBev;
+	
+	private Sustenance selectedStarter;
+	private SustenanceAndOrderDetails selStarToAddQuantity;
+	private SustenanceAndOrderDetails selStarToDecQuantity;
+	private SustenanceAndOrderDetails selStartToDeleteQuantity;
+	private double totalStarter;
+	
+	
+	
+	
 
 	private Order order;
 
@@ -72,7 +82,7 @@ public class OrderManagedBean implements Serializable {
 
 	@ManagedProperty(value = "#{viewmenuService}")
 	private ViewMenuService viewService;
-	
+
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
 
@@ -88,73 +98,156 @@ public class OrderManagedBean implements Serializable {
 		desserts = viewService.getDesserts();
 		subssides = viewService.getSubstitutionSides();
 
-		selectedBeverages = new ArrayList<Sustenance>();
-		selectedStarters = new ArrayList<Sustenance>();
-		selectedBurgers = new ArrayList<Sustenance>();
-		selectedDesserts = new ArrayList<Sustenance>();
-		selectedSChS = new ArrayList<Sustenance>();
-		selectedSubSides = new ArrayList<Sustenance>();
-		user=new User();
-		clientDetails=new ClientDetailsOrder();
-		
-		selectedBev=new Sustenance();
+		selectedBeverages = new ArrayList<SustenanceAndOrderDetails>();
+		selectedStarters = new ArrayList<SustenanceAndOrderDetails>();
+		selectedBurgers = new ArrayList<SustenanceAndOrderDetails>();
+		selectedDesserts = new ArrayList<SustenanceAndOrderDetails>();
+		selectedSChS = new ArrayList<SustenanceAndOrderDetails>();
+		selectedSubSides =new ArrayList<SustenanceAndOrderDetails>();
+		client = new User();
+		clientDetails = new ClientDetailsOrder();
+
+		selectedBev = new Sustenance();
+		selBevToAddQuantity = new SustenanceAndOrderDetails();
+		selBevToDecQuantity = new SustenanceAndOrderDetails();
+		selBevToDeleteQuantity = new SustenanceAndOrderDetails();
+
 	}
 
 	public void addClientDetails() {
-
-		
+		try {
 			int length = String.valueOf(number).length();
-			if (!user.getUsername().equals(userBean.getUser().getUsername())) {
-				
+			if (!client.getUsername().equals(userBean.getUser().getUsername())) {
+
 				messages.showWarningMessage("Please write your username right!");
 			}
 			if (length != 9) {
 				messages.showWarningMessage("Please write correctly your numberwith 10 digits. Example: 06xxxxxxxx!");
 			}
-			if(user.getUsername().equals(userBean.getUser().getUsername()) && length==9) {
-			user=userBean.getUser();
-			orderService.addClientDetailsOrder(user, address, number);
-			messages.showInfoMessage("Details succefully added!");
+			if (client.getUsername().equals(userBean.getUser().getUsername()) && length == 9) {
+				client = userBean.getUser();
+				orderService.addClientDetailsOrder(client, address, number);
+				messages.showInfoMessage("Details succefully added!");
 			}
-		
+		} catch (UserErrors e) {
+			e.showErrorMessage("Register first to order");
+		}
+
 	}
-	
+
 	public ClientDetailsOrder getClientDetailsAfterSave() {
-		clientDetails.setId(user.getId());
-		clientDetails.setAddress(address);
-		clientDetails.setNumber(number);
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
 		return clientDetails;
 	}
 
-	
 	public void orderBeverage() {
-		
-		
-			orderService.addFoodDetailsOrder(userBean.getUser().getId(), selectedBev.getId());
-			
-		
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedBev.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
+
+	}
+//	public void continueOrder() throws IOException {
+//		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
+//		for (SustenanceAndOrderDetails sus :selectedBeverages) {
+//			selBevToEditQuantity.setSusId(sus.getSusId());
+//			selBevToEditQuantity.setSusName(sus.getSusName());
+//			selBevToEditQuantity.setSusPrice(sus.getSusPrice());
+//			selBevToEditQuantity.setSusQuantityOrdered(sus.getSusQuantityOrdered());
+//		}
+//		
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		context.getExternalContext().redirect("bevOrder");
+//	}
+
+	public void addBevQuantity() {
+
+		orderService.addQuantity(selBevToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selBevToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
+
 	}
 
+	public void decreaseBevQuantity() {
 
-	public void totalBev() {
+		orderService.decreaseQuantity(selBevToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selBevToDecQuantity.getSusId());
 
-		for (Sustenance s : selectedBeverages) {
-			double[] price = new double[selectedBeverages.size()];
-			for (int i = 0; i < price.length; i++) {
-				price[i] = s.getPrice();
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
 
-				for (Integer in : quantitySelectedBev) {
-					int[] quantity = new int[quantitySelectedBev.size()];
-					for (int j = 0; j < quantity.length; j++) {
-						quantity[j] = in;
-						if (i == j) {
-							double priceBevEach = price[i] * quantity[j];
-							totalPriceBev = totalPriceBev + priceBevEach;
-						}
-					}
-				}
-			}
+	}
+
+	public void deleteBevFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selBevToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 1);
+
+	}
+
+	public void getTotalStarterPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedBeverages) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalStarter = total;
+
 		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+	
+	}
+
+	
+	
+	public void orderStarter() {
+		clientDetails = orderService.clientDetails(client.getId(), address, number);
+		orderService.addFoodDetailsOrder(clientDetails.getId(), selectedStarter.getId());
+
+		// continueOrder
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 2);
+
+	}
+	
+	public void addStarterQuantity() {
+
+		orderService.addQuantity(selStarToAddQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selStarToAddQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 2);
+
+	}
+	
+	public void decreaseStarterQuantity() {
+
+		orderService.decreaseQuantity(selStarToDecQuantity.getSusQuantityOrdered(), clientDetails.getId(),
+				selStarToDecQuantity.getSusId());
+
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 2);
+
+	}
+
+	public void deleteStarterFromOrder() {
+		orderService.deleteSusFromOrder(clientDetails.getId(), selStartToDeleteQuantity.getSusId());
+		selectedBeverages = orderService.getSusOrderedDetails(clientDetails.getId(), 2);
+
+	}
+	
+	public void getTotalBevPrice() throws IOException {
+		double total = 0;
+		for (SustenanceAndOrderDetails sus : selectedStarters) {
+
+			double prices = sus.getSusPrice() * sus.getSusQuantityOrdered();
+
+			total = total + prices;
+			totalBev = total;
+
+		}
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().redirect("order.xhtml");
+		System.out.println(totalBev);
 	}
 
 	public List<Sustenance> getBeverages() {
@@ -217,53 +310,15 @@ public class OrderManagedBean implements Serializable {
 		this.messages = messages;
 	}
 
-	public List<Sustenance> getSelectedBeverages() {
+	public List<SustenanceAndOrderDetails> getSelectedBeverages() {
 		return selectedBeverages;
 	}
 
-	public void setSelectedBeverages(List<Sustenance> selectedBeverages) {
+	public void setSelectedBeverages(List<SustenanceAndOrderDetails> selectedBeverages) {
 		this.selectedBeverages = selectedBeverages;
 	}
 
-	public List<Sustenance> getSelectedStarters() {
-		return selectedStarters;
-	}
-
-	public void setSelectedStarters(List<Sustenance> selectedStarters) {
-		this.selectedStarters = selectedStarters;
-	}
-
-	public List<Sustenance> getSelectedSChS() {
-		return selectedSChS;
-	}
-
-	public void setSelectedSChS(List<Sustenance> selectedSChS) {
-		this.selectedSChS = selectedSChS;
-	}
-
-	public List<Sustenance> getSelectedBurgers() {
-		return selectedBurgers;
-	}
-
-	public void setSelectedBurgers(List<Sustenance> selectedBurgers) {
-		this.selectedBurgers = selectedBurgers;
-	}
-
-	public List<Sustenance> getSelectedDesserts() {
-		return selectedDesserts;
-	}
-
-	public void setSelectedDesserts(List<Sustenance> selectedDesserts) {
-		this.selectedDesserts = selectedDesserts;
-	}
-
-	public List<Sustenance> getSelectedSubSides() {
-		return selectedSubSides;
-	}
-
-	public void setSelectedSubSides(List<Sustenance> selectedSubSides) {
-		this.selectedSubSides = selectedSubSides;
-	}
+	
 
 	public String getAddress() {
 		return address;
@@ -287,22 +342,6 @@ public class OrderManagedBean implements Serializable {
 
 	public void setOrder(Order order) {
 		this.order = order;
-	}
-
-	public double getTotalPriceBev() {
-		return totalPriceBev;
-	}
-
-	public void setTotalPriceBev(double totalPriceBev) {
-		this.totalPriceBev = totalPriceBev;
-	}
-
-	public List<Integer> getQuantitySelectedBev() {
-		return quantitySelectedBev;
-	}
-
-	public void setQuantitySelectedBev(List<Integer> quantitySelectedBev) {
-		this.quantitySelectedBev = quantitySelectedBev;
 	}
 
 	public Sustenance getSelectedBev() {
@@ -329,12 +368,12 @@ public class OrderManagedBean implements Serializable {
 		this.userBean = userBean;
 	}
 
-	public User getUser() {
-		return user;
+	public User getClient() {
+		return client;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setClient(User client) {
+		this.client = client;
 	}
 
 	public OrderService getOrderService() {
@@ -360,8 +399,119 @@ public class OrderManagedBean implements Serializable {
 	public ClientDetailsOrder getClientDetails() {
 		return clientDetails;
 	}
+
+	public SustenanceAndOrderDetails getSelBevToAddQuantity() {
+		return selBevToAddQuantity;
+	}
+
+	public void setSelBevToAddQuantity(SustenanceAndOrderDetails selBevToAddQuantity) {
+		this.selBevToAddQuantity = selBevToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelBevToDecQuantity() {
+		return selBevToDecQuantity;
+	}
+
+	public void setSelBevToDecQuantity(SustenanceAndOrderDetails selBevToDecQuantity) {
+		this.selBevToDecQuantity = selBevToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelBevToDeleteQuantity() {
+		return selBevToDeleteQuantity;
+	}
+
+	public void setSelBevToDeleteQuantity(SustenanceAndOrderDetails selBevToDeleteQuantity) {
+		this.selBevToDeleteQuantity = selBevToDeleteQuantity;
+	}
+
+	public double getTotalBev() {
+		return totalBev;
+	}
+
+	public void setTotalBev(double totalBev) {
+		this.totalBev = totalBev;
+	}
+
+	public List<SustenanceAndOrderDetails> getSelectedStarters() {
+		return selectedStarters;
+	}
+
+	public void setSelectedStarters(List<SustenanceAndOrderDetails> selectedStarters) {
+		this.selectedStarters = selectedStarters;
+	}
+
+	public List<SustenanceAndOrderDetails> getSelectedSChS() {
+		return selectedSChS;
+	}
+
+	public void setSelectedSChS(List<SustenanceAndOrderDetails> selectedSChS) {
+		this.selectedSChS = selectedSChS;
+	}
+
+	public List<SustenanceAndOrderDetails> getSelectedBurgers() {
+		return selectedBurgers;
+	}
+
+	public void setSelectedBurgers(List<SustenanceAndOrderDetails> selectedBurgers) {
+		this.selectedBurgers = selectedBurgers;
+	}
+
+	public List<SustenanceAndOrderDetails> getSelectedDesserts() {
+		return selectedDesserts;
+	}
+
+	public void setSelectedDesserts(List<SustenanceAndOrderDetails> selectedDesserts) {
+		this.selectedDesserts = selectedDesserts;
+	}
+
+	public List<SustenanceAndOrderDetails> getSelectedSubSides() {
+		return selectedSubSides;
+	}
+
+	public void setSelectedSubSides(List<SustenanceAndOrderDetails> selectedSubSides) {
+		this.selectedSubSides = selectedSubSides;
+	}
+
+	public Sustenance getSelectedStarter() {
+		return selectedStarter;
+	}
+
+	public void setSelectedStarter(Sustenance selectedStarter) {
+		this.selectedStarter = selectedStarter;
+	}
+
+	public SustenanceAndOrderDetails getSelStarToAddQuantity() {
+		return selStarToAddQuantity;
+	}
+
+	public void setSelStarToAddQuantity(SustenanceAndOrderDetails selStarToAddQuantity) {
+		this.selStarToAddQuantity = selStarToAddQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelStarToDecQuantity() {
+		return selStarToDecQuantity;
+	}
+
+	public void setSelStarToDecQuantity(SustenanceAndOrderDetails selStarToDecQuantity) {
+		this.selStarToDecQuantity = selStarToDecQuantity;
+	}
+
+	public SustenanceAndOrderDetails getSelStartToDeleteQuantity() {
+		return selStartToDeleteQuantity;
+	}
+
+	public void setSelStartToDeleteQuantity(SustenanceAndOrderDetails selStartToDeleteQuantity) {
+		this.selStartToDeleteQuantity = selStartToDeleteQuantity;
+	}
+
+	public double getTotalStarter() {
+		return totalStarter;
+	}
+
+	public void setTotalStarter(double totalStarter) {
+		this.totalStarter = totalStarter;
+	}
+
 	
 	
-
-
 }
