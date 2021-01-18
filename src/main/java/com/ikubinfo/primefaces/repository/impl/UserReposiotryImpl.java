@@ -105,7 +105,9 @@ public class UserReposiotryImpl implements UserRepository {
 		
 		
 		int updatedCount= this.namedParameterJdbcTemplate.update(UPDATE_DICOUNT_ID, namedParameters);
+		System.out.println("Update discount method is running!!!!!!");
 		return updatedCount>0;
+		
 	}
 	@Override
 	public boolean registerClient(User user) {

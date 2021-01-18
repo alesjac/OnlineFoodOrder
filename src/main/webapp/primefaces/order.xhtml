@@ -176,7 +176,7 @@
 										style="font-weight:bold;color: red;">
 
 										<p:commandButton value="ADD" icon="ui-icon-angle-right"
-											action="#{orderBean.orderBeverage}"
+											action="#{orderBean.orderStarter}"
 											onclick="jQuery(this).addClass('ui-state-disabled')">
 
 											<f:setPropertyActionListener
@@ -349,7 +349,7 @@
 						<p:tab id="desserts" title="Desserts">
 							<p:panel header="Order Desserts">
 								<p:messages />
-								
+
 								<p:dataTable id="table5" value="#{orderBean.desserts}" var="d">
 
 									<p:column headerText="Name">
@@ -398,7 +398,7 @@
 
 
 									<p:linkButton icon="ui-icon-check" value="CONTINUE ORDER"
-										outcome="dessertsOrder">
+										outcome="desserts">
 
 
 									</p:linkButton>
@@ -415,8 +415,9 @@
 						<p:tab id="subsside" title="Substitution side">
 							<p:panel header="Order Substitution side">
 								<p:messages />
-								
-									<p:dataTable id="table6" value="#{orderBean.subssides}" var="sub">
+
+								<p:dataTable id="table6" value="#{orderBean.subssides}"
+									var="sub">
 
 									<p:column headerText="Name">
 										<p:outputLabel value="#{sub.name}"></p:outputLabel>
@@ -443,8 +444,8 @@
 											action="#{orderBean.ordersub}"
 											onclick="jQuery(this).addClass('ui-state-disabled')">
 
-											<f:setPropertyActionListener target="#{orderBean.selectedsub}"
-												value="#{sub}" />
+											<f:setPropertyActionListener
+												target="#{orderBean.selectedsub}" value="#{sub}" />
 
 										</p:commandButton>
 
@@ -573,7 +574,8 @@
 
 
 
-<p:commandButton value="Save"  actionListener="#{orderBean.save}"></p:commandButton>
+									<p:commandButton value="Save"
+										actionListener="#{orderBean.save}"></p:commandButton>
 
 
 

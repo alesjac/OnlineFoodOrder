@@ -30,19 +30,19 @@
 						<h:panelGrid columns="2" cellpadding="5">
 							<p:outputLabel for="username" value="Username" />
 							<p:inputText id="username" required="true" label="username"
-								value="#{userBean.user.username}">
+								value="#{userBean.username}">
 
 							</p:inputText>
 
 							<p:outputLabel for="password" value="Password" />
 							<p:password id="password" required="true" label="password"
-								value="#{userBean.user.password}">
+								value="#{userBean.password}">
 
 							</p:password>
 
 							<p:commandButton value="Login" update="growl"
 								action="#{userBean.login}" id="login">
-								<f:attribute name="username" value="#{userBean.user.username}" />
+								<f:attribute name="username" value="#{userBean.username}" />
 							</p:commandButton>
 
 						</h:panelGrid>

@@ -23,6 +23,7 @@ public class UserManagedBean implements Serializable {
 
 	private User user;
 	private String username;
+	private String password;
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
@@ -47,13 +48,12 @@ public class UserManagedBean implements Serializable {
 	public void verifyLoginAdmin() {
 		if (!this.isLogin) {
 			doRedirct("login.xhtml");
-		}
-		else {
+		} else {
 
-		if (user.getRole().equals("CLIENT")) {
-			doRedirct("homepage.xhtml");
-		}
-		
+			if (user.getRole().equals("CLIENT")) {
+				doRedirct("homepage.xhtml");
+			}
+
 		}
 
 	}
@@ -61,24 +61,25 @@ public class UserManagedBean implements Serializable {
 	public void verifyLoginClient() {
 		if (!this.isLogin) {
 			doRedirct("login.xhtml");
-		}else {
+		} else {
 
 			if (user.getRole().equals("ADMIN")) {
 				doRedirct("homepage.xhtml");
 			}
-	}}
+		}
+	}
 //	
-	
+
 	public void verifyLogin() {
 		if (this.isLogin) {
 			if (user.getRole().equals("ADMIN")) {
 				doRedirct("adminPage.xhtml");
 			}
-			if(user.getRole().equals("CLIENT")) {
+			if (user.getRole().equals("CLIENT")) {
 				doRedirct("clientPage.xhtml");
 			}
-	}
 		}
+	}
 //	public void verifyLoginViewMenu() {
 //		if(!this.isLogin) {
 //			doRedirct("login.xhtml");
@@ -87,22 +88,32 @@ public class UserManagedBean implements Serializable {
 //		}
 //	}
 
-	public String login() throws IOException {
-		user = userService.findUser(user.getUsername(), user.getPassword());
+	public String login() {
 
-		if (user == null) {
-			String url = "login.xhtml?retry";
-			doRedirct(url);
+		if (userService.isLogged(username, password) == true) {
+			user = userService.findUser(username, password);
+
+			if (user.getRole().equals("ADMIN")) {
+				this.isLogin = true;
+				String url = "adminPage.xhtml?username=" + user.getUsername();
+				doRedirct(url);
+			}
+			if (user.getRole().equals("CLIENT")) {
+				this.isLogin = true;
+				String url = "clientPage.xhtml?username=" + user.getUsername();
+				doRedirct(url);
+			}
+
+		} else {
+//		if (user == null) {
+//			String url = "login.xhtml?retry";
+//			doRedirct(url);
+//			messages.showErrorMessage("Wrong username or password! Try again");
+//
+//		}
+
 			messages.showErrorMessage("Wrong username or password! Try again");
 
-		} else if (user.getRole().equals("ADMIN")) {
-			this.isLogin = true;
-			String url = "adminPage.xhtml?username=" + user.getUsername();
-			doRedirct(url);
-		} else if (user.getRole().equals("CLIENT")) {
-			this.isLogin = true;
-			String url = "clientPage.xhtml?username=" + user.getUsername();
-			doRedirct(url);
 		}
 		return null;
 	}
@@ -168,6 +179,14 @@ public class UserManagedBean implements Serializable {
 
 	public void setLogin(boolean isLogin) {
 		this.isLogin = isLogin;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
